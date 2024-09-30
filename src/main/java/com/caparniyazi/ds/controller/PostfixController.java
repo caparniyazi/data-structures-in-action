@@ -13,10 +13,10 @@ import java.util.Deque;
 
 @RestController
 @RequestMapping("/api/v1")
-public class DataStructuresController {
+public class PostfixController {
     // Data fields
 
-    // Static nested classes
+    // Static nested classes for request/response models.
     @Getter
     @Setter
     private static class PostfixExpression {
