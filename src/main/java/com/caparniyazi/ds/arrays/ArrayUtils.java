@@ -86,6 +86,11 @@ public class ArrayUtils {
      * change with the number of inputs. The simple steps all represent O(1). Any finite number of
      * O(1) steps is still considered O(1).
      * <p/>
+     * Some cryptographic algorithms can be broken in O(2n) time, where n is the number of bits in the key.
+     * A key length of 40 bits is considered breakable by a modern computer, but a key length of 100
+     * (60 bits longer) is not because the key with a length of 100 bits will take approximately a
+     * billion–billion (1018) times as long as the 40-bit key to crack.
+     * <p/>
      * Common Growth Rates:
      * +------------------------------------------------------+
      * + O(1)                                   + Constant    +
