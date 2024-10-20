@@ -82,6 +82,9 @@ public class ArrayUtils {
      * Typically, in analyzing the running time of algorithms, we use logarithms to the base 2.
      * In general, it is safe to ignore all constants and drop the lower‐order
      * terms when determining the order of magnitude for an algorithm.
+     * We use the expression O(1) to represent a constant growth rate. This is a value that doesn’t
+     * change with the number of inputs. The simple steps all represent O(1). Any finite number of
+     * O(1) steps is still considered O(1).
      */
     public static boolean areUniqueV2(int[] x) {
         for (int i = 0; i < x.length; i++) {
