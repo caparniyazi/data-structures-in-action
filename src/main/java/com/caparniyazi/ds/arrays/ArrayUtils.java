@@ -31,7 +31,7 @@ public class ArrayUtils {
      * @param x One array
      * @param y The other array
      * @return true if there are no common elements.
-     * Complexity O(n*n): The total execution time would be proportional to the
+     * Complexity O(n*m): The total execution time would be proportional to the
      * product of x.length and y.length.
      */
     public static boolean areDifferent(int[] x, int[] y) {
@@ -78,6 +78,10 @@ public class ArrayUtils {
      * x.length-1 + x.length-2 +. . .+ 2 + 1
      * The series 1 2 3 · · · (n – 1) is a well‐known series that has a value of
      * n * (n -1) / 2  Therefore, this sum is (x.length * x.length - x.length) / 2.
+     * O => Order of magnitude is called big-O notation.
+     * Typically, in analyzing the running time of algorithms, we use logarithms to the base 2.
+     * In general, it is safe to ignore all constants and drop the lower‐order
+     * terms when determining the order of magnitude for an algorithm.
      */
     public static boolean areUniqueV2(int[] x) {
         for (int i = 0; i < x.length; i++) {
