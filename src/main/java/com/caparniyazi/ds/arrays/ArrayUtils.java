@@ -85,6 +85,17 @@ public class ArrayUtils {
      * We use the expression O(1) to represent a constant growth rate. This is a value that doesn’t
      * change with the number of inputs. The simple steps all represent O(1). Any finite number of
      * O(1) steps is still considered O(1).
+     * <p/>
+     * Common Growth Rates:
+     * +------------------------------------------------------+
+     * + O(1)                                   + Constant    +
+     * + O(log n)                               + Logarithmic +
+     * + O(n log n)                             + Log-linear  +
+     * + O(n2) n to the power of 2              + Quadratic   +
+     * + O(n3) n to the power of 3              + Cubic       +
+     * + O(2n) two to the power(exponent) of n  + Exponential +
+     * + O(n!)                                  + Factorial   +
+     * +----------------------------------------+-------------+
      */
     public static boolean areUniqueV2(int[] x) {
         for (int i = 0; i < x.length; i++) {
