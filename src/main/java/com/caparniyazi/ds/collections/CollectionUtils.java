@@ -19,4 +19,18 @@ public class CollectionUtils {
             index = aList.indexOf(oldItem);
         }
     }
+
+    /**
+     * Method to delete the first occurrence of target in a list.
+     *
+     * @param aList  The Arraylist of items.
+     * @param target The target item to be deleted.
+     */
+    public static void delete(ArrayList<String> aList, String target) {
+        int index = aList.indexOf(target);
+
+        if (index != -1) {
+            aList.remove(index);
+        }
+    }
 }
