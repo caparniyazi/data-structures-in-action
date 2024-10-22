@@ -1,5 +1,6 @@
 package com.caparniyazi.ds.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -16,6 +17,16 @@ public class MyArrayList<E> {
     @SuppressWarnings("unchecked")
     public MyArrayList() {
         capacity = INITIAL_CAPACITY;
+        theData = (E[]) new Object[capacity];
+    }
+
+    @SuppressWarnings("unchecked")
+    public MyArrayList(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Invalid initial capacity: " + capacity);
+        }
+
+        this.capacity = capacity;
         theData = (E[]) new Object[capacity];
     }
 
@@ -124,5 +135,54 @@ public class MyArrayList<E> {
         }
         size--;
         return oldValue;
+    }
+
+    /**
+     * Get the current size of the array.
+     *
+     * @return the current size of the array.
+     */
+    public int size() {
+        return size;
+    }
+
+    /**
+     * Method to remove the middle item from ArrayList and place it at the end.
+     */
+    public void moveMiddleToEnd() {
+        int index = size / 2;
+        E removedItem = remove(index);
+        add(removedItem);
+    }
+
+    /**
+     * Method to find the first index of the target value.
+     *
+     * @param target The value being searched for.
+     * @return the first index of the target, -1 if not found.
+     * Complexity: O(n)
+     */
+    public int indexOf(E target) {
+        for (int i = 0; i < size; i++) {
+            if (theData[i].equals(target)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            sb.append(theData[i]);
+
+            if (i < size - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
