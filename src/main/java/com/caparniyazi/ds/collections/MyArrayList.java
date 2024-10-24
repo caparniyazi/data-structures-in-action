@@ -1,10 +1,16 @@
 package com.caparniyazi.ds.collections;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * A sample implementation of ArrayList class. It does not implement the List interface.
+ * The ArrayList has the limitation that the add and remove methods operate
+ * in linear (O(n)) time because they require a loop to shift elements in the underlying array.
+ * <p/>
+ * The linked list data structure overcomes this limitation by providing the ability
+ * to add or remove items anywhere in the list in constant (O(1)) time.
+ * A linked list is useful when you need to insert and remove elements at arbitrary locations
+ * (not just at the end) and when you do frequent insertions and removals.
  */
 public class MyArrayList<E> {
     // Data fields
