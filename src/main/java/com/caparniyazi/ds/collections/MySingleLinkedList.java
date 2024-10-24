@@ -1,5 +1,7 @@
 package com.caparniyazi.ds.collections;
 
+import lombok.Getter;
+
 /**
  * Class to represent a linked list with a link from each node to the next node.
  * It does not implement the List interface.
@@ -7,6 +9,7 @@ package com.caparniyazi.ds.collections;
 public class MySingleLinkedList<E> {
     // Data fields
     private Node<E> head = null;    // Reference to list head.
+    @Getter
     private int size = 0;   // The number of items in the list.
 
     private static class Node<E> {
@@ -108,6 +111,43 @@ public class MySingleLinkedList<E> {
     }
 
     /**
+     * Method to remove the item at index using getNode(), removeFirst(), and removeAfter() methods.
+     *
+     * @param index The position of the item to be removed.
+     * @return The data removed.
+     * @throws IndexOutOfBoundsException if index is out of range.
+     */
+    public E remove(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(Integer.toString(index));
+        }
+
+        if (index == 0) {
+            return removeFirst();
+        } else {
+            Node<E> node = getNode(index - 1);
+            return removeAfter(node);
+        }
+    }
+
+    /**
+     * Method to remove the first occurrence of element item.
+     *
+     * @param item The item to be removed.
+     * @return true if item is found and removed; otherwise, return false.
+     */
+    public boolean remove(E item) {
+        int index = indexOf(item);
+
+        if (index == -1) {
+            return false;
+        } else {
+            remove(index);
+            return true;
+        }
+    }
+
+    /**
      * Helper method to find the node at a specified position.
      *
      * @param index The position of the node sought.
@@ -129,6 +169,7 @@ public class MySingleLinkedList<E> {
      * @param index The position of the data to return.
      * @return The data at index.
      * @throws IndexOutOfBoundsException if index is out of range.
+     *                                   Complexity: O(n) => Only runs as far as index, but must iterate.
      */
     public E get(int index) {
         if (index < 0 || index >= size) {
@@ -146,6 +187,7 @@ public class MySingleLinkedList<E> {
      * @param newValue The new data.
      * @return The data previously at index.
      * @throws IndexOutOfBoundsException if index is out of range.
+     *                                   Complexity: O(n) => No shifting elements, but must iterate to the item.
      */
     public E set(int index, E newValue) {
         if (index < 0 || index >= size) {
@@ -159,11 +201,13 @@ public class MySingleLinkedList<E> {
     }
 
     /**
-     * Method to insert the specified item at index.
+     * Method to insert a new item before the one at position index,
+     * starting at 0 for list head.
      *
-     * @param index The position where item is to be inserted.
+     * @param index The position where the new item is to be inserted.
      * @param item  The item to be inserted.
      * @throws IndexOutOfBoundsException if index is out of range.
+     *                                   Complexity: O(n) => No shifting, adding is a constant time op, but must still iterate.
      */
     public void add(int index, E item) {
         if (index < 0 || index > size) {
@@ -183,9 +227,33 @@ public class MySingleLinkedList<E> {
      *
      * @param item The item to be appended.
      * @return true (as specified by the Collection interface).
+     * Complexity: O(n) => No shifting (faster than ArrayList), but must iterate.
      */
     public boolean add(E item) {
         add(size, item);
         return true;
+    }
+
+    /**
+     * Method to return the index of a given item.
+     *
+     * @param item The item to look for.
+     * @return The index of the node reference to the data.
+     * Complexity: O(n)
+     */
+    public int indexOf(E item) {
+        Node<E> node = head;
+        int index = 0;
+
+        while (node != null && node.data != item) {
+            node = node.next;
+            index++;
+        }
+
+        if (node != null) {
+            return index;
+        } else {
+            return -1; // We did not find the target item.
+        }
     }
 }
