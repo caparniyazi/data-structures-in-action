@@ -15,6 +15,10 @@ import lombok.Getter;
  * <p/>
  * We can overcome these limitations by adding a reference to the previous node
  * in the Node class, that's creating a Double-Linked list.
+ * A double-linked list object consists of data fields head(a reference to the first list node), tail
+ * (a reference to the last list node), and size.
+ * Because both ends of the double-linked list are directly accessible, insertion at either end
+ * is O(1); insertion elsewhere is still O(n).
  */
 public class MySingleLinkedList<E> {
     // Data fields
