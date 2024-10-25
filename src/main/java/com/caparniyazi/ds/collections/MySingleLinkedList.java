@@ -19,6 +19,14 @@ import lombok.Getter;
  * (a reference to the last list node), and size.
  * Because both ends of the double-linked list are directly accessible, insertion at either end
  * is O(1); insertion elsewhere is still O(n).
+ * <p/>
+ * The List interface declares the method iterator, which returns an Iterator object that will
+ * iterate over the elements of that list.
+ * Please note that the LinkedList remove method removes only one element at a time,
+ * so you would need to start at the beginning of the list each time and
+ * advance down the list to each element that you wanted to remove (O(n2) process).
+ * With the Iterator remove method, you can remove elements as they are accessed by the
+ * Iterator object without having to go back to the beginning of the list (O(n) process).
  */
 public class MySingleLinkedList<E> {
     // Data fields
