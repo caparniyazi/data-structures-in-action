@@ -5,6 +5,16 @@ import lombok.Getter;
 /**
  * Class to represent a linked list with a link from each node to the next node.
  * It does not implement the List interface.
+ * <p/>
+ * Single‐linked list data structure limitations:
+ * 1. Insertion at the front of the list is O(1). Insertion at other positions is O(n).
+ * 2. We can only insert a node only after a node for which we have a reference.
+ * 3. We can remove a node only if we have a reference to its predecessor node.
+ * 4. We can move only in ond direction, starting at the list head, whereas with the Arraylist
+ * we can move forward(or backward) by incrementing(or decrementing) the index.
+ * <p/>
+ * We can overcome these limitations by adding a reference to the previous node
+ * in the Node class, that's creating a Double-Linked list.
  */
 public class MySingleLinkedList<E> {
     // Data fields
