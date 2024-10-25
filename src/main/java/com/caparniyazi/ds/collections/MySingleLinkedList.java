@@ -27,6 +27,54 @@ import lombok.Getter;
  * advance down the list to each element that you wanted to remove (O(n2) process).
  * With the Iterator remove method, you can remove elements as they are accessed by the
  * Iterator object without having to go back to the beginning of the list (O(n) process).
+ * <p/>
+ * The enhanced for loop creates an Iterator object and implicitly calls its hasNext and next
+ * methods. Other Iterator methods, such as remove, are not available.
+ * <pre>
+ *  count = 0;
+ *
+ *  for (String nextStr : myList) {
+ *      if (target.equals(nextStr)) {
+ *          count++;
+ *      }
+ *  }
+ * </pre>
+ * <p/>
+ * The Iterator has some limitations. It can traverse the List only in the forward direction.
+ * It also provides only a remove method, not an add method.
+ * Also, to start an iterator somewhere other than at first list element, you must write
+ * your own loop to advance the Iterator to the desired starting position.
+ * The Java API also contains the ListIterator<E> interface, which is an extension of the
+ * Iterator<E> interface that overcomes these limitations.
+ * To obtain a ListIterator, you call the listIterator method of the LinkedList class.
+ * <pre>
+ * public ListIterator<E> listIterator()
+ *  Returns a ListIterator that begins just before the first list element.
+ * public ListIterator<E> listIterator(int index)
+ *  Returns a ListIterator that begins just before the position index.
+ * </pre>
+ * <pre>
+ * <p>
+ *     The following code fragment searches for target in list myList and,
+ *     if target is present, replaces its first occurrence with newItem.
+ * </p>
+ * ListIterator<String> myIter = myList.listIterator();
+ *
+ * while (myIter.hasNext()) {
+ *      if (target.equals(myIter.next())) {
+ *          myIter.set(newItem);
+ *          break; // Exit loop
+ *      }
+ * }
+ * </pre>
+ * <p/>
+ * Because the ListIterator<E> is a sub-interface of Iterator<E>, classes that implement ListIterator
+ * must provide all the capabilities of both.
+ * <p/>
+ * Remember that the listIterator(int index) method creates the desired ListIterator
+ * by creating a new ListIterator that starts at the beginning and then
+ * walks along the list until the desired position is found. There is a
+ * special case where index is equal to size(), but all others are an O(n) operation.
  */
 public class MySingleLinkedList<E> {
     // Data fields
