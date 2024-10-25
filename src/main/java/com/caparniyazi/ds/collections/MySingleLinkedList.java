@@ -326,4 +326,22 @@ public class MySingleLinkedList<E> {
             return -1; // We did not find the target item.
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        Node<E> node = head;
+
+        while (node != null) {
+            sb.append(node.data.toString());
+
+            if (node.next != null) {
+                sb.append(", ");
+            }
+            node = node.next;
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
 }
