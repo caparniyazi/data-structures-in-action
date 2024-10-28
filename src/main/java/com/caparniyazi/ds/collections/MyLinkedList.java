@@ -9,6 +9,17 @@ import java.util.NoSuchElementException;
 /**
  * Class that implements a double-linked list and a ListIterator.
  * It is a complete implementation of the List interface.
+ * <p/>
+ * Both the ArrayList and LinkedList represent a collection of objects that can
+ * be referenced using an index. This may not be the best design because accessing elements
+ * of a LinkedList using an index requires an O(n) traversal of the list until the item selected
+ * by the index is located.
+ * <p/>
+ * The RandomAccess interface is applied only to those implementations in which indexed operations
+ * are efficient (e.g., ArrayList). An algorithm can then test to see if a parameter of type
+ * List is also of type RandomAccess and, if not, copy its contents into an ArrayList temporarily
+ * so that the indexed operations can proceed more efficiently. After the indexed operations are
+ * completed, the contents of the ArrayList are copied back to the original.
  */
 public class MyLinkedList<E> extends AbstractSequentialList<E> {
     // Data fields
