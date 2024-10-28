@@ -1,18 +1,19 @@
 package com.caparniyazi.ds.collections;
 
-import lombok.Getter;
+import jakarta.annotation.Nonnull;
 
+import java.util.AbstractSequentialList;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
  * Class that implements a double-linked list and a ListIterator.
+ * It is a complete implementation of the List interface.
  */
-public class MyLinkedList<E> {
+public class MyLinkedList<E> extends AbstractSequentialList<E> {
     // Data fields
     private Node<E> head;   // Reference to list head.
     private Node<E> tail;   // Reference to list tail.
-    @Getter
     private int size;   // The number of items in the list.
 
     /**
@@ -174,7 +175,9 @@ public class MyLinkedList<E> {
         }
 
         /**
+         * Removes the last item returned. This can only be done once per call to next or previous.
          *
+         * @throws IllegalStateException if next or prev was not called prior to calling this method.
          */
         @Override
         public void remove() {
@@ -187,6 +190,13 @@ public class MyLinkedList<E> {
             lastItemReturned = null;
         }
 
+        /**
+         * Replaces the last item returned with a new value.
+         *
+         * @param item the element with which to replace the last element returned by
+         *             {@code next} or {@code previous}
+         * @throws IllegalStateException if next or previous was not called prior to calling this method.
+         */
         @Override
         public void set(E item) {
             if (lastItemReturned == null) {
@@ -252,7 +262,8 @@ public class MyLinkedList<E> {
      *
      * @return A list iterator at the head of the list.
      */
-    private MyListIterator listIterator() {
+    @Nonnull
+    public ListIterator<E> listIterator() {
         return new MyListIterator(0);
     }
 
@@ -262,7 +273,8 @@ public class MyLinkedList<E> {
      * @param index The index to start the list iterator at.
      * @return A list iterator at the specified index.
      */
-    private MyListIterator listIterator(int index) {
+    @Nonnull
+    public ListIterator<E> listIterator(int index) {
         return new MyListIterator(index);
     }
 
@@ -322,5 +334,9 @@ public class MyLinkedList<E> {
      */
     public E getLast() {
         return get(size - 1);
+    }
+
+    public int size() {
+        return size;
     }
 }
