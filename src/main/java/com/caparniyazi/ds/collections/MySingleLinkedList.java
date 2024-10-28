@@ -188,7 +188,7 @@ public class MySingleLinkedList<E> {
      * @throws IndexOutOfBoundsException if index is out of range.
      */
     public E remove(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(Integer.toString(index));
         }
 

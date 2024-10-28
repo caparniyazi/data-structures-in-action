@@ -170,6 +170,9 @@ public class MyArrayList<E> {
      */
     public int indexOf(E target) {
         for (int i = 0; i < size; i++) {
+            if (theData[i] == null && target == null) {
+                return i;
+            }
             if (theData[i].equals(target)) {
                 return i;
             }
