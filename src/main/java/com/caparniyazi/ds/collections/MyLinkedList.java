@@ -61,6 +61,12 @@ public class MyLinkedList<E> extends AbstractSequentialList<E> {
      * Because MyListIterator is not static and can reference data fields of its parent class MyLinkedList<E>,
      * the type parameter <E> is considered to be previously defined; therefore, it cannot appear
      * as part of the class name.
+     * <p/>
+     * Traversing a linked list using an index would be an O(n2) operation because we need to repeat the
+     * walk each time the index changes. The Iterator provides a general way to traverse a list so
+     * that traversing a linked list using an iterator is an O(n) operation.
+     * <p/>
+     * The ListIterator provides us with the ability to traverse the list either forward or backward.
      */
     private class MyListIterator implements ListIterator<E> {
         // Data fields
