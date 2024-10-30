@@ -3,6 +3,7 @@ package com.caparniyazi.ds.collections;
 import jakarta.annotation.Nonnull;
 
 import java.util.AbstractSequentialList;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -285,6 +286,16 @@ public class MyLinkedList<E> extends AbstractSequentialList<E> {
     }
 
     /**
+     * Method to return an Iterator to the list.
+     *
+     * @return An Iterator to the list.
+     */
+    @Nonnull
+    public Iterator<E> iterator() {
+        return new MyListIterator(0);
+    }
+
+    /**
      * Method to return a list iterator at the given position.
      *
      * @param index The index to start the list iterator at.
@@ -360,5 +371,37 @@ public class MyLinkedList<E> extends AbstractSequentialList<E> {
      */
     public int size() {
         return size;
+    }
+
+    /**
+     * Method to return the index of the minimum item in the list.
+     *
+     * @return The index of the minimum item in the list, or -1 if the list is empty.
+     * @throws ClassCastException if the list elements do not implement the Comparable interface.
+     */
+    @SuppressWarnings("unchecked")
+    public int indexOfMin() {
+        int index = 0;
+        int minIndex = 0;
+        Iterator<E> iterator = listIterator();
+        Comparable<E> minItem = null;
+
+        if (iterator.hasNext()) {
+            minItem = (Comparable<E>) iterator.next();
+        } else {
+            return -1;
+        }
+
+        while (iterator.hasNext()) {
+            E nextItem = iterator.next();
+            index++;
+
+            if (minItem.compareTo(nextItem) >= 0) {
+                minItem = (Comparable<E>) nextItem;
+                minIndex = index;
+            }
+        }
+
+        return minIndex;
     }
 }
