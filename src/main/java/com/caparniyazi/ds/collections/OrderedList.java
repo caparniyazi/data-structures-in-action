@@ -15,7 +15,8 @@ import java.util.ListIterator;
  * <p/>
  * If we implement our class as an extension of LinkedList, a client will be able to use
  * methods in the List interface that can insert new elements or modify existing elements in
- * such a way that the items are no longer in order.
+ * such a way that the items are no longer in order. Thus, the invariant the items were
+ * ordered could be violated.
  * Therefore, we will use the LinkedList as a component of the OrderedList class, and
  * we will implement only those methods that preserve the order of items.
  */

@@ -353,6 +353,11 @@ public class MyLinkedList<E> extends AbstractSequentialList<E> {
         return get(size - 1);
     }
 
+    /**
+     * Returns the size of the list.
+     *
+     * @return the size of the list.
+     */
     public int size() {
         return size;
     }
