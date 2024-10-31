@@ -21,6 +21,16 @@ public class ArrayStack<E> implements Stack<E> {
         theData = (E[]) new Object[capacity];
     }
 
+    @SuppressWarnings("unchecked")
+    public ArrayStack(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Invalid initial capacity: " + capacity);
+        }
+
+        this.capacity = capacity;
+        theData = (E[]) new Object[capacity];
+    }
+
     /**
      * Insert a new item on top of the stack.
      *
