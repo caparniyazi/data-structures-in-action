@@ -6,6 +6,11 @@ import java.util.NoSuchElementException;
 
 /**
  * Class that implements a stack as an adapter to the List.
+ * <p/>
+ * The easiest approach to implementing a stack in Java would be to give it a List component
+ * for storing the data. Since all insertions and deletions are at one end, the stack operations
+ * would all be O(1) operations. You could use an object of any class that implements the List
+ * interface to store the stack data, but the ArrayList is the simplest.
  *
  * @param <E> The type of elements in the stack.
  */
