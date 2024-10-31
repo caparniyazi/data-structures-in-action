@@ -1,7 +1,6 @@
 package com.caparniyazi.ds.collections.stack;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
