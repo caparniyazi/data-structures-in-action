@@ -78,4 +78,13 @@ public class ListStack<E> implements Stack<E> {
     public boolean isEmpty() {
         return theData.isEmpty();
     }
+
+    /**
+     * Get the current size of the stack.
+     *
+     * @return the current size of the stack.
+     */
+    public int size() {
+        return theData.size();
+    }
 }
