@@ -89,4 +89,20 @@ public class LinkedStack<E> implements Stack<E> {
     public boolean isEmpty() {
         return topOfStackRef == null;
     }
+
+    /**
+     * Return the number of items on the stack.
+     *
+     * @return The number of elements on the stack.
+     */
+    public int size() {
+        int count = 0;
+        Node<E> current = topOfStackRef;
+
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        return count;
+    }
 }
