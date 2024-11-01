@@ -96,7 +96,7 @@ public class PostfixEvaluator {
                     operandStack.push(result);
                 } else {
                     // Invalid character
-                    throw new SyntaxErrorException(String.format("Unrecognized operator '%s'", token));
+                    throw new SyntaxErrorException(String.format("Unrecognized character '%s'", token));
                 }
             } // End for.
 
