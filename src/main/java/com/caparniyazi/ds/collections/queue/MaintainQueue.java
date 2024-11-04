@@ -68,7 +68,7 @@ public class MaintainQueue {
                     }
                     case "quit" -> {
                         System.out.println("Leaving customer queue." + "\nNumber of customers in the queue is " + customers.size());
-                        System.exit(0);
+                        break;
                     }
                     default -> System.out.println("Invalid choice: " + choice);
                 } // End switch
@@ -78,8 +78,20 @@ public class MaintainQueue {
         } // End while
     }
 
+    /**
+     * Method to create a string representation of the queue contents with each entry
+     * on its own line.
+     *
+     * @return The string representation of the queue contents.
+     */
+    @Override
+    public String toString() {
+        return String.join("\n", customers);
+    }
+
     public static void main(String[] args) {
         MaintainQueue theQueue = new MaintainQueue();
         theQueue.processCustomers();
+        System.out.println(theQueue.toString());
     }
 }
