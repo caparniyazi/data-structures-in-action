@@ -10,6 +10,15 @@ import java.util.*;
  */
 public class MaintainQueue {
     // Data fields
+    /**
+     * Insertion and removal from either end of a double‐linked list is O(1), so either end can be the
+     * front (or rear) of the queue. The Java designers decided to make the head of the linked list the
+     * front of the queue and the tail the rear of the queue. If you declare your queue using
+     * the statement:
+     * Queue<String> myQueue = new LinkedList<>();
+     * the fact that the actual class for myQueue is a LinkedList is not visible. The only methods
+     * available for myQueue are those declared in the Queue interface.
+     */
     private final Queue<String> customers;
     private final Scanner in;
 
