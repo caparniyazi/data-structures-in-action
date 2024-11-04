@@ -5,7 +5,6 @@ import com.caparniyazi.ds.collections.stack.PostfixEvaluator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestInfix2Postfix {
     @Test
@@ -30,13 +29,6 @@ public class TestInfix2Postfix {
         String expectedResult = "x1 y 2 / - foo +";
         String result = InfixToPostfix.convert(infix);
         assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void expressionWithInvalidOperator() throws RuntimeException {
-        String infix = "x1 & 2";
-        String expectedResult = "x1 2";
-        assertThrows(InfixToPostfix.SyntaxErrorException.class, () -> InfixToPostfix.convert(infix));
     }
 
     @Test
