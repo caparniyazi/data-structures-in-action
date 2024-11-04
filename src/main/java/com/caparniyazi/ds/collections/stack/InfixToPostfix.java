@@ -30,16 +30,16 @@ public class InfixToPostfix {
     }
 
     private final Deque<Character> operatorStack = new ArrayDeque<>();
-    private static final String OPERATORS = "-+*/()";
+    private static final String OPERATORS = "-+*/^()";
     // The precedence of the operators that matches order in OPERATORS.
-    private static final int[] PRECEDENCE = {1, 1, 2, 2, -1, -1};
+    private static final int[] PRECEDENCE = {1, 1, 2, 2, 3, -1, -1};
     private final StringJoiner postfix = new StringJoiner(" ");
     /**
      * Each token can be an integer(a sequence of one or more digits),
      * a double (a sequence of one or more digits followed by a decimal point followed by zero or  more digits),
      * an identifier (a letter followed by zero or more letters or digits), or an operator.
      */
-    private static final String tokens = "\\d+\\.\\d*|\\d+|\\p{L}[\\p{L}\\p{N}]*|[-+*/()]";
+    private static final String tokens = "\\d+\\.\\d*|\\d+|\\p{L}[\\p{L}\\p{N}]*|[-+*/^()]";
 
     public static String convert(String infix) throws SyntaxErrorException {
         InfixToPostfix infixToPostfix = new InfixToPostfix();

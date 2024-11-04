@@ -57,4 +57,22 @@ public class TestInfix2Postfix {
         assertEquals(expectedResult, actualResult);
         assertEquals(PostfixEvaluator.eval(expectedResult), 36);
     }
+
+    @Test
+    public void expressionWithParentheses4() {
+        String infix = "3 + (2 ^ 3) / 2";
+        String expectedResult = "3 2 3 ^ 2 / +";
+        String actualResult = InfixToPostfix.convert(infix);
+        assertEquals(expectedResult, actualResult);
+        assertEquals(PostfixEvaluator.eval(expectedResult), 7);
+    }
+
+    @Test
+    public void expressionWithParentheses54() {
+        String infix = "9 - (2 ^ 3) / ( 2 ^ 2)";
+        String expectedResult = "9 2 3 ^ 2 2 ^ / -";
+        String actualResult = InfixToPostfix.convert(infix);
+        assertEquals(expectedResult, actualResult);
+        assertEquals(PostfixEvaluator.eval(expectedResult), 7);
+    }
 }

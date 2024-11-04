@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
  */
 public class PostfixEvaluator {
     // Data fields
-    private static final String OPERATORS = "+-*/";
+    private static final String OPERATORS = "+-*/^";
 
     // Nested static class to report a syntax error.
     private static class SyntaxErrorException extends RuntimeException {
@@ -56,6 +56,7 @@ public class PostfixEvaluator {
             case '-' -> result = lhs - rhs;
             case '*' -> result = lhs * rhs;
             case '/' -> result = lhs / rhs;
+            case '^' -> result = (int) Math.pow(lhs, rhs);
             default -> throw new IllegalStateException("Unexpected value: " + op);
         };
     }
