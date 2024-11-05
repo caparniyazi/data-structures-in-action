@@ -34,6 +34,9 @@ import java.util.Queue;
  * require half the storage of a single‐linked list to store the same number of elements. However,
  * if the array were just reallocated, half the array would be empty, so it would require the same
  * storage as a single‐linked list.
+ * <p/>
+ * The Java Collections Framework provides ArrayDeque class that utilizes a resizable circular array
+ * like our class ArrayQueue and is the recommended implementation.
  */
 public class ArrayQueue<E> extends AbstractQueue<E> implements Queue<E> {
     // Data fields
