@@ -37,6 +37,12 @@ import java.util.Queue;
  * <p/>
  * The Java Collections Framework provides ArrayDeque class that utilizes a resizable circular array
  * like our class ArrayQueue and is the recommended implementation.
+ * <p/>
+ * The Deque interface extends the Queue interface, which means that a class that implements
+ * Deque also implements Queue.
+ * If elements are always inserted at the front of a deque and removed from the
+ * rear (FIFO), then the deque functions as a queue. In this case, you could use either method
+ * add or addLast to insert a new item.
  */
 public class ArrayQueue<E> extends AbstractQueue<E> implements Queue<E> {
     // Data fields
