@@ -1,5 +1,8 @@
 package com.caparniyazi.ds.recursion;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * We can always write an iterative solution to any problem that is solvable by recursion.
  * However, the recursive solutions will be easier to conceptualize and should, therefore, lead to
@@ -225,5 +228,37 @@ public class RecursiveMethods {
         } else {
             return fibo(1, 0, n - 1);
         }
+    }
+
+    /**
+     * Recursive linear search method.
+     *
+     * @param items    The array being searched.
+     * @param target   The item being searched for.
+     * @param posFirst The position of the current first item.
+     * @return The subscript of target if found, otherwise -1.
+     */
+    private static int linearSearch(Object[] items, Object target, int posFirst) {
+        if (posFirst == items.length) { // The base is an empty array.
+            return -1;
+        } else if (target.equals(items[posFirst])) { // The other base case is when the 1st array item matches the target.
+            return posFirst;
+        } else {
+            // Search the array excluding the 1st item and return the result.
+            return linearSearch(items, target, posFirst + 1);   // The recursive step is to search the rest of the array.
+        }
+    }
+
+    /**
+     * Wrapper for recursive linear search method.
+     * The sole purpose of this method is to call the recursive method, passing on its arguments with
+     * 0 as a third argument, and return its result.
+     *
+     * @param items  The array being searched.
+     * @param target The item being searched for.
+     * @return The subscript of target if found; otherwise -1.
+     */
+    public static int linearSearch(Object[] items, Object target) {
+        return linearSearch(items, target, 0);
     }
 }
