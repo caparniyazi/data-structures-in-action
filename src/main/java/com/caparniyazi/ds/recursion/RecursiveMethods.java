@@ -383,7 +383,7 @@ public class RecursiveMethods {
     /**
      * Wrapper for recursive linear search method.
      * The sole purpose of this method is to call the recursive method, passing on its arguments with
-     * 0 as a third argument, and return its result.
+     * array's length as a third argument, and return its result.
      *
      * @param items  The array being searched.
      * @param target The item being searched for.
