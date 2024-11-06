@@ -359,4 +359,37 @@ public class RecursiveMethods {
     public static int sum(int[] arr) {
         return sum(arr, 0);
     }
+
+
+    /**
+     * Recursive linear search method.
+     *
+     * @param items   The array being searched.
+     * @param target  The item being searched for.
+     * @param posLast The position of the current first item.
+     * @return The subscript of target if found, otherwise -1.
+     */
+    private static int linearSearchReverse(Object[] items, Object target, int posLast) {
+        if (posLast == -1) {
+            return -1;
+        } else if (target.equals(items[posLast])) { // The other base case is when the 1st array item matches the target.
+            return posLast;
+        } else {
+            // Search the array excluding the last item and return the result.
+            return linearSearchReverse(items, target, posLast - 1);   // The recursive step is to search the rest of the array.
+        }
+    }
+
+    /**
+     * Wrapper for recursive linear search method.
+     * The sole purpose of this method is to call the recursive method, passing on its arguments with
+     * 0 as a third argument, and return its result.
+     *
+     * @param items  The array being searched.
+     * @param target The item being searched for.
+     * @return The subscript of target if found; otherwise -1.
+     */
+    public static int linearSearchReverse(Object[] items, Object target) {
+        return linearSearchReverse(items, target, items.length - 1);
+    }
 }
