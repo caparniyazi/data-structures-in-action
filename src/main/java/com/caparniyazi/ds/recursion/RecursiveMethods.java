@@ -1,8 +1,5 @@
 package com.caparniyazi.ds.recursion;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * We can always write an iterative solution to any problem that is solvable by recursion.
  * However, the recursive solutions will be easier to conceptualize and should, therefore, lead to
@@ -311,5 +308,30 @@ public class RecursiveMethods {
      */
     public static <T> int binarySearch(T[] items, Comparable<T> target) {
         return binarySearch(items, target, 0, items.length - 1);
+    }
+
+    /**
+     * Method to return the max integer in an array.
+     *
+     * @param arr   The array of integers to search.
+     * @param index The index of the current value to consider.
+     * @return The max value in the array.
+     */
+    private static int maximum(int[] arr, int index) {
+        if (index == arr.length - 1) {
+            return arr[index];
+        }
+        int maxResult = maximum(arr, index + 1);
+        return Math.max(arr[index], maxResult);
+    }
+
+    /**
+     * Wrapper for recursive max method.
+     *
+     * @param arr The array of integers to search.
+     * @return The max value in the array.
+     */
+    public static int maximum(int[] arr) {
+        return maximum(arr, 0);
     }
 }
