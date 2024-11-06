@@ -334,4 +334,29 @@ public class RecursiveMethods {
     public static int maximum(int[] arr) {
         return maximum(arr, 0);
     }
+
+    /**
+     * Method to return the sum of integer in an array.
+     *
+     * @param arr   The array of integers to sum.
+     * @param index The index of the current value to consider.
+     * @return The sum of values in the array.
+     */
+    private static int sum(int[] arr, int index) {
+        if (index == arr.length - 1) {
+            return arr[index];
+        }
+        int sum = sum(arr, index + 1);
+        return arr[index] + sum;
+    }
+
+    /**
+     * Wrapper for recursive sum method.
+     *
+     * @param arr The array of integers to sum.
+     * @return The sum of values in the array.
+     */
+    public static int sum(int[] arr) {
+        return sum(arr, 0);
+    }
 }
