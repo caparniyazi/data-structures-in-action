@@ -261,4 +261,55 @@ public class RecursiveMethods {
     public static int linearSearch(Object[] items, Object target) {
         return linearSearch(items, target, 0);
     }
+
+    /**
+     * Recursive binary search method.
+     *
+     * @param items  The array being searched.
+     * @param target The item being searched for.
+     * @param first  The subscript of the first item.
+     * @param last   The subscript of the last item.
+     * @param <T>    The item type.
+     * @return The subscript of target if found, otherwise -1.
+     */
+    private static <T> int binarySearch(T[] items, Comparable<T> target, int first, int last) {
+        if (first > last) {
+            return -1;   // Base case for unsuccessful search
+        } else {
+            int mid = (first + last) / 2;
+            int compResult = target.compareTo(items[mid]);
+            if (compResult == 0) {
+                return mid;
+            } else if (compResult < 0) {
+                return binarySearch(items, target, first, mid - 1);
+            } else {
+                return binarySearch(items, target, mid + 1, last);
+            }
+        }
+    }
+
+    /**
+     * Wrapper for recursive binary search method.
+     * <p/>
+     * Because we eliminate at least half of the array elements from consideration with each recursive
+     * call, binary search is an O(log n) algorithm. To verify this, an unsuccessful search of an array
+     * of size 16 could result in our searching arrays of size 16, 8, 4, 2, and 1 to determine that the
+     * target was not present. Thus, an array of size 16 requires a total of 5 probes in the worst case
+     * (16 is 24, so 5 is log 216 + 1). If we double the array size, we would need to make only 6 probes
+     * for an array of size 32 in the worst case (32 is 25, so 6 is log2 32 + 1).
+     * <p/>
+     * The Java API class Arrays contains a binarySearch method. It can be called with sorted
+     * arrays of primitive types or with sorted arrays of objects. If the objects in the array are not
+     * mutually comparable or if the array is not sorted, the results are undefined. If there are
+     * multiple copies of the target value in the array, there is no guarantee as to which one will
+     * be found. This is the same as for our binarySearch method.
+     *
+     * @param items  The array being searched.
+     * @param target The item being searched for.
+     * @param <T>    The item type.
+     * @return The subscript of target if found, otherwise -1.
+     */
+    public static <T> int binarySearch(T[] items, Comparable<T> target) {
+        return binarySearch(items, target, 0, items.length - 1);
+    }
 }
