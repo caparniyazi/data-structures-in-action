@@ -25,7 +25,12 @@ public class BlobTest extends JFrame implements GridColors, ActionListener {
         getContentPane().add(instruct, BorderLayout.NORTH);
         JButton solveButton = new JButton("SOLVE");
         solveButton.addActionListener(this);
-        getContentPane().add(solveButton, BorderLayout.SOUTH);
+        JButton restoreButton = new JButton("RESTORE");
+        restoreButton.addActionListener(this);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(solveButton);
+        buttonPanel.add(restoreButton);
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
@@ -38,14 +43,19 @@ public class BlobTest extends JFrame implements GridColors, ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        String reply = JOptionPane.showInputDialog("Enter x coordinate of blob cell");
-        int x = Integer.parseInt(reply);
-        reply = JOptionPane.showInputDialog("Enter y coordinate of blob cell");
-        int y = Integer.parseInt(reply);
-        Blob aBlob = new Blob(theGrid);
-        JOptionPane.showMessageDialog(null, "For blob at ("
-                + x + ", " + y + ") \ncount is " + aBlob.countCells(x, y)
-                + "\nRest blob and try again");
+        if (e.getActionCommand().equals("SOLVE")) {
+            String reply = JOptionPane.showInputDialog("Enter x coordinate of blob cell");
+            int x = Integer.parseInt(reply);
+            reply = JOptionPane.showInputDialog("Enter y coordinate of blob cell");
+            int y = Integer.parseInt(reply);
+            Blob aBlob = new Blob(theGrid);
+            JOptionPane.showMessageDialog(null, "For blob at ("
+                    + x + ", " + y + ") \ncount is " + aBlob.countCells(x, y)
+                    + "\nRest blob and try again");
+        } else {
+            Blob aBlob = new Blob(theGrid);
+            aBlob.restore();
+        }
     }
 
     /**

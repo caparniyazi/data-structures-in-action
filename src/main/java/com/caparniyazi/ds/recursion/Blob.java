@@ -1,7 +1,6 @@
 package com.caparniyazi.ds.recursion;
 
-import static com.caparniyazi.ds.recursion.GridColors.ABNORMAL;
-import static com.caparniyazi.ds.recursion.GridColors.TEMPORARY;
+import static com.caparniyazi.ds.recursion.GridColors.*;
 
 /**
  * Class that solves the problem of counting abnormal cells.
@@ -68,6 +67,16 @@ public class Blob {
                     + countCells(x, y - 1)
                     + countCells(x + 1, y - 1);
 
+        }
+    }
+
+    public void restore() {
+        for (int i = 0; i != grid.getNCols(); i++) {
+            for (int j = 0; j != grid.getNRows(); j++) {
+                if (grid.getColor(i, j).equals(TEMPORARY)) {
+                    grid.recolor(i, j, NON_BACKGROUND);
+                }
+            }
         }
     }
 }
