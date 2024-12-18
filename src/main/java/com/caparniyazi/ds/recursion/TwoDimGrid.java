@@ -15,13 +15,11 @@ import java.awt.event.ActionListener;
 public class TwoDimGrid extends JPanel implements GridColors {
     // Data fields
     private static final int PREFERRED_BUTTON_SIZE = 60;
-    private static final int DEFAULT_COLS = 20; // Default number of columns.
-    private static final int DEFAULT_ROWS = 20; // Default number of rows.
-    private JButton[][] theGrid;    // A two dimensional grid of buttons.
+    private final JButton[][] theGrid;    // A two dimensional grid of buttons.
     @Getter
-    private int nRows;  // Number of rows in the y-axis.
+    private final int nRows;  // Number of rows in the y-axis.
     @Getter
-    private int nCols;  // Number of columns in the x-axis.
+    private final int nCols;  // Number of columns in the x-axis.
 
     // Constructors
 
@@ -89,6 +87,25 @@ public class TwoDimGrid extends JPanel implements GridColors {
                 }
             }
         }
+    }
+
+    /**
+     * Recolor all cells that are a given tempColor
+     *
+     * @param tempColor color to be changed
+     * @param newColor  the new color
+     */
+    public void recolor(Color tempColor, Color newColor) {
+        for (int i = 0; i != getNCols(); ++i) {
+
+            for (int j = 0; j != getNRows(); ++j) {
+
+                if (theGrid[i][j].getBackground().equals(tempColor)) {
+                    theGrid[i][j].setBackground(newColor);
+                }
+            }
+        }
+        repaint();
     }
 
     /**

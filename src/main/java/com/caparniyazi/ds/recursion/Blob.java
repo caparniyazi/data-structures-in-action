@@ -55,7 +55,7 @@ public class Blob {
         } else {    // The recursive step.
             grid.recolor(x, y, TEMPORARY);  // Set the color of the cell at (x, y) to a temp color.
             // The result is 1 plus the number of cells in each piece of the blob that
-            // includes a nearest/immediate neighbor ( two in the horizontal direction,
+            // includes the nearest/immediate neighbor ( two in the horizontal direction,
             // two in the vertical direction, and four in the diagonal directions).
             return 1
                     + countCells(x - 1, y + 1)
