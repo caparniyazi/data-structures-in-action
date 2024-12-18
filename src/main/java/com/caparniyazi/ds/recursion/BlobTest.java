@@ -22,6 +22,7 @@ public class BlobTest extends JFrame implements GridColors, ActionListener {
         getContentPane().add(theGrid, BorderLayout.CENTER);
         JTextArea instruct = new JTextArea(2, 10);
         instruct.setText("Toggle a button to change its color" + "\nPress SOLVE when ready.");
+        instruct.setEditable(false);
         getContentPane().add(instruct, BorderLayout.NORTH);
         JButton solveButton = new JButton("SOLVE");
         solveButton.addActionListener(this);

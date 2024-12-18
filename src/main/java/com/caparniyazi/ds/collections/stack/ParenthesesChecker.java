@@ -8,6 +8,11 @@ import java.util.EmptyStackException;
  * Class to check for balanced parentheses.
  */
 public class ParenthesesChecker {
+    public static void main(String[] args) {
+        String input = "(abc(d())e)";
+        System.out.println(isBalanced(input));
+    }
+
     // Data fields
     private static final String OPEN = "([{";   // Set of opening parenthesis characters
     private static final String CLOSE = ")]}";  // Set of closing parenthesis characters, matches OPEN
