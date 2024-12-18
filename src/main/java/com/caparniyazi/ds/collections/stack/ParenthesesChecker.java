@@ -22,6 +22,10 @@ public class ParenthesesChecker {
      *
      * @param expression The string containing the expression to be examined.
      * @return true if all the parentheses match.
+     * Time Complexity O(n) = n, where n is the length of the input string, because we iterate
+     * through the entire string once.
+     * Space Complexity O(n) = n, where n is the length of the input string.In the worst case
+     * the stack could contain all opening parentheses of the input string.
      */
     public static boolean isBalanced(String expression) {
         Deque<Character> stack = new ArrayDeque<>();   // Create an empty stack.
