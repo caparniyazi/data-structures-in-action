@@ -24,7 +24,7 @@ public class ParenthesesChecker {
      * @return true if all the parentheses match.
      */
     public static boolean isBalanced(String expression) {
-        Deque<Character> stack = new ArrayDeque<Character>();   // Create an empty stack.
+        Deque<Character> stack = new ArrayDeque<>();   // Create an empty stack.
         boolean balanced = true;
 
         try {
