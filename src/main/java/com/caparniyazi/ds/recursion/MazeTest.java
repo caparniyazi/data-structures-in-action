@@ -38,7 +38,7 @@ public class MazeTest extends JFrame implements GridColors {
                 ArrayList<char[]> gridArrayList = new ArrayList<>();
                 String line;
                 while ((line = br.readLine()) != null) {
-                    char[] row = line.toCharArray();
+                    char[] row = line.replaceAll("\\s", "").toCharArray();
                     gridArrayList.add(row);
                 }
 

@@ -77,6 +77,7 @@ public class Maze implements GridColors {
             return true;
         } else {    // Recursive case.
             // Attempt to find a path from each neighbour. Tentatively mark cell as on path.
+            System.out.println("Trying " + "("+ x + ", " + y + ") to find a path");
             maze.recolor(x, y, PATH);
 
             if (findMazePath(x - 1, y) ||
@@ -86,6 +87,7 @@ public class Maze implements GridColors {
             ) {
                 return true;
             } else {
+                System.out.println("Tried " + "("+ x + ", " + y + ") to find a path");
                 maze.recolor(x, y, TEMPORARY);  // Dead end.
                 return false;
             }
