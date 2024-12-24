@@ -3,6 +3,7 @@ package com.caparniyazi.ds.tree;
 import java.io.Serializable;
 import java.util.Scanner;
 import java.util.StringJoiner;
+import java.util.function.BiConsumer;
 
 /**
  * Class for binary tree that stores type E objects.
@@ -142,47 +143,6 @@ public class BinaryTree<E> implements Serializable {
     }
 
     /**
-     * Returns a string representation of the BinaryTree for display purposes.
-     * The string representation is a preorder traversal in which each local root is indented
-     * a distance proportional to its depth. If a subtree is empty, the string "null" is displayed.
-     *
-     * @return a string representation of the tree.
-     */
-    @Override
-    public String toString() {
-        var sb = new StringBuilder();
-        toString(root, 1, sb);
-        return sb.toString();
-    }
-
-    /**
-     * Converts a subtree to a string. Performs a preorder traversal.
-     * It begins by appending a string of spaces proportional to the level so that
-     * all nodes at a particular level will be indented to the same point in the tree display.
-     * Then, if the node is null, the string "null\n" is appended to the StringBuilder.
-     * Otherwise, the string representation of the node
-     * is appended to the StringBuilder and the method is recursively called on the left and right
-     * subtrees.
-     *
-     * @param node  The local root.
-     * @param depth The depth.
-     * @param sb    The StringBuilder to save the output.
-     */
-    private void toString(Node<E> node, int depth, StringBuilder sb) {
-        sb.append(" ".repeat(Math.max(0, depth - 1)));
-
-        if (node == null) {
-            sb.append("null\n");
-        } else {
-            sb.append(node);
-            sb.append('\n');
-            toString(node.left, depth + 1, sb);
-            toString(node.right, depth + 1, sb);
-        }
-    }
-
-
-    /**
      * Method to read a BinaryTree.
      *
      * @param scanner The Scanner attached to the input file.
@@ -253,5 +213,55 @@ public class BinaryTree<E> implements Serializable {
         }
 
         return stringJoiner.toString();
+    }
+
+    /**
+     * Starter method for preorder traversal.
+     *
+     * @param consumer An object that instantiates the BiConsumer interface.
+     */
+    public void preOrderTraverse(BiConsumer<E, Integer> consumer) {
+        preOrderTraverse(root, 1, consumer);
+    }
+
+    /**
+     * Performs a recursive preorder traversal of the tree,
+     * applying the action specified in the consumer object.
+     *
+     * @param node     The local root.
+     * @param depth    The depth.
+     * @param consumer The consumer object.
+     */
+    private void preOrderTraverse(Node<E> node, int depth, BiConsumer<E, Integer> consumer) {
+        if (node == null) {
+            consumer.accept(null, depth);
+        } else {
+            consumer.accept(node.data, depth);
+            preOrderTraverse(node.left, depth + 1, consumer);
+            preOrderTraverse(node.right, depth + 1, consumer);
+        }
+    }
+
+
+    /**
+     * Returns a string representation of the BinaryTree for display purposes.
+     * The string representation is a preorder traversal in which each local root is indented
+     * a distance proportional to its depth. If a subtree is empty, the string "null" is displayed.
+     *
+     * @return a string representation of the tree.
+     */
+    @Override
+    public String toString() {
+        var sb = new StringBuilder();
+        /*
+         * The preOrderTraverse method visits each node in preorder applying the statement block
+         * specified in the lambda expression passed as ana argument to the preorder traversal methods.
+         */
+        preOrderTraverse((e, d) -> {
+            sb.append(" ".repeat(Math.max(0, d - 1)));
+            sb.append(e);
+            sb.append("\n");
+        });
+        return sb.toString();
     }
 }
