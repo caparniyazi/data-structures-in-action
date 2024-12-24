@@ -1,5 +1,6 @@
 package com.caparniyazi.ds.tree;
 
+import java.io.Serializable;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
@@ -8,7 +9,7 @@ import java.util.StringJoiner;
  *
  * @param <E> The type
  */
-public class BinaryTree<E> {
+public class BinaryTree<E> implements Serializable {
     // Data fields
     /**
      * It has protected visibility, because we will need to access it in the subclass BinarySearchTree.
@@ -20,7 +21,7 @@ public class BinaryTree<E> {
      *
      * @param <E> The type.
      */
-    protected static class Node<E> {
+    protected static class Node<E> implements Serializable {
         // Data fields
         protected E data;   // The information stored in this node.
         protected Node<E> left; // Reference to the left child
