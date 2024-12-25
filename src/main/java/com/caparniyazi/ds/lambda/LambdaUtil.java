@@ -22,9 +22,10 @@ public class LambdaUtil {
     };
 
     public static void main(String[] args) {
-        Function<Integer, Double> f = angle -> Math.cos(Math.toRadians(angle));
+        Function<Integer, Double> f1 = angle -> Math.sin(Math.toRadians(angle));
+        Function<Integer, Double> f2 = angle -> Math.cos(Math.toRadians(angle));
 
-        show(0, 360, 30, f);
+        show(0, 360, 30, f1, f2);
         System.out.println(power.apply(3.0, 3));
         System.out.println(power2.apply(3.0, 3));
     }
@@ -35,11 +36,15 @@ public class LambdaUtil {
      * @param low  The lower bound.
      * @param high The upper bound.
      * @param step The increment.
-     * @param f    The function object.
+     * @param f1   A function to apply.
+     * @param f2   A function to apply.
      */
-    public static void show(int low, int high, int step, Function<Integer, Double> f) {
+    public static void show(int low,
+                            int high,
+                            int step, Function<Integer, Double> f1,
+                            Function<Integer, Double> f2) {
         for (int i = low; i <= high; i += step) {
-            System.out.println("" + i + '°' + " : " + f.apply(i));
+            System.out.printf("%3d%s %2.4f  %2.4f%n", i, '°', f1.apply(i), f2.apply(i));
         }
     }
 }

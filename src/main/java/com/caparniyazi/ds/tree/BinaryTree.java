@@ -216,6 +216,33 @@ public class BinaryTree<E> implements Serializable {
     }
 
     /**
+     * Performs an inorder traversal of the tree passing each node and
+     * the node's depth to the consumer function.
+     *
+     * @param consumer The consumer of each node.
+     */
+    public void inOrderTraverse(BiConsumer<E, Integer> consumer) {
+        inOrderTraverse(root, 1, consumer);
+    }
+
+    /**
+     * Helper method that performs an inorder traversal.
+     *
+     * @param node     The local root.
+     * @param depth    The depth.
+     * @param consumer The consumer of each node.
+     */
+    private void inOrderTraverse(Node<E> node, int depth, BiConsumer<E, Integer> consumer) {
+        if (node == null) {
+            consumer.accept(null, depth);
+        } else {
+            inOrderTraverse(node.left, depth + 1, consumer);
+            consumer.accept(node.data, depth + 1);
+            inOrderTraverse(node.right, depth + 1, consumer);
+        }
+    }
+
+    /**
      * Starter method for preorder traversal.
      *
      * @param consumer An object that instantiates the BiConsumer interface.
