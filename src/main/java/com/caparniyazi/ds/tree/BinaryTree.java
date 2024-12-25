@@ -207,12 +207,27 @@ public class BinaryTree<E> implements Serializable {
         if (node.left != null) {
             stringJoiner.add(inOrderToString(node.left));
         }
+        stringJoiner.add(node.toString());
 
         if (node.right != null) {
             stringJoiner.add(inOrderToString(node.right));
         }
 
         return stringJoiner.toString();
+    }
+
+    public void postOrderTraverse(BiConsumer<E, Integer> consumer) {
+        postOrderTraverse(root, 1, consumer);
+    }
+
+    private void postOrderTraverse(Node<E> node, int depth, BiConsumer<E, Integer> consumer) {
+        if (node == null) {
+            consumer.accept(null, depth);
+        } else {
+            postOrderTraverse(node.left, depth + 1, consumer);
+            postOrderTraverse(node.right, depth + 1, consumer);
+            consumer.accept(node.data, depth);
+        }
     }
 
     /**
@@ -237,7 +252,7 @@ public class BinaryTree<E> implements Serializable {
             consumer.accept(null, depth);
         } else {
             inOrderTraverse(node.left, depth + 1, consumer);
-            consumer.accept(node.data, depth + 1);
+            consumer.accept(node.data, depth);
             inOrderTraverse(node.right, depth + 1, consumer);
         }
     }
@@ -284,7 +299,7 @@ public class BinaryTree<E> implements Serializable {
          * The preOrderTraverse method visits each node in preorder applying the statement block
          * specified in the lambda expression passed as ana argument to the preorder traversal methods.
          */
-        preOrderTraverse((e, d) -> {
+        postOrderTraverse((e, d) -> {
             sb.append(" ".repeat(Math.max(0, d - 1)));
             sb.append(e);
             sb.append("\n");
