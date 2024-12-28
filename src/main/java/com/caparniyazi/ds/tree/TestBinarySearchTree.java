@@ -34,6 +34,7 @@ public class TestBinarySearchTree {
             bstInt.add(i);
         }
         System.out.println(bstInt);
+        System.out.println("********************************************");
 
         data3 = new Integer[]{90, 30, 15, 50, 60, 20, 25, 45};
         bstInt = new BinarySearchTree<>();
@@ -42,5 +43,17 @@ public class TestBinarySearchTree {
             bstInt.add(i);
         }
         System.out.println(bstInt);
+        System.out.println(bstInt.toString());
+
+        System.out.println("********************************************");
+
+        data3 = new Integer[]{60, 25, 85, 15, 40, 70, 95, 5, 20, 35, 50, 65, 80, 90, 10, 30, 45, 55, 75, 81, 17};
+        bstInt = new BinarySearchTree<>();
+
+        for (Integer i : data3) {
+            bstInt.add(i);
+        }
+        System.out.println(bstInt);
+        System.out.println(bstInt.toString());
     }
 }
