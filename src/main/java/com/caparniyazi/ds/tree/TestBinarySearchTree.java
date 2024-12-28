@@ -55,5 +55,6 @@ public class TestBinarySearchTree {
         }
         System.out.println(bstInt);
         System.out.println(bstInt.toString());
+        System.out.println(bstInt.toList());
     }
 }

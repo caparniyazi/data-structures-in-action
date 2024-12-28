@@ -1,5 +1,8 @@
 package com.caparniyazi.ds.tree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type parameter E is specified when we create a new BinarySearchTree
  * and E must implement the Comparable interface.
@@ -221,5 +224,21 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
     @Override
     public boolean remove(E target) {
         return delete(target) != null;
+    }
+
+    /**
+     * The method that returns the tree contents in ascending order (using an inorder traversal).
+     *
+     * @return the tree contents in ascending order (using an inorder traversal).
+     */
+    public List<E> toList() {
+        final List<E> result = new ArrayList<>();
+        inOrderTraverse((e, d) -> {
+            if (e != null) {
+                result.add(e);
+            }
+        });
+
+        return result;
     }
 }
