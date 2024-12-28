@@ -299,7 +299,7 @@ public class BinaryTree<E> implements Serializable {
          * The preOrderTraverse method visits each node in preorder applying the statement block
          * specified in the lambda expression passed as ana argument to the preorder traversal methods.
          */
-        postOrderTraverse((e, d) -> {
+        preOrderTraverse((e, d) -> {
             sb.append(" ".repeat(Math.max(0, d - 1)));
             sb.append(e);
             sb.append("\n");
