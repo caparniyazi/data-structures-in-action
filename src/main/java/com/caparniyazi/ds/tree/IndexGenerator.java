@@ -1,5 +1,7 @@
 package com.caparniyazi.ds.tree;
 
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -38,7 +40,7 @@ public class IndexGenerator {
                 token = token.toLowerCase();
                 index.add(String.format("%s, %3d", token, lineNum));
             }
-            scanner.nextLine(); // clear the scan buffer.
+            scanner.nextLine();
         }
     }
 
@@ -47,5 +49,13 @@ public class IndexGenerator {
      */
     public void showIndex() {
         index.forEach(System.out::println);
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        Path path = Path.of(System.getProperty("user.dir").concat("/JavaTutorial.txt"));
+        Scanner scanner = new Scanner(path.toFile());
+        IndexGenerator generator = new IndexGenerator();
+        generator.buildIndex(scanner);
+        generator.showIndex();
     }
 }
