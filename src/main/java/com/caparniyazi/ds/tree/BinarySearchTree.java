@@ -76,8 +76,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 
     @Override
     public boolean contains(E target) {
-        E result = find(target);
-        return result == target;
+        return find(target) != null;
     }
 
     /**
@@ -221,7 +220,6 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 
     @Override
     public boolean remove(E target) {
-        delete(target);
-        return deleteReturn == target;
+        return delete(target) != null;
     }
 }
