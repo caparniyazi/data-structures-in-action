@@ -158,4 +158,50 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
 
         return theData.get(0);  // Return the first item.
     }
+
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    // Code snippet from AbstractQueue.
+    @Override
+    public E remove() {
+        E item = poll();
+
+        if (item == null) {
+            throw new NoSuchElementException();
+        }
+        return item;
+    }
+
+    // Method to print the priority queue as a tree
+    @SuppressWarnings("unchecked")
+    public void printTree() {
+        E[] array = (E[]) this.toArray(); // Get the internal array representing the heap
+
+        // Call recursive function to print tree structure
+        printTreeRecursive(array, 0, 0);
+    }
+
+    // Helper method to print the tree recursively
+    private void printTreeRecursive(E[] array, int index, int depth) {
+        // Base case: If index is out of bounds, return
+        if (index >= array.length) return;
+
+        // Print the current node with indentation based on depth
+        printIndentation(depth);
+        System.out.println(array[index]);
+
+        // Recursively print the left and right children
+        printTreeRecursive(array, 2 * index + 1, depth + 1); // Left child
+        printTreeRecursive(array, 2 * index + 2, depth + 1); // Right child
+    }
+
+    // Helper method to print indentation for tree depth
+    private void printIndentation(int depth) {
+        for (int i = 0; i < depth; i++) {
+            System.out.print("  "); // 2 spaces per level of depth
+        }
+    }
 }

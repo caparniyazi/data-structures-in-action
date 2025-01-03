@@ -6,6 +6,12 @@ import java.util.List;
 /**
  * The type parameter E is specified when we create a new BinarySearchTree
  * and E must implement the Comparable interface.
+ * Recursive definition of a binary search tree:
+ * A set of nodes T is a binary search tree if either of the following is true:
+ * • T is empty.
+ * • If T is not empty, its root node has two subtrees, TL and TR, such that TL and TR are
+ * binary search trees and the value in the root node of T is greater than all values in TL
+ * and is less than all values in TR.
  * <p>
  * Note that the class extends BinaryTree.
  * <p/>
