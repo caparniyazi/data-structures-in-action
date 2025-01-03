@@ -13,6 +13,19 @@ public class TestMyPriorityQueue {
 
         myPriorityQueue.printTree();
 
+        // Exchange the order of arrival of the first and
+        // last words and build the new heap.
+        myPriorityQueue = new MyPriorityQueue<>();
+        myPriorityQueue.offer("built");
+        myPriorityQueue.offer("is");
+        myPriorityQueue.offer("the");
+        myPriorityQueue.offer("house");
+        myPriorityQueue.offer("that");
+        myPriorityQueue.offer("jack");
+        myPriorityQueue.offer("this");
+
+        myPriorityQueue.printTree();
+
         MyPriorityQueue<Integer> myq = new MyPriorityQueue<>();
         myq.offer(15);
         myq.offer(25);
