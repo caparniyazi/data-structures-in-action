@@ -1,5 +1,10 @@
 package com.caparniyazi.ds.tree;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.util.Objects;
+
 /**
  * The class PrintDocument is used to define documents to be printed on a printer.
  * The class has a getSize method that gives the number of bytes to be transmitted
@@ -34,5 +39,13 @@ public class PrintDocument implements Comparable<PrintDocument> {
         double leftValue = P1 * getSize() + P2 * getTimeStamp();
         double rightValue = P1 * other.getSize() + P2 * other.getTimeStamp();
         return Double.compare(leftValue, rightValue);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.JSON_STYLE)
+                .append("timeStamp", timeStamp)
+                .append("size", size)
+                .toString();
     }
 }
