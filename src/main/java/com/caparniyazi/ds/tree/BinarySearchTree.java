@@ -126,8 +126,8 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 
     /**
      * Removal also follows the search algorithm except that when the item is found, it is removed.
-     * If the item is a lead node, then its parent's reference to it is set to null, thereby removing
-     * the lead node.
+     * If the item is a leaf node, then its parent's reference to it is set to null, thereby removing
+     * the leaf node.
      * <p>
      * If the item has only a left or right child, then the grandparent references the remaining child
      * instead of the child's parent (the node we want to remove).

@@ -38,5 +38,9 @@ public class TestMyPriorityQueue {
         myq.offer(18);
 
         myq.printTree();
+
+        // Remove 18
+        myq.remove(18);
+        myq.printTree();
     }
 }
