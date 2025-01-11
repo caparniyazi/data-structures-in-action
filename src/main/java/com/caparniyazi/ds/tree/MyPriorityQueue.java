@@ -23,7 +23,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
      */
     @SuppressWarnings("unchecked")
     public MyPriorityQueue() {
-        theData = new ArrayList<>();
+        theData = new ArrayList<E>();
         comp = (left, right) -> ((Comparable<E>) left).compareTo(right);
     }
 
@@ -34,7 +34,23 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
      * @param comp The comparator used to order queue elements.
      */
     public MyPriorityQueue(Comparator<E> comp) {
-        theData = new ArrayList<>();
+        theData = new ArrayList<E>();
+        this.comp = comp;
+    }
+
+    /**
+     * Creates a heap-based priority queue with the specified initial capacity
+     * that orders its elements according to the specified Comparator.
+     *
+     * @param capacity The initial capacity for this priority queue.
+     * @param comp     The comparator used to order queue elements.
+     * @throws IllegalArgumentException if capacity is less than 1.
+     */
+    public MyPriorityQueue(int capacity, Comparator<E> comp) {
+        if (capacity < 1) {
+            throw new IllegalArgumentException();
+        }
+        theData = new ArrayList<E>(capacity);
         this.comp = comp;
     }
 
@@ -108,7 +124,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
             return result;
         }
         // Remove the last item from the ArrayList and place it into the first position.
-        theData.set(0, theData.get(theData.size() - 1));
+        theData.set(0, theData.remove(theData.size() - 1));
         // The parent starts at the top.
         int parent = 0;
 
@@ -127,7 +143,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
             int minChild = leftChild;   // Assume leftChild is smaller.
 
             // See whether right child is smaller
-            if (rightChild < theData.size() && comp.compare(theData.get(rightChild), theData.get(minChild)) > 0) {
+            if (rightChild < theData.size() && comp.compare(theData.get(leftChild), theData.get(rightChild)) > 0) {
                 minChild = rightChild;
             }
 
