@@ -71,7 +71,7 @@ public class HuffmanTree<T> implements Serializable {
             var newTree = new BinaryTree<HuffData<T>>(sum, left, right);
             theQueue.offer(newTree);
         }
-        ((MyPriorityQueue)theQueue).printTree();
+        ((MyPriorityQueue<?>)theQueue).printTree();
 
         // The queue should now contain only one item.
         huffTree = theQueue.poll();
