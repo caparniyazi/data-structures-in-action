@@ -17,5 +17,17 @@ public class TestHuffmanTree {
 
         aTree.buildTree(data);
         aTree.printTree();
+        letters = "*+-/%";
+
+        HuffmanTree.HuffData<Character> letterMu = new HuffmanTree.HuffData<>(50.0, letters.charAt(0));
+        HuffmanTree.HuffData<Character> letterPl = new HuffmanTree.HuffData<>(30.0, letters.charAt(1));
+        HuffmanTree.HuffData<Character> letterMi = new HuffmanTree.HuffData<>(25.0, letters.charAt(2));
+        HuffmanTree.HuffData<Character> letterDi = new HuffmanTree.HuffData<>(10.0, letters.charAt(3));
+        HuffmanTree.HuffData<Character> letterMo = new HuffmanTree.HuffData<>(5.0, letters.charAt(4));
+        data = new HuffData[]{letterMu, letterPl, letterMi, letterDi, letterMo};
+        aTree = new HuffmanTree<>();
+
+        aTree.buildTree(data);
+        aTree.printTree();
     }
 }
