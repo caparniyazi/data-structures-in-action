@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.PrintStream;
 import java.io.Serializable;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Class to represent and build a Huffman tree.
@@ -71,7 +71,7 @@ public class HuffmanTree<T> implements Serializable {
             var newTree = new BinaryTree<HuffData<T>>(sum, left, right);
             theQueue.offer(newTree);
         }
-        ((MyPriorityQueue<?>)theQueue).printTree();
+        ((MyPriorityQueue<?>) theQueue).printTree();
 
         // The queue should now contain only one item.
         huffTree = theQueue.poll();
@@ -115,6 +115,60 @@ public class HuffmanTree<T> implements Serializable {
         String code = "";
         printCode(out, code, huffTree);
         return out.toString();
+    }
+
+    /**
+     * A method for the Huffman tree class that encodes a String of letters
+     * that is passed as its first argument. Assume that a second argument,
+     * codes (type String[]) contains the code strings (binary digits)
+     * for the symbols (space at position 0, 'a' at position 1, 'b' at position 2, and so on).
+     *
+     * @param str   String to be encoded.
+     * @param codes Array of codes.
+     * @return Encoded string.
+     * @throws ArrayIndexOutOfBoundsException if string contains a char other than a letter or space.
+     */
+    public static String encode(String str, String[] codes) {
+        StringBuilder result = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            int index = 0;
+
+            if (c != ' ') {
+                index = Character.toUpperCase(c) - 'A';
+            }
+            result.append(codes[index]);
+        }
+
+        return result.toString();
+    }
+
+    public String[] getCodes() {
+        SortedMap<Character, String> map = new TreeMap<>();
+        String currentCode = "";
+        buildCode(map, currentCode, huffTree);
+        List<String> codesList = new ArrayList<>();
+        map.forEach((k, v) -> codesList.add(v));
+        return codesList.toArray(new String[0]);
+    }
+
+    private void buildCode(
+            SortedMap<Character, String> map,
+            String code,
+            BinaryTree<HuffData<T>> tree) {
+        HuffData<T> theData = tree.getData();
+
+        if (theData.symbol != null) {
+            map.put((Character) theData.symbol, code);
+        } else {
+            buildCode(map, code + "0", tree.getLeftSubtree());
+            buildCode(map, code + "1", tree.getRightSubtree());
+        }
+    }
+
+    public Map<Character, String> getCodeMap() {
+        SortedMap<Character, String> map = new TreeMap<>();
+        buildCode(map, "", huffTree);
+        return map;
     }
 
     /**

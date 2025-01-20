@@ -17,6 +17,25 @@ public class TestHuffmanTree {
 
         aTree.buildTree(data);
         aTree.printTree();
+        System.out.println(HuffmanTree.encode(letters, aTree.getCodes()));
+
+        /*
+         * The output of method decode for the Huffman tree and the encoded
+           message string "11101011011001111".
+         */
+        System.out.println(aTree.decode("11101011011001111"));
+
+
+        /*
+         * Create the Huffman code tree for the following frequency table. Show the different states
+         * of the priority queue as the tree is built:
+         * Symbol   Frequency
+         * *        50
+         * +        30
+         * −        25
+         * /        10
+         * %        5
+         */
         letters = "*+-/%";
 
         HuffmanTree.HuffData<Character> letterMu = new HuffmanTree.HuffData<>(50.0, letters.charAt(0));
