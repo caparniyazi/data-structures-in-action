@@ -18,6 +18,8 @@ import java.util.*;
 public class IndexGeneratorByMap {
     // Data fields
     private final SortedMap<String, ArrayList<Integer>> index;
+    // A Map object that will store each word occurring in a term paper along with the number of times the word occurs.
+    private static final Map<String, Integer> COUNTS = new TreeMap<>();
     /**
      * Pattern for extracting words from a line. A word is a string of
      * one or more letters or numbers or ' characters.
@@ -55,6 +57,20 @@ public class IndexGeneratorByMap {
         }
     }
 
+    public static void buildWordCounts(Scanner scanner) {
+        while (scanner.hasNextLine()) {
+            String token;
+
+            while ((token = scanner.findInLine(PATTERN)) != null) {
+                token = token.toLowerCase();
+                COUNTS.put(token, COUNTS.getOrDefault(token, 0) + 1);
+            }
+            scanner.nextLine();
+        }
+        // Show counts.
+        COUNTS.forEach((k, v) -> System.out.println(k + ": " + v));
+    }
+
     /**
      * Displays the index, one word per line.
      */
@@ -70,6 +86,10 @@ public class IndexGeneratorByMap {
             IndexGeneratorByMap generator = new IndexGeneratorByMap();
             generator.buildIndex(scanner);
             generator.showIndex();
+            scanner.close();
+            System.out.println("Each word occurring with the number of times the word occurs:");
+            scanner = new Scanner(path.toFile());
+            IndexGeneratorByMap.buildWordCounts(scanner);
         } catch (FileNotFoundException e) {
             System.err.println("Error building index");
             System.out.println(e.getMessage());
