@@ -7,6 +7,7 @@ And its main purpose is to have an online reference for myself when I need to re
 the details on common Data Structures & Algorithms.
 <p></p>
 Please note also that I have included some TypeScript training code snippets in a separate folder.
+
 # Contact
 
 <mailto:capar.niyazi.tr@gmail.com>
