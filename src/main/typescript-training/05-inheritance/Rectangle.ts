@@ -1,7 +1,7 @@
 import {Shape} from "./Shape";
 
 export class Rectangle extends Shape {
-    constructor(x: number, y: number, private _width: number, private _height: number) {
+    constructor(x: number, y: number, private _width: number, private _length: number) {
         super(x, y);
     }
 
@@ -13,15 +13,15 @@ export class Rectangle extends Shape {
         this._width = value;
     }
 
-    get height(): number {
-        return this._height;
+    get length(): number {
+        return this._length;
     }
 
-    set height(value: number) {
-        this._height = value;
+    set length(value: number) {
+        this._length = value;
     }
 
     getInfo(): string {
-        return super.getInfo() + `, width=${this._width}, height=${this._height}`;
+        return super.getInfo() + `, width=${this._width}, length=${this._length}`;
     }
 }
