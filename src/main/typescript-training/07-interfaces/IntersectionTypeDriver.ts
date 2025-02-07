@@ -10,3 +10,16 @@ let newManager: ManagementEmployee = {
 };
 
 console.log(newManager);
+
+// Literal type example
+type testResult = "pass" | "fail" | "incomplete";
+let myResult: testResult;
+
+myResult = "incomplete"; // Valid
+myResult = "pass";
+//myResult = "failure";   // Invalid
+
+// numeric literal type example
+type dice = 1 | 2 | 3 | 4 | 5 | 6;
+let diceRoll: dice;
+diceRoll = 1;
