@@ -1,0 +1,5 @@
+1,Niyazi,M,1971-01-01,Istanbul,Principle Engineer,2020-02-02,44000.00
+2,Hasan,M,1965-01-02,Istanbul,Senior Developer,2021-03-03,88000.00
+3,Mustafa,M,1974-01-03,Istanbul,Senior Architect,2022-04-04,99000.00
+4,Perihan,F,1960-01-04,Istanbul,Full-time Mother,2023-04-04,77000.00
+5,Fikriye,F,1963-01-05,Istanbul,Full-time Mother,2024-04-04,75000.00
