@@ -43,6 +43,12 @@ public class CollectorsInAction {
 
             Map<String, List<Emp>> groupByDesignation = empList.stream().collect(Collectors.groupingBy(Emp::getDesignation));
             System.out.println(groupByDesignation);
+
+            String empNamesString = empList.stream()
+                    .map(Emp::getName)
+                    .collect(Collectors.joining(","));
+            System.out.println(empNamesString);
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
