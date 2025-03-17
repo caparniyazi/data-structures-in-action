@@ -35,8 +35,12 @@ public class ListFunApp {
         List<Integer> result = List.of(1, 3, 5, 7);
         list.addAll(result).forEach(System.out::println);
 
-        // Check whether 7 exists in the list1
+        // Check whether 9 exists in the list1, for example.
         int index = list1.indexOf(9, 0);
         System.out.println("The index of " + 9 + " is " + index);
+        System.out.println("----------------");
+
+        System.out.println("Adding the element at the specified index: ");
+        list1.add(2, 17).forEach(System.out::println);
     }
 }

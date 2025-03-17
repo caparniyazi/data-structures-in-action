@@ -207,4 +207,41 @@ public abstract class ListFun<T> {
 
         return -1;
     }
+
+    /**
+     * Inserts the specified element at the specified position in this
+     * list.Shifts the element currently at that position (if any) and
+     * any later elements to the right (adds one to their indices).
+     *
+     * @param index   The index at which the specified element is to be inserted.
+     * @param element The element to be inserted.
+     * @return The list with the inserted element.
+     * @throws IndexOutOfBoundsException if the given index is out of bounds.
+     */
+
+    public ListFun<T> add(int index, T element) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("add(" + index + ", e)");
+        }
+
+        ListFun<T> list = list();   // Create an empty list.
+        ListFun<T> tail = this;
+
+        for (int i = index; i > 0; i--, tail = tail.tail()) {
+            if (tail.isEmpty()) {
+                throw new IndexOutOfBoundsException("add(" + index + ", e) on List of length " + length());
+            }
+
+            list = list.addElement(tail.head());
+        }
+
+        ListFun<T> result = tail.addElement(element);
+
+        while (!list.equals(NIL)) {
+            result = result.addElement(list.head());
+            list = list.tail();
+        }
+
+        return result;
+    }
 }
