@@ -1,5 +1,7 @@
 package com.caparniyazi.ds.lambda;
 
+import java.util.Collection;
+
 /**
  * Class that implements a list data structure functional way.
  *
@@ -158,5 +160,24 @@ public abstract class ListFun<T> {
         }
 
         return list;
+    }
+
+    public static <T> ListFun<T> concat(ListFun<T> list1, ListFun<T> list2) {
+        return list1.isEmpty() ? list2 : new Const<>(list1.head(), concat(list1.tail(), list2));
+    }
+
+    /**
+     * Method to create a functional list out of any collection.
+     *
+     * @param list The collection argument.
+     * @return the functional list containing all the elements of the given collection.
+     */
+    public ListFun<T> addAll(final Collection<? extends T> list) {
+        ListFun<T> result = this;
+        for (T element : list) {
+            result = result.addElement(element);
+        }
+
+        return result;
     }
 }

@@ -1,5 +1,7 @@
 package com.caparniyazi.ds.lambda;
 
+import java.util.List;
+
 public class ListFunApp {
     public static void main(String[] args) {
         System.out.println("Our list:");
@@ -21,5 +23,9 @@ public class ListFunApp {
         ListFun<Integer> reversedList = removed.reverseList();
         reversedList.forEach(System.out::println);
         System.out.println("----------------");
+
+        System.out.println("Functional list out of collection:");
+        List<Integer> result = List.of(1, 3, 5, 7);
+        list.addAll(result).forEach(System.out::println);
     }
 }
