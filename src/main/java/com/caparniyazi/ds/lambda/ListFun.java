@@ -148,6 +148,12 @@ public abstract class ListFun<T> {
         }
     }
 
+    /**
+     * Method to reverse the given functional list data structure.
+     *
+     * @return the functional list in reverse order.
+     * Complexity: O(n)
+     */
     public ListFun<T> reverseList() {
         ListFun<T> list = list();
         T current = this.head();
