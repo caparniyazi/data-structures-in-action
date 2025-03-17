@@ -28,11 +28,15 @@ public class ListFunApp {
 
         System.out.println("Concatenating list:");
         ListFun<Integer> list1 = ListFun.list(3, 6, 9);
-        ListFun<Integer> list2 =  ListFun.list(34, 44, 23);
+        ListFun<Integer> list2 = ListFun.list(34, 44, 23);
         concat(list1, list2).forEach(System.out::println);
 
         System.out.println("Constructing functional list out of collection:");
         List<Integer> result = List.of(1, 3, 5, 7);
         list.addAll(result).forEach(System.out::println);
+
+        // Check whether 7 exists in the list1
+        int index = list1.indexOf(9, 0);
+        System.out.println("The index of " + 9 + " is " + index);
     }
 }

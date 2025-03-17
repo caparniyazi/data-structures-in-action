@@ -1,6 +1,7 @@
 package com.caparniyazi.ds.lambda;
 
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Class that implements a list data structure functional way.
@@ -103,14 +104,14 @@ public abstract class ListFun<T> {
         ListFun<T> temp = list();
 
         for (int i = t.length - 1; i >= 0; i--) {
-            temp = new Const<>(t[i], temp);
+            temp = new Const<>(t[i], temp); // Prepend
         }
 
         return temp;
     }
 
     /**
-     * Method to add an element to the existing list.
+     * Method to add(prepend) an element to the existing list.
      *
      * @param element The element to add.
      * @return The new list.
@@ -185,5 +186,25 @@ public abstract class ListFun<T> {
         }
 
         return result;
+    }
+
+    /**
+     * Method that returns the index of the first occurrence of the specified element in this list
+     * or -1 if this list does not contain the element.
+     *
+     * @param element The element to search for.
+     * @param from    Starting index
+     * @return The index of the first occurrence of the specified element in this list or -1.
+     */
+    public int indexOf(T element, int from) {
+        int index = 0;
+        for (ListFun<T> list = this; !list.isEmpty(); list = list.tail(), index++) {
+
+            if (index >= from && Objects.equals(list.head(), element)) {
+                return index;
+            }
+        }
+
+        return -1;
     }
 }
