@@ -244,4 +244,47 @@ public abstract class ListFun<T> {
 
         return result;
     }
+
+    /**
+     * Replaces the element at the specified position in this list with the specified element.
+     *
+     * @param index   The index of the element to replace.
+     * @param element Element to be stored at the specified position.
+     * @return The updated list.
+     * @throws IndexOutOfBoundsException if the index is out of range.
+     */
+    public ListFun<T> set(int index, T element) {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("update(" + index + ", e) on Nil");
+        }
+
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("update(" + index + ", e)");
+        }
+
+        ListFun<T> list = list();
+        ListFun<T> tail = this;
+
+        for (int i = index; i > 0; i--, tail = tail.tail()) {
+            if (tail.isEmpty()) {
+                throw new IndexOutOfBoundsException("update(" + index + ", e) on List of length " + length());
+            }
+
+            list = list.addElement(tail.head());
+        }
+
+        if (tail.isEmpty()) {
+            throw new IndexOutOfBoundsException("update(" + index + ", e) on List of length " + length());
+        }
+
+        // Skip the current head element, because it is replaced.
+        ListFun<T> result = tail.tail().addElement(element);
+
+        while (!list.equals(NIL)) {
+            result = result.addElement(list.head());
+            list = list.tail();
+        }
+
+        return result;
+    }
 }

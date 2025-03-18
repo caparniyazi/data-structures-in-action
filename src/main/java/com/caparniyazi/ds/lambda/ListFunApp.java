@@ -42,5 +42,9 @@ public class ListFunApp {
 
         System.out.println("Adding the element at the specified index: ");
         list1.add(2, 17).forEach(System.out::println);
+
+        System.out.println("Updating the element at the specified index: ");
+        ListFun<Integer> theUpdateList = ListFun.list(1, 3, 5, 7, 9);
+        theUpdateList.set(1, 34).forEach(System.out::println);
     }
 }
