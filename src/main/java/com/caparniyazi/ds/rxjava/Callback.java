@@ -1,5 +1,9 @@
 package com.caparniyazi.ds.rxjava;
 
 public interface Callback {
-    void call();
+    void pushData(String data);
+
+    void pushComplete();
+
+    void pushError(Exception ex);
 }
