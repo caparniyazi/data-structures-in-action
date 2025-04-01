@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.subjects.Subject;
 /**
  * Subjects can be used as both observables and observers.
  * They multicast and they are hot. They can merge the emissions from multiple sources.
+ * Subjects are not thread-safe.
  */
 public class Subjects {
     public static void main(String[] args) throws InterruptedException {
@@ -24,6 +25,8 @@ public class Subjects {
         @NonNull
         Subject<Object> subject = PublishSubject.create();
         subject.subscribe(System.out::println);
+        subject.onNext("Hello");
+        subject.onNext("World");
 
         source1.subscribe(subject);
         source2.subscribe(subject);
