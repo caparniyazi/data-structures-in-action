@@ -6,13 +6,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * SpringBootApplication annotation is the @ComponentScan, @Configuration, and @EnableAutoConfiguration
+ * annotations.It provides the bootstrap for the Spring Boot application that is executed in the main method.
+ * You need to pass the class that is executed.
+ */
 @SpringBootApplication
 @RestController
 @RequestMapping("/api/v1")
 public class DataStructuresInActionApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DataStructuresInActionApplication.class, args);
+        SpringApplication app = new SpringApplication(DataStructuresInActionApplication.class);
+        // Add your features here.
+        // By default, Spring Boot looks for the banner.txt file in the classpath.
+        app.run(args);
     }
 
     @GetMapping
