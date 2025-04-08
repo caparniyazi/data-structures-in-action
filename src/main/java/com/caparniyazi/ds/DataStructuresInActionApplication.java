@@ -17,9 +17,8 @@ public class DataStructuresInActionApplication {
 
     @GetMapping
     public String greetings() {
-        return "<h3><font face='verdana'>Thanks for evaluating Data Structures in Action REST API</font>" +
-                "<p/>@Author: Niyazi.Çapar</h3>";
+        return "<h3><font face='verdana'>Thanks for evaluating Data Structures in Action REST API</font></h3>" +
+                "<hr><h4><p/>@Author: Niyazi.Çapar" +
+                "<p/>@Email: capar.niyazi.tr@gmail.com</h4>";
     }
-
-
 }
