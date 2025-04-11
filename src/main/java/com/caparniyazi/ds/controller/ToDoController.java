@@ -67,7 +67,7 @@ public class ToDoController {
 
         ToDo result = repository.save(toDo);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/id")
+                .path("/{id}")
                 .buildAndExpand(result.getId()).toUri();
 
         return ResponseEntity.created(location).build();

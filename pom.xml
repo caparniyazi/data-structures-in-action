@@ -36,6 +36,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <!-- If we just happen to use a different application container, Jetty or Netty, for example. -->
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>org.springframework.boot</groupId>-->
+            <!--                    <artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
         </dependency>
 
         <dependency>
@@ -80,6 +87,11 @@
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.mortbay.jetty</groupId>-->
+        <!--            <artifactId>jetty</artifactId>-->
+        <!--            <version>6.1.25</version>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>

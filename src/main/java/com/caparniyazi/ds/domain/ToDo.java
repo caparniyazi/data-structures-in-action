@@ -37,6 +37,7 @@ public class ToDo {
     }
 
     public ToDo(String description) {
+        this();
         this.description = description;
     }
 }
