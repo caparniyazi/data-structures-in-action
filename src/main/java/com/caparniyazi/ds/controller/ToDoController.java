@@ -8,6 +8,7 @@ import com.caparniyazi.ds.validation.ToDoValidationErrorBuilder;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,10 @@ public class ToDoController {
     private final CommonRepository<ToDo> repository;
 
     // HTTP GET
-    @GetMapping("/todo")
+    @GetMapping(value = "/todo",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            consumes = MediaType.ALL_VALUE
+    )
     public ResponseEntity<Iterable<ToDo>> getToDos() {
         return ResponseEntity.ok(repository.findAll());
     }

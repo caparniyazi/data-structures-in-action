@@ -1,5 +1,6 @@
 package com.caparniyazi.ds.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,7 +21,10 @@ public class ToDo {
     @NotNull
     @NotBlank
     private String description;
+
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss", locale = "tr_TR")
     private LocalDateTime created;
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm:ss", locale = "tr_TR")
     private LocalDateTime modified;
     private boolean completed;
 
