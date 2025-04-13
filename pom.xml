@@ -104,6 +104,17 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <!--
+        When Spring Boot executes its autoconfiguration and finds out that you have the
+        Spring Data JPA JAR, it configures the datasource by default (if there is none defined).
+        It configures the JPA provider (by default, it uses Hibernate).It enables the repositories
+        (by using the @EnableJpaRepositories configuration).It checks if you have defined any
+        query methods.And more.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -8,7 +8,7 @@ import lombok.Getter;
 public class ToDoBuilder {
     // Data fields
     @Getter
-    private static ToDoBuilder instance = new ToDoBuilder();
+    private static final ToDoBuilder instance = new ToDoBuilder();
     private String id;
     private String description = "";
 

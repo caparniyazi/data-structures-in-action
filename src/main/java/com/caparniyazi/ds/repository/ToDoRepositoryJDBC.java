@@ -14,9 +14,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository
+//@Repository
 @RequiredArgsConstructor
-public class ToDoRepository implements CommonRepository<ToDo> {
+public class ToDoRepositoryJDBC implements CommonRepository<ToDo> {
     //Data fields
     private static final String SQL_QUERY_FIND_ALL = "select id, description, created, modified, completed from todo";
     private static final String SQL_QUERY_FIND_BY_ID = SQL_QUERY_FIND_ALL + " where id = :id";

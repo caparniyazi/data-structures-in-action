@@ -3,6 +3,7 @@ package com.caparniyazi.ds.controller;
 import com.caparniyazi.ds.domain.ToDo;
 import com.caparniyazi.ds.domain.ToDoBuilder;
 import com.caparniyazi.ds.repository.CommonRepository;
+import com.caparniyazi.ds.repository.ToDoRepositoryJPA;
 import com.caparniyazi.ds.validation.ToDoValidationError;
 import com.caparniyazi.ds.validation.ToDoValidationErrorBuilder;
 import jakarta.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 /*
@@ -25,7 +27,8 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class ToDoController {
     // Data fields
-    private final CommonRepository<ToDo> repository;
+    // private final CommonRepository<ToDo> repository;
+    private final ToDoRepositoryJPA repository;
 
     // HTTP GET
     @GetMapping(value = "/todo",
@@ -38,13 +41,20 @@ public class ToDoController {
 
     @GetMapping("/todo/{id}")
     public ResponseEntity<ToDo> getToDoById(@PathVariable String id) {
-        return ResponseEntity.ok(repository.findById(id));
+        Optional<ToDo> toDo = repository.findById(id);
+
+        return toDo.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // HTTP PATCH
     @PatchMapping("/todo/{id}")
     public ResponseEntity<ToDo> setCompleted(@PathVariable String id) {
-        ToDo result = repository.findById(id);
+        Optional<ToDo> toDo = repository.findById(id);
+
+        if (toDo.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        ToDo result = toDo.get();
         result.setCompleted(true);
         repository.save(result);
 
