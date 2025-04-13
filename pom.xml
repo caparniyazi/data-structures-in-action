@@ -115,6 +115,67 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+        <!--
+        Spring Data JDBC doesn’t provide cache, lazy loading, write-behind, or many other features of JPA.
+        Nevertheless, it has its own ORM and provides most of the features we’re used with Spring Data JPA
+        like mapped entities, repositories, query annotations, and JdbcTemplate.
+
+        An important thing to keep in mind is that Spring Data JDBC doesn’t offer schema generation.
+        As a result, we are responsible for explicitly creating the schema.
+
+        The goal of Spring Data JDBC is to avoid most of this complexity of Spring Data JPA,
+        so that it’s easier to understand.Other frameworks automatically execute SQL statements
+        if they detect a new or changed entity.They might also execute statements
+        to get information from the database.Spring Data JDBC doesn’t do any of this.
+
+        If you want to read an entity from the database, persist a new entity, or update an existing one,
+        you need to call one of Spring Data JDBC’s repository methods.
+        It then generates the required SQL statement and executes it.
+        This might require an additional line of code in your business code,
+        but it puts you in control of all executed statements.
+
+        You no longer need to wonder if or when your persistence layer interacts with the database.
+        Spring Data JDBC only executes SQL statements when you call a repository method.
+        It puts you in full control of your database interactions and,
+        at the same time, allows you to focus on your business logic.
+
+        Spring Data JDBC focuses on the concepts of aggregates and entities as they are defined
+        in domain-driven design (DDD). An aggregate is a cluster of entities that are treated as a single unit.
+        All entities of an aggregate depend on the aggregate root.
+
+        Like other Spring Data modules, Spring Data JDBC provides repositories
+        that you can use to load and persist aggregates.
+
+        In contrast to JPA, Spring Data JDBC doesn’t manage your entity objects or uses a persistence context
+        or 1st level cache. Due to that, it can’t perform any automatic dirty checks
+        and can’t delay the execution of SQL statements.
+
+        Whenever you want to persist a new, or change or delete an existing entity or aggregate,
+        you need to call the corresponding method on the repository.
+        Spring Data JDBC then immediately executes the required SQL statement and returns the result.
+
+        When you’re loading aggregates from the database,
+        Spring Data JBC executes an SQL statement, maps the result to the defined projection, and returns it.
+        It doesn’t get parts of or the entire result from any caches, and it doesn’t keep any references
+        to the returned objects. That reduces the overhead and avoids a common pitfall in JPA,
+        where you execute a query but get the result from your 1st level cache instead and
+        don’t see the latest changes performed by a database trigger or native query.
+
+        Lazy loading of associated entities is another feature that other ORM frameworks, e.g.,
+        Spring Data JPA, offer. Spring Data JDBC does not support that.
+        It fetches the entire aggregate with all associated entities when you fetch an aggregate from the database.
+
+
+        In contrast to JPA, association mappings don’t require additional mapping annotations in Spring Data JDBC.
+        That’s because it doesn’t support any bidirectional associations and many-to-many associations.
+        A mapped association is always from the aggregate root to the dependent child entities,
+        and these can either be one-to-one or one-to-many associations. A many-to-many association
+        is always an association between two aggregates and gets mapped via references.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
