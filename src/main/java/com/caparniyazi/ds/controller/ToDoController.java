@@ -2,7 +2,6 @@ package com.caparniyazi.ds.controller;
 
 import com.caparniyazi.ds.domain.ToDo;
 import com.caparniyazi.ds.domain.ToDoBuilder;
-import com.caparniyazi.ds.repository.CommonRepository;
 import com.caparniyazi.ds.repository.ToDoRepositoryJPA;
 import com.caparniyazi.ds.validation.ToDoValidationError;
 import com.caparniyazi.ds.validation.ToDoValidationErrorBuilder;
