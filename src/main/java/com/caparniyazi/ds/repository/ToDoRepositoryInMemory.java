@@ -2,7 +2,6 @@ package com.caparniyazi.ds.repository;
 
 import com.caparniyazi.ds.domain.ToDo;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Comparator;

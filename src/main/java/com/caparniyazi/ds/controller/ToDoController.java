@@ -3,6 +3,7 @@ package com.caparniyazi.ds.controller;
 import com.caparniyazi.ds.domain.ToDo;
 import com.caparniyazi.ds.domain.ToDoBuilder;
 import com.caparniyazi.ds.repository.ToDoRepositoryDataJDBC;
+import com.caparniyazi.ds.repository.ToDoRepositoryJPA;
 import com.caparniyazi.ds.validation.ToDoValidationError;
 import com.caparniyazi.ds.validation.ToDoValidationErrorBuilder;
 import jakarta.validation.Valid;
@@ -27,7 +28,7 @@ import java.util.Optional;
 public class ToDoController {
     // Data fields
     // private final CommonRepository<ToDo> repository;
-    private final ToDoRepositoryDataJDBC repository;
+    private final ToDoRepositoryJPA repository;
 
     // HTTP GET
     @GetMapping(value = "/todo",

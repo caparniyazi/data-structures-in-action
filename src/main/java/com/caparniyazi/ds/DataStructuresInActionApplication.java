@@ -36,6 +36,7 @@ public class DataStructuresInActionApplication implements CommandLineRunner {
         private String appVersion;
         private String appDescription;
     }
+
     private static final Logger LOGGER = LoggerFactory.getLogger(DataStructuresInActionApplication.class);
     private final MyAppProperties props;
 

@@ -104,6 +104,10 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
         <!--
         When Spring Boot executes its autoconfiguration and finds out that you have the
         Spring Data JPA JAR, it configures the datasource by default (if there is none defined).
