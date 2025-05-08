@@ -6,6 +6,20 @@ import java.util.Optional;
  * Artificial Intelligence A Modern Approach (3rd Edition): Figure 2.1, page 35.<br>
  * <p>
  * Figure 2.1 Agents interact with environments through sensors and actuators.
+ * <p/>
+ * For each possible percept sequence, a rational agent should select an action expected
+ * to maximize its performance measure, given the evidence provided by the percept
+ * sequence and whatever built-in knowledge the agent has.
+ * <p/>
+ * Our definition requires a rational agent not only to gather information but also to learn
+ * as much as possible from what it perceives. The agent’s initial configuration could reflect
+ * some prior knowledge of the environment, but as the agent gains experience, this may be
+ * modified and augmented.
+ * <p/>
+ * To the extent that an agent relies on the prior knowledge of its designer rather than
+ * on its own percepts, we say that the agent lacks autonomy. A rational agent should be
+ * autonomous-it should learn what it can to compensate for partial or incorrect prior knowledge.
+ * <p/>
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
