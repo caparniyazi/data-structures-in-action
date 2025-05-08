@@ -20,6 +20,13 @@ import java.util.Optional;
  * on its own percepts, we say that the agent lacks autonomy. A rational agent should be
  * autonomous-it should learn what it can to compensate for partial or incorrect prior knowledge.
  * <p/>
+ * When the agent has had little or no experience, it would have to act randomly unless the designer gave some assistance.
+ * It would be reasonable to provide an artificial intelligent agent with some initial knowledge
+ * as well as an ability to learn. After sufficient experience of its environment, the behavior
+ * of a rational agent can become effectively independent of its prior knowledge.
+ * Hence, the incorporation of learning allows one to design a single rational agent that will succeed in a
+ * vast variety of environments.
+ * <p/>
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
