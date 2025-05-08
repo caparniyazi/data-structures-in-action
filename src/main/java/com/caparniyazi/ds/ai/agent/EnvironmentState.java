@@ -13,6 +13,9 @@ package com.caparniyazi.ds.ai.agent;
  * Notice that we said environment states, not agent states.
  * If we define success in terms of agent's opinion of its own performance,
  * an agent could achieve perfect rationality simply by deluding itself that its performance was perfect.
+ * <p/>
+ * As a general rule, it is better to design performance measures according to what one actually
+ * wants in the environment, rather than according to how one thinks the agent should behave.
  *
  * @author Ciaran O'Reilly
  */
