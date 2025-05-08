@@ -27,6 +27,8 @@ import java.util.Optional;
  * Hence, the incorporation of learning allows one to design a single rational agent that will succeed in a
  * vast variety of environments.
  * <p/>
+ * In designing an agent, the first step must always be to specify the task environment as fully as possible.
+ * We call this the PEAS (Performance, Environment, Actuators, Sensors) description.
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
