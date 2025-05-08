@@ -29,6 +29,12 @@ import java.util.Optional;
  * <p/>
  * In designing an agent, the first step must always be to specify the task environment as fully as possible.
  * We call this the PEAS (Performance, Environment, Actuators, Sensors) description.
+ * <p/>
+ * Agent Type: Taxi Driver.
+ * Performance Measure: Safe, fast, legal, comfortable trip, maximize profits.
+ * Environment: Roads, other traffic, pedestrians, customers.
+ * Actuators: Steering, accelerator, brake, signal, horn, display.
+ * Sensors: Cameras, sonar, speedometer, GPS, odometer, accelerometer, engine sensors, keyboard.
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
