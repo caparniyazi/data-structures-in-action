@@ -6,6 +6,10 @@ import com.caparniyazi.ds.ai.agent.AgentProgram;
 import java.util.Optional;
 
 /**
+ * The agent function is an abstract mathematical description;
+ * the agent program is a concrete implementation, running
+ * within some physical system.
+ *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
  * @author Ravi Mohan
