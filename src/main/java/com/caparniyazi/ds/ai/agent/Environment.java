@@ -5,6 +5,12 @@ import java.util.List;
 /**
  * An abstract description of possible discrete Environments in which Agent(s)
  * can perceive and act.
+ * <p/>
+ * The range of task environments that might arise in AI is obviously vast.
+ * We can, however, identify a fairly small number of dimensions along which task environments
+ * can be categorized.
+ * These dimensions determine, to a large extent, the appropriate agent design
+ * and the applicability of each of the principal families of techniques for agent implementation.
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions

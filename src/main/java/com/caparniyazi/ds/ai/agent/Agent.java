@@ -35,6 +35,36 @@ import java.util.Optional;
  * Environment: Roads, other traffic, pedestrians, customers.
  * Actuators: Steering, accelerator, brake, signal, horn, display.
  * Sensors: Cameras, sonar, speedometer, GPS, odometer, accelerometer, engine sensors, keyboard.
+ * <p/>
+ * Agent Type: Medical Diagnosis System
+ * Performance Measure: Healthy patient, reduced costs.
+ * Environment: Patient, hospital, staff.
+ * Actuators: Display of questions, tests, diagnoses, treatments, referrals.
+ * Sensors: Keyboard entry of symptoms, findings, patient's answers.
+ * <p/>
+ * Agent Type: Satellite image analysis system.
+ * Performance Measure: Correct image categorization.
+ * Environment: Down link from orbiting satellite.
+ * Actuators: Display of scene categorization.
+ * Sensors: Color pixel arrays.
+ * <p/>
+ * Agent Type: Part-picking robot.
+ * Performance Measure: Percentage of parts in correct bins.
+ * Environment: Conveyor belt with parts, bins.
+ * Actuators: Jointed arm and hand.
+ * Sensors: Camera, joint angle sensors.
+ * <p/>
+ * Agent Type: Refinery controller.
+ * Performance Measure: Purity, yield, safety.
+ * Environment: Refinery, operators.
+ * Actuators: Valves, pumps, heaters, displays.
+ * Sensors: Temperature, pressure, chemical sensors.
+ * <p/>
+ * Agent Type: Interactive English tutor.
+ * Performance Measure: Student's score on test.
+ * Environment: Set of students, testing agency.
+ * Actuators: Display of exercises, suggestions, corrections.
+ * Sensors: Keyboard entry.
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
