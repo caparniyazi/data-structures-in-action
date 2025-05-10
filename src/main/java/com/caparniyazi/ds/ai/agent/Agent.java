@@ -65,6 +65,26 @@ import java.util.Optional;
  * Environment: Set of students, testing agency.
  * Actuators: Display of exercises, suggestions, corrections.
  * Sensors: Keyboard entry.
+ * <p/>
+ * If an agent’s sensors give it access to the complete state of the environment at each point in time,
+ * then we say that the task environment is fully observable.
+ * Fully observable environments are convenient because the agent need
+ * not maintain any internal state to keep track of the world.
+ * An environment might be partially observable because of noisy and inaccurate sensors
+ * or because parts of the state are simply missing from the sensor data.
+ * If the agent has no sensors at all, then the environment is unobservable.
+ * <p/>
+ * An agent solving a crossword puzzle by itself is clearly in a single-agent environment,
+ * whereas an agent playing chess is in a two-agent environment.
+ * Chess is a competitive multi-agent environment.
+ * In the taxi-driving environment, on the other hand, avoiding collisions maximizes the performance
+ * measure of all agents, so it is a partially cooperative multi-agent environment.
+ * <p/>
+ * The agent-design problems in multi-agent environments are often quite different
+ * from those in single-agent environments;
+ * for example, communication often emerges as a rational behavior in multi-agent
+ * environments; in some competitive environments, randomized behavior is rational because
+ * it avoids the pitfalls of predictability.
  *
  * @param <P> Type which is used to represent percepts
  * @param <A> Type which is used to represent actions
