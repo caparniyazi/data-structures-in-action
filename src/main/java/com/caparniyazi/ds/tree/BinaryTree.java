@@ -216,6 +216,31 @@ public class BinaryTree<E> implements Serializable {
         return stringJoiner.toString();
     }
 
+    /**
+     * Method to return the postorder traversal of the binary tree as
+     * a sequence of strings each seperated by a space.
+     *
+     * @return A postorder traversal as a string.
+     */
+    public String postOrderToString() {
+        return postOrderToString(root);
+    }
+
+    private String postOrderToString(Node<E> node) {
+        StringJoiner sj = new StringJoiner(" ");
+
+        if (node.left != null) {
+            sj.add(postOrderToString(node.left));
+        }
+
+        if (node.right != null) {
+            sj.add(postOrderToString(node.right));
+        }
+        sj.add(node.toString());
+
+        return sj.toString();
+    }
+
     public void postOrderTraverse(BiConsumer<E, Integer> consumer) {
         postOrderTraverse(root, 1, consumer);
     }
