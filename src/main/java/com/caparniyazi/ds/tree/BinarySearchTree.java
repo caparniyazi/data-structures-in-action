@@ -10,7 +10,7 @@ import java.util.List;
  * A set of nodes T is a binary search tree if either of the following is true:
  * • T is empty.
  * • If T is not empty, its root node has two subtrees, TL and TR, such that TL and TR are
- * binary search trees and the value in the root node of T is greater than all values in TL
+ * binary search trees, and the value in the root node of T is greater than all values in TL
  * and is less than all values in TR.
  * <p>
  * Note that the class extends BinaryTree.
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @param <E>
  */
-public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> implements SearchTree<E> {
+public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTree<E> implements SearchTree<E> {
     // Data fields
     /*
     These data fields are used to store a second result from the recursive add and delete
@@ -66,7 +66,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
             addReturn = true;
             return new Node<>(item);
         } else if (item.compareTo(localRoot.data) == 0) {
-            // The item is reached.
+            // The item is reached. The item is already in the tree, do nothing.
             addReturn = false;
             return localRoot;
         } else if (item.compareTo(localRoot.data) < 0) {
