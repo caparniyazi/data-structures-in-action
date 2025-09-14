@@ -130,7 +130,11 @@ public class BinaryTree<E> implements Serializable {
      * @return The data in the root.
      */
     public E getData() {
-        return root.data;
+        if (root != null) {
+            return root.data;
+        } else {
+            return null;
+        }
     }
 
     /**
