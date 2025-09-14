@@ -83,6 +83,13 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
         }
     }
 
+    /**
+     * Determine if an item is in the tree.
+     *
+     * @param target The target item being searched for.
+     * @return true if the item is in the tree, false otherwise.
+     * @throws ClassCastException if target is not Comparable.
+     */
     @Override
     public boolean contains(E target) {
         return find(target) != null;
@@ -183,6 +190,8 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
             // Item is at localRoot
             deleteReturn = localRoot.data;
 
+            // If the node has no children, we need not find a replacement, e.g., replace
+            // this node with null (Set the parent of the local root to reference null.)
             if (localRoot.left == null) {
                 // If there is no left child, return right child which can also be null.
                 return localRoot.right;
@@ -190,7 +199,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
                 // If there is no right child, return left child.
                 return localRoot.left;
             } else {
-                // Node being deleted has two children, replace the data with inorder predecessor.
+                // The Node being deleted has two children, replace the data with inorder predecessor.
                 if (localRoot.left.right == null) {
                     // The left child has no right child
                     // Replace the data with the data in the left child.
@@ -227,6 +236,13 @@ public class BinarySearchTree<E extends Comparable<? super E>> extends BinaryTre
         }
     }
 
+    /**
+     * Removes target from a tree.
+     *
+     * @param target The target item to be removed.
+     * @return true if the item was in the tree, false otherwise.
+     * @post Target is not in the tree.
+     */
     @Override
     public boolean remove(E target) {
         return delete(target) != null;

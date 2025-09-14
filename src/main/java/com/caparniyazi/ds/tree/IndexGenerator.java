@@ -10,7 +10,7 @@ import java.util.TreeSet;
  */
 public class IndexGenerator {
     // Data fields
-    private final TreeSet<String> index;
+    private final TreeSet<String> index;    // The search tree used to store the index.
     /**
      * Pattern for extracting words from a line. A word is a string of
      * one or more letters or numbers or ' characters.
@@ -26,7 +26,7 @@ public class IndexGenerator {
      * along with its line number.
      *
      * @param scanner A scanner object.
-     * @post Lowercase form of each word with its line number is stored in the index.
+     * @post The Lowercase form of each word with its line number is stored in the index.
      */
     public void buildIndex(Scanner scanner) {
         int lineNum = 0;
@@ -40,7 +40,7 @@ public class IndexGenerator {
                 token = token.toLowerCase();
                 index.add(String.format("%s, %3d", token, lineNum));
             }
-            scanner.nextLine();
+            scanner.nextLine(); // Clear the scan buffer.
         }
     }
 
