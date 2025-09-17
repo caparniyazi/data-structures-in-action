@@ -168,7 +168,7 @@ public class Heap<E extends Comparable<? super E>> {
      */
     public E peek() {
         if (theData.isEmpty()) {
-            throw new NoSuchElementException("Heap is empty");
+            return null;
         }
 
         return theData.get(0);
