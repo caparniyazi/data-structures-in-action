@@ -7,13 +7,22 @@ import java.util.*;
 /**
  * The class implements the Queue interface by building a heap in an ArrayList.
  * The heap is structured so that the "smallest" item is at the top.
+ * <p/>
+ * The smallest item is always removed first from a priority queue (the smallest item has the
+ * highest priority) just as it is for a heap.
+ * Because insertion into and removal from a heap is O(log n),
+ * a heap can be the basis for an efficient implementation of a priority queue.
+ * <p/>
+ * PriorityQueue in the java.util API also uses a heap as the basis of its implementation.
+ * A key difference is that class java.util.PriorityQueue class uses an array of type Object[]
+ * for heap storage.
  *
  * @param <E> The element type.
  */
 public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
     // Data fields
     private final ArrayList<E> theData;     // To hold the data.
-    private final Comparator<E> comp; // A reference to a comparator object.
+    private final Comparator<? super E> comp; // A reference to a Comparator object.
 
     // Constructors
 
@@ -23,7 +32,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
      */
     @SuppressWarnings("unchecked")
     public MyPriorityQueue() {
-        theData = new ArrayList<E>();
+        theData = new ArrayList<>();
         comp = (left, right) -> ((Comparable<E>) left).compareTo(right);
     }
 
@@ -31,10 +40,10 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
      * Creates a heap-based priority queue that orders its elements
      * according to the specified Comparator.
      *
-     * @param comp The comparator used to order queue elements.
+     * @param comp The Comparator used to order queue elements.
      */
     public MyPriorityQueue(Comparator<E> comp) {
-        theData = new ArrayList<E>();
+        theData = new ArrayList<>();
         this.comp = comp;
     }
 
@@ -43,14 +52,14 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
      * that orders its elements according to the specified Comparator.
      *
      * @param capacity The initial capacity for this priority queue.
-     * @param comp     The comparator used to order queue elements.
+     * @param comp     The Comparator used to order queue elements.
      * @throws IllegalArgumentException if capacity is less than 1.
      */
     public MyPriorityQueue(int capacity, Comparator<E> comp) {
         if (capacity < 1) {
             throw new IllegalArgumentException();
         }
-        theData = new ArrayList<E>(capacity);
+        theData = new ArrayList<>(capacity);
         this.comp = comp;
     }
 
@@ -66,7 +75,8 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
     }
 
     /**
-     * Inserts an item into the priority queue.
+     * Inserts an item into the priority queue, and then move this item up the heap until
+     * the ArrayList is restored to a heap.
      *
      * @param item The item to be inserted.
      * @return true.
@@ -78,7 +88,11 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
     public boolean offer(E item) {
         // Add the item to the heap.
         theData.add(item);
-        // child is newly inserted item.
+        return bubbleUp();
+    }
+
+    private boolean bubbleUp() {
+        // child is the newly inserted item.
         int child = theData.size() - 1;
         int parent = (child - 1) / 2;   // Find child's parent.
 
@@ -142,7 +156,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
             int rightChild = leftChild + 1;
             int minChild = leftChild;   // Assume leftChild is smaller.
 
-            // See whether right child is smaller
+            // See whether the right child is smaller
             if (rightChild < theData.size() && comp.compare(theData.get(leftChild), theData.get(rightChild)) > 0) {
                 minChild = rightChild;
             }
