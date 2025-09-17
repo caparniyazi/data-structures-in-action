@@ -55,7 +55,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
      * @param comp     The Comparator used to order queue elements.
      * @throws IllegalArgumentException if capacity is less than 1.
      */
-    public MyPriorityQueue(int capacity, Comparator<E> comp) {
+    public MyPriorityQueue(int capacity, Comparator<? super E> comp) {
         if (capacity < 1) {
             throw new IllegalArgumentException();
         }
