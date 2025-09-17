@@ -33,7 +33,7 @@ public class MyPriorityQueue<E> extends AbstractQueue<E> implements Queue<E> {
     @SuppressWarnings("unchecked")
     public MyPriorityQueue() {
         theData = new ArrayList<>();
-        comp = (left, right) -> ((Comparable<E>) left).compareTo(right);
+        comp = (left, right) -> ((Comparable<? super E>) left).compareTo(right);
     }
 
     /**
