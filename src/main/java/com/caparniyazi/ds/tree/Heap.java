@@ -43,7 +43,7 @@ public class Heap<E extends Comparable<? super E>> {
     public void insert(E item) {
         // Insert the new item in the next position at the bottom of the heap.
         theData.add(item);
-        bubbleUp(item);
+        bubbleUp();
     }
 
     /**
@@ -101,12 +101,12 @@ public class Heap<E extends Comparable<? super E>> {
         return root;
     }
 
-    private void bubbleUp(E item) {
+    private void bubbleUp() {
         int child = theData.size() - 1; // Child is the new inserted item.
         int parent = (child - 1) / 2;   // Find the child's parent.
 
         // While new item is not at the root, and new item is smaller than its parent
-        while (parent >= 0 && theData.get(parent).compareTo(item) > 0) {
+        while (parent >= 0 && theData.get(parent).compareTo(theData.get(child)) > 0) {
             swap(parent, child);    // Swap the new item with its parent, moving the new item up the heap.
             child = parent;
             parent = (child - 1) / 2;
