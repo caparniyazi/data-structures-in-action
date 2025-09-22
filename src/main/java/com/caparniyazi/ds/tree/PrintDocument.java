@@ -3,8 +3,6 @@ package com.caparniyazi.ds.tree;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.Objects;
-
 /**
  * The class PrintDocument is used to define documents to be printed on a printer.
  * The class has a getSize method that gives the number of bytes to be transmitted
@@ -12,6 +10,10 @@ import java.util.Objects;
  * Instead of basing the ordering on document names,
  * we want to order the documents by a value that is a function of both size
  * and the waiting time of a document.
+ * <p/>
+ * If we were to use either time or size alone, small documents
+ * could be delayed while big ones are printed, or big documents would never be printed.
+ * By using a priority value that is a combination, we achieve a balanced usage of the printer.
  */
 public class PrintDocument implements Comparable<PrintDocument> {
     // Data fields
@@ -26,10 +28,20 @@ public class PrintDocument implements Comparable<PrintDocument> {
         this.timeStamp = timeStamp;
     }
 
+    /**
+     * Method that gives the number of bytes to be transmitted to the printer.
+     *
+     * @return The number of bytes to be transmitted to the printer.
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Method that gets the time that the print job was submitted.
+     *
+     * @return the time that the print job was submitted.
+     */
     public long getTimeStamp() {
         return timeStamp;
     }

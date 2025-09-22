@@ -21,9 +21,9 @@ public class TestHuffmanTree {
 
         /*
          * The output of method decode for the Huffman tree and the encoded
-           message string "11101011011001111".
+           message string "10111011111100".
          */
-        System.out.println(aTree.decode("11101011011001111"));
+        System.out.println(aTree.decode("10111011111100"));
 
 
         /*

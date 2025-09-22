@@ -51,29 +51,38 @@ public class HuffmanTree<T> implements Serializable {
      * @post huffTree contains a reference to the Huffman tree.
      */
     public void buildTree(HuffData<T>[] symbols) {
-        Queue<BinaryTree<HuffData<T>>> theQueue = new MyPriorityQueue<>(symbols.length, (lt, rt) -> Double.compare(lt.getData().weight, rt.getData().weight));
+        // Creates a new priority queue for storing BinaryTree<HuffData> objects.
+        Queue<BinaryTree<HuffData<T>>> theQueue =
+                new MyPriorityQueue<>(symbols.length, Comparator.comparingDouble(lt -> lt.getData().weight));
 
-        // Load the queue with the leaves, in other words place the set of trees into a priority queue.
+        // Load the priority queue with trees consisting of leaf nodes.
+        // In other words, place the set of trees into a priority queue.
         for (HuffData<T> nextSymbol : symbols) {
-            var aBinaryTree = new BinaryTree<HuffData<T>>(nextSymbol, null, null);
+            var aBinaryTree = new BinaryTree<>(nextSymbol, null, null);
             theQueue.offer(aBinaryTree);
         }
 
-        // Build the tree.
+        /*
+          Build the tree.
+          Each time through the while loop, two nodes are removed from the priority queue,
+          and one is inserted.Thus, effectively one tree is removed, and the queue gets smaller
+          with each pass through the loop.
+         */
         while (theQueue.size() > 1) {
             BinaryTree<HuffData<T>> left = theQueue.poll();
             BinaryTree<HuffData<T>> right = theQueue.poll();
             double wl = left.getData().weight;
+            assert right != null;
             double wr = right.getData().weight;
 
-            // Create a new tree with sum of weights of children.
-            HuffData<T> sum = new HuffData<T>(wl + wr, null);
-            var newTree = new BinaryTree<HuffData<T>>(sum, left, right);
+            // Create a new tree with a sum of weights of children.
+            HuffData<T> sum = new HuffData<>(wl + wr, null);
+            var newTree = new BinaryTree<>(sum, left, right);
             theQueue.offer(newTree);
         }
         ((MyPriorityQueue<?>) theQueue).printTree();
 
-        // The queue should now contain only one item.
+        // The queue should now contain only one item (the root).
         huffTree = theQueue.poll();
     }
 
@@ -100,7 +109,7 @@ public class HuffmanTree<T> implements Serializable {
             } else {
                 out.println(theData.symbol + ": " + code);
             }
-        } else {    // Otherwise the left and right subtrees are traversed.
+        } else {    // Otherwise, the left and right subtrees are traversed.
             /*
              * When we traverse the left subtree, we append a 0 to the code,
              * and when we traverse the right subtree, we append a 1 to the code.
