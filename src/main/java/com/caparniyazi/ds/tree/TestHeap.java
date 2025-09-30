@@ -23,5 +23,19 @@ public class TestHeap {
         System.out.println("---------------------------------");
         theHeap.remove();
         theHeap.printTree();
+
+        // Show the heap that would result from inserting the items 35, 20, 30, 50, 45, 60, 18, 25
+        // in this sequence.
+        System.out.println("----------------------------------");
+        theHeap = new Heap<>();
+        theHeap.insert(35);
+        theHeap.insert(20);
+        theHeap.insert(30);
+        theHeap.insert(50);
+        theHeap.insert(45);
+        theHeap.insert(60);
+        theHeap.insert(18);
+        theHeap.insert(25);
+        theHeap.printTree();
     }
 }

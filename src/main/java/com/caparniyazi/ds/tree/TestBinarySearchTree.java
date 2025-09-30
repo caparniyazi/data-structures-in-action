@@ -56,5 +56,20 @@ public class TestBinarySearchTree {
         System.out.println(bstInt);
         System.out.println(bstInt.toString());
         System.out.println(bstInt.toList());
+        System.out.println("********************************************");
+
+        // Show the binary search tree that would result from inserting the items 35, 20, 30, 50, 45, 60, 18, 25
+        // in this sequence.
+        data3 = new Integer[]{35, 20, 30, 50, 45, 60, 18, 25};
+        bstInt = new BinarySearchTree<>();
+
+        for (Integer i : data3) {
+            bstInt.add(i);
+        }
+        System.out.println(bstInt);
+        System.out.println(bstInt.toList());
+        bstInt.remove(35);
+        System.out.println(bstInt);
+        System.out.println(bstInt.toList());
     }
 }
