@@ -143,7 +143,7 @@ public class BinaryTree<E> implements Serializable {
      * @return true if the root has no children.
      */
     public boolean isLeaf() {
-        return root.left == null && root.right == null;
+        return (root == null || (root.left == null && root.right == null));
     }
 
     /**
@@ -334,5 +334,45 @@ public class BinaryTree<E> implements Serializable {
             sb.append("\n");
         });
         return sb.toString();
+    }
+
+    /**
+     * The method that returns the total number of nodes.
+     * Empty tree has size=0 & height=0
+     * 1-node tree has size=1 & height=1
+     *
+     * @return The total number of nodes.
+     */
+    public int size() {
+        return size(this.root);
+    }
+
+    private int size(Node<E> node) {
+        if (node == null) {
+            return 0;
+        }
+
+        return 1 + size(node.left) + size(node.right);
+    }
+
+    /**
+     * The method that returns the height of the tree.
+     * If T is empty, its height is 0.
+     * If T is not empty, its height is the max. depth of its nodes.
+     *
+     * @return The height of the tree.
+     */
+    public int height() {
+        return height(this.root);
+    }
+
+    private int height(Node<E> node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int hL = height(node.left);
+        int hR = height(node.right);
+        return 1 + Math.max(hL, hR);
     }
 }

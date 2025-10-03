@@ -151,6 +151,13 @@ public class HuffmanTree<T> implements Serializable {
         return result.toString();
     }
 
+    /**
+     * Method to build the code array.
+     * The Result is an ordered array of Strings
+     * where the first item is the code for the smallest symbol in the array of symbols.
+     *
+     * @return Array of codes.
+     */
     public String[] getCodes() {
         SortedMap<Character, String> map = new TreeMap<>();
         String currentCode = "";
