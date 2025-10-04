@@ -4,7 +4,7 @@ import java.io.*;
 
 public class TestBinaryTree {
     @SuppressWarnings("unchecked")
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, CloneNotSupportedException {
         BinaryTree<Integer> tree = new BinaryTree<>(1, null, null);
         tree.root.left = new BinaryTree.Node<>(2);
         tree.root.right = new BinaryTree.Node<>(3);
@@ -22,6 +22,9 @@ public class TestBinaryTree {
 
         System.out.println(binaryTree);
         System.out.println(binaryTree.size());
+        System.out.println("Cloned tree:-----");
+        System.out.println(binaryTree.clone());
+        System.out.println("-----------------");
 
         // Write out the initial tree to a file.
         try (ObjectOutputStream out =

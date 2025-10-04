@@ -10,7 +10,7 @@ import java.util.function.BiConsumer;
  *
  * @param <E> The type
  */
-public class BinaryTree<E> implements Serializable {
+public class BinaryTree<E> implements Serializable, Cloneable {
     // Data fields
     /**
      * It has protected visibility, because we will need to access it in the subclass BinarySearchTree.
@@ -155,7 +155,7 @@ public class BinaryTree<E> implements Serializable {
      * indicates a null tree.
      */
     public static BinaryTree<String> readBinaryTree(Scanner scanner) {
-        // Read a line and trim leading & trailing spaces.
+        // Read a line and trim leading and trailing spaces.
         String data = scanner.nextLine().trim();
 
         if (data.equals("null")) {
@@ -374,5 +374,34 @@ public class BinaryTree<E> implements Serializable {
         int hL = height(node.left);
         int hR = height(node.right);
         return 1 + Math.max(hL, hR);
+    }
+
+    /**
+     * super.clone() is called to satisfy the java convention.
+     * Since it only shallow copies root, we overwrite with a deep-cloned tree.
+     *
+     * @return deep-cloned tree.
+     * @throws CloneNotSupportedException if invoking an Object's clone method on an instance,
+     *                                    that does not implement Cloneable interface.
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public BinaryTree<E> clone() throws CloneNotSupportedException {
+        BinaryTree<E> cloned = (BinaryTree<E>) super.clone();   // Shallow copy.
+
+        cloned.root = cloneNode(this.root); // Replace it with deep copy of nodes.
+        return cloned;
+    }
+
+    private Node<E> cloneNode(Node<E> node) {
+        if (node == null) {
+            return null;
+        }
+
+        Node<E> newNode = new Node<>(node.data);
+        newNode.left = cloneNode(node.left);
+        newNode.right = cloneNode(node.right);
+
+        return newNode;
     }
 }
