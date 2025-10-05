@@ -74,6 +74,15 @@ public class BinaryTree<E> implements Serializable, Cloneable {
         this.root = root;
     }
 
+    // Accessible to subclasses / the same package.
+    protected Node<E> getRoot() {
+        return root;
+    }
+
+    protected void setRoot(Node<E> root) {
+        this.root = root;
+    }
+
     /**
      * Constructs a new binary tree with data in its root leftTree
      * as its left subtree and rightTree as its right subtree.
