@@ -366,6 +366,9 @@ public class BinaryTree<E> implements Serializable, Cloneable {
 
     /**
      * The method that returns the height of the tree.
+     * The height of a tree is the number of nodes in the longest path from the root node to a leaf node.
+     * Another way of saying this is as follows:
+     * <p>
      * If T is empty, its height is 0.
      * If T is not empty, its height is the max. depth of its nodes.
      *
