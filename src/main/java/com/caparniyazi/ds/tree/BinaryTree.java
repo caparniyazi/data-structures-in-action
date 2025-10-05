@@ -1,6 +1,6 @@
 package com.caparniyazi.ds.tree;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.Scanner;
 import java.util.StringJoiner;
 import java.util.function.BiConsumer;
@@ -84,18 +84,8 @@ public class BinaryTree<E> implements Serializable, Cloneable {
      */
     public BinaryTree(E data, BinaryTree<E> leftTree, BinaryTree<E> rightTree) {
         root = new Node<>(data);
-
-        if (leftTree != null) {
-            root.left = leftTree.root;
-        } else {
-            root.left = null;
-        }
-
-        if (rightTree != null) {
-            root.right = rightTree.root;
-        } else {
-            root.right = null;
-        }
+        root.left = leftTree != null ? leftTree.root : null;
+        root.right = rightTree != null ? rightTree.root : null;
     }
 
     /**
@@ -130,11 +120,7 @@ public class BinaryTree<E> implements Serializable, Cloneable {
      * @return The data in the root.
      */
     public E getData() {
-        if (root != null) {
-            return root.data;
-        } else {
-            return null;
-        }
+        return root.data != null ? root.data : null;
     }
 
     /**
@@ -165,6 +151,29 @@ public class BinaryTree<E> implements Serializable, Cloneable {
             BinaryTree<String> rightTree = readBinaryTree(scanner);
 
             return new BinaryTree<>(data, leftTree, rightTree);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static BinaryTree<String> loadBinaryTree(File file) {
+        BinaryTree<String> tree = null;
+
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            tree = (BinaryTree<String>) in.readObject();
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.exit(1);
+        }
+        return tree;
+    }
+
+    public static void saveBinaryTree(BinaryTree<String> tree, String filename) {
+        try (ObjectOutputStream out =
+                     new ObjectOutputStream(new FileOutputStream(filename))) {
+            out.writeObject(tree);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            System.exit(1);
         }
     }
 

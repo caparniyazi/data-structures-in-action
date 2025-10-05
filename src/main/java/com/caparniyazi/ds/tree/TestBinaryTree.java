@@ -3,7 +3,6 @@ package com.caparniyazi.ds.tree;
 import java.io.*;
 
 public class TestBinaryTree {
-    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws FileNotFoundException, CloneNotSupportedException {
         BinaryTree<Integer> tree = new BinaryTree<>(1, null, null);
         tree.root.left = new BinaryTree.Node<>(2);
@@ -21,28 +20,17 @@ public class TestBinaryTree {
         );
 
         System.out.println(binaryTree);
-        System.out.println(binaryTree.size());
         System.out.println("Cloned tree:-----");
         System.out.println(binaryTree.clone());
         System.out.println("-----------------");
 
+        System.out.println("Saving the tree to the file system.");
         // Write out the initial tree to a file.
-        try (ObjectOutputStream out =
-                     new ObjectOutputStream(new FileOutputStream("BinaryTreeTestFile"))) {
-            out.writeObject(binaryTree);
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-            System.exit(1);
-        }
+        BinaryTree.saveBinaryTree(binaryTree, "BinaryTreeTestFile");
 
         // Read the file back(revive).
-        BinaryTree<String> redux = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("BinaryTreeTestFile"))) {
-            redux = (BinaryTree<String>) in.readObject();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        System.out.println("Loading the tree from the file system.");
+        BinaryTree<String> redux = BinaryTree.loadBinaryTree(new File("BinaryTreeTestFile"));
         System.out.println(redux);  // Prove that the file was read back in correctly.
     }
 }
