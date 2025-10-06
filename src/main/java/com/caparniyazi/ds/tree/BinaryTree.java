@@ -1,6 +1,8 @@
 package com.caparniyazi.ds.tree;
 
 import java.io.*;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.StringJoiner;
 import java.util.function.BiConsumer;
@@ -161,6 +163,35 @@ public class BinaryTree<E> implements Serializable, Cloneable {
 
             return new BinaryTree<>(data, leftTree, rightTree);
         }
+    }
+
+    public static BinaryTree<String> readExpTree() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter prefix expression, tokens separated by space: ");
+        String line = scanner.nextLine().trim();
+        String[] tokens = line.split("\\s+");
+        Iterator<String> iter = Arrays.asList(tokens).iterator();
+        return new BinaryTree<>(readPrefix(iter));
+    }
+
+    private static boolean isOperator(String s) {
+        return "+-*/".contains(s);
+    }
+
+    private static Node<String> readPrefix(Iterator<String> iter) {
+        if (!iter.hasNext()) {
+            return null;
+        }
+
+        String token = iter.next();
+        BinaryTree.Node<String> node = new Node<>(token);
+
+        if (isOperator(token)) {
+            node.left = readPrefix(iter);
+            node.right = readPrefix(iter);
+        }
+
+        return node;
     }
 
     @SuppressWarnings("unchecked")

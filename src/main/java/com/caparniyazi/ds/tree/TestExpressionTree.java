@@ -10,5 +10,9 @@ public class TestExpressionTree {
         ExpressionTree tree = new ExpressionTree();
         tree.buildSampleTree();
         System.out.println("Evaluated value is: " + tree.eval());
+
+        System.out.println("Enter an expression tree using prefix notation: ");
+        BinaryTree<String> expTree = BinaryTree.readExpTree();
+        System.out.println("Evaluated value is: " + new ExpressionTree(expTree).eval());
     }
 }
