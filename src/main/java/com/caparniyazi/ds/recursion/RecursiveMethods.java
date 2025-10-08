@@ -248,7 +248,7 @@ public class RecursiveMethods {
 
     /**
      * Wrapper for recursive linear search method.
-     * The sole purpose of this method is to call the recursive method, passing on its arguments with
+     * The sole purpose of this method is to call the recursive method, pass on its arguments with
      * 0 as a third argument, and return its result.
      *
      * @param items  The array being searched.
@@ -292,8 +292,10 @@ public class RecursiveMethods {
      * call, binary search is an O(log n) algorithm. To verify this, an unsuccessful search of an array
      * of size 16 could result in our searching arrays of size 16, 8, 4, 2, and 1 to determine that the
      * target was not present. Thus, an array of size 16 requires a total of 5 probes in the worst case
-     * (16 is 24, so 5 is log 216 + 1). If we double the array size, we would need to make only 6 probes
-     * for an array of size 32 in the worst case (32 is 25, so 6 is log2 32 + 1).
+     * (16 is 2^4, so 5 is log 2^16 + 1). If we double the array size, we would need to make only 6 probes
+     * for an array of size 32 in the worst case (32 is 2^5, so 6 is log2 32 + 1).
+     * Searching for a particular value in a List object is generally an O(n) process.
+     * The exception is a binary search of a sorted object, which is an O(log n) process.
      * <p/>
      * The Java API class Arrays contains a binarySearch method. It can be called with sorted
      * arrays of primitive types or with sorted arrays of objects. If the objects in the array are not
