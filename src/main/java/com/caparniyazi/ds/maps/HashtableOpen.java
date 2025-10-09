@@ -1,5 +1,7 @@
 package com.caparniyazi.ds.maps;
 
+import java.util.Arrays;
+
 /**
  * Hash table implementation using open addressing.
  * In a hash table that uses open addressing, we represent the hash table as
@@ -258,5 +260,10 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         }
 
         return index;
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(table);
     }
 }
