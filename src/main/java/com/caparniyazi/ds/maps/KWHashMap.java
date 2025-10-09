@@ -17,7 +17,7 @@ public interface KWHashMap<K, V> {
     Associates the specified value with the specified key. Returns the previous value
     associated with the specified key, or null if there is no mapping for the key.
      */
-    void put(K key, V value);
+    V put(K key, V value);
 
     /*
     Returns true if this table contains no key-value mappings.
