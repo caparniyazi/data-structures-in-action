@@ -164,7 +164,8 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     /**
-     * Expands the table size when the load factor exceeds LOAD_THRESHOLD.
+     * Expands(doubles) the table size when the load factor exceeds LOAD_THRESHOLD
+     * and permanently removes deleted items.
      *
      * @pre The size of the table is doubled and is an odd integer.
      * Each non-deleted entry from the original table is reinserted into the expanded table.
@@ -234,7 +235,10 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     /**
-     * Finds either the target key or the first empty slot in the search chain using linear probing.
+     * Finds either the index of the target key or the index of th first empty slot in the search chain
+     * using linear probing.
+     * By expanding the table when the load factor exceeds the LOAD_THRESHOLD,
+     * we ensure that there will always be an empty slot in the table.
      *
      * @param key The key of the target object.
      * @return The position of the target or the first empty slot if the target is not in the table.
