@@ -74,7 +74,13 @@ public final class Transaction implements Comparable<Transaction> {
 
     /**
      * Returns a hash code for this transaction.
-     *
+     * Standard recipe for user-defined types:
+     * <pre>
+     *      If field is a primitive type, use wrapper type hash code.
+     *      If the field is null, return 0.
+     *      If the filed is a reference type, use hashCode().Applies rules recursively.
+     *      If the field is an array, apply to each entry or use Arrays.deepHashCode()
+     *  </per>
      * @return a hash code for this transaction
      */
     public int hashCode() {
