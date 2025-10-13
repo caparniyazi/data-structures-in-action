@@ -139,6 +139,13 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     /**
+     * Even with a good hashing function, it is still possible to have collisions.
+     * The first step in reducing these collisions is to use a prime number for the size of the table.
+     * <p/>
+     * In addition, the probability of a collision is proportional to how full the table is.
+     * Therefore, when the hash table becomes full enough, a larger table should be allocated and the
+     * entries reinserted (rehashing).
+     * <p/>
      * In open addressing, when a data item can’t be placed at the index calculated by the
      * hash function, another location in the array is sought.
      * <p/>
@@ -211,6 +218,8 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         numDeletes = 0;
 
         for (Entry<K, V> entry : oldTable) {
+            // Note that deleted items are not reinserted into the new table,
+            // thereby saving space and reducing the length of some search chains.
             if (entry != null && entry != DELETED) {
                 put(entry.getKey(), entry.getValue());
             }
