@@ -20,6 +20,10 @@ import java.util.Arrays;
  * full, so the programmer needs to have a fairly accurate idea of how many data items will need to be stored
  * (or be prepared to periodically transfer data to a larger hash table, a time-consuming process).
  * <p/>
+ * One thing that you cannot do is traverse a hash table meaningfully.
+ * If you visit the hash table in sequence and display the objects stored,
+ * you would display them in arbitrary order.
+ * <p/>
  * Hash table implementation using open addressing.
  * In a hash table that uses open addressing, we represent the hash table as
  * an array of Entry objects (initial size is START_CAPACITY).
