@@ -132,6 +132,9 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     /**
+     * In open addressing, when a data item can’t be placed at the index calculated by the
+     * hash function, another location in the array is sought.
+     * <p/>
      * Finds the first element that is empty or the table element that contains the key.
      * If an empty element was found,
      * <pre>
@@ -252,8 +255,27 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     /**
+     * (Probing means 'Araştırma' in Turkish)
+     * In linear probing, we search sequentially for vacant cells.
+     * If 5,421 is occupied, e.g., when we try to insert a data item there,
+     * we go to 5,422, then 5,423, and so on incrementing the index until we find an empty cell.
+     * This is called linear probing because it steps sequentially along the line of cells.
+     * <p/>
      * Finds either the index of the target key or the index of the first empty slot in the search chain
      * using linear probing.
+     * <p/>
+     * Note that as you increment the table index, your table should wrap around (as in a circular
+     * array) so that the element with subscript 0 “follows” the element with subscript
+     * table.length() − 1.This enables you to use the entire table, not just the part with subscripts larger
+     * than the hash code value, but it leads to the potential for an infinite loop.
+     * If the table is full and the objects examined so far do not match the one you are
+     * seeking, how do you know when to stop?
+     * One approach would be to stop when the index value for the next probe is the same as the
+     * hash code value for the object.
+     * This means that you have come full circle to the starting value for the index.
+     * A second approach would be to ensure that the table is never full by increasing its size
+     * after an insertion if its occupancy rate exceeds a specified threshold.
+     * <p/>
      * By expanding the table when the load factor exceeds the LOAD_THRESHOLD,
      * we ensure that there will always be an empty slot in the table.
      *
