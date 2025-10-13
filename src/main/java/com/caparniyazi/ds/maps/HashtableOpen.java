@@ -3,6 +3,19 @@ package com.caparniyazi.ds.maps;
 import java.util.Arrays;
 
 /**
+ * Hash table is a data structure that offers very fast insertion and searching.
+ * No matter how many data items there are, insertion and searching (and
+ * sometimes deletion) can take close to constant time: O(1).
+ * In practice, this is just a few machine instructions.
+ * Hash tables are significantly faster than trees, which operate in relatively fast
+ * O(logN) time.
+ * <p/>
+ * Hash tables do have several disadvantages.
+ * They’re based on arrays, and arrays are difficult to expand after they’ve been created.
+ * For some kinds of hash tables, performance may degrade catastrophically when a table becomes too
+ * full, so the programmer needs to have a fairly accurate idea of how many data items will need to be stored
+ * (or be prepared to periodically transfer data to a larger hash table, a time-consuming process).
+ * <p/>
  * Hash table implementation using open addressing.
  * In a hash table that uses open addressing, we represent the hash table as
  * an array of Entry objects (initial size is START_CAPACITY).
@@ -235,7 +248,7 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     /**
-     * Finds either the index of the target key or the index of th first empty slot in the search chain
+     * Finds either the index of the target key or the index of the first empty slot in the search chain
      * using linear probing.
      * By expanding the table when the load factor exceeds the LOAD_THRESHOLD,
      * we ensure that there will always be an empty slot in the table.
