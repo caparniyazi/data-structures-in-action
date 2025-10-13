@@ -240,6 +240,22 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     public V remove(Object key) {
         int index = find(key);
 
+        /*
+         By storing a dummy value when an item is deleted,
+         we force the search algorithm to keep looking until either the desired item is found
+         or a null value, representing a free cell, is located.
+         <p/>
+         Although the use of a dummy value solves the problem, keep in mind that it can lead to
+         search inefficiency, particularly when there are many deletions.
+         Removing items from the table does not reduce the search time
+         because the dummy value is still in the table and is part of a search chain.
+         In fact, you cannot even replace a deleted value with a new item.
+         You still need to go to the end of the search chain to ensure that the new item is not already
+         present in the table.
+         So deleted items waste storage space and reduce search efficiency.
+         In the worst case, if the table is almost full and then most of the items are deleted, you will have
+         O(n) performance when searching for the few items remaining in the table.
+         */
         if (table[index] != null) {
             V oldValue = table[index].getValue();
             table[index] = DELETED;
