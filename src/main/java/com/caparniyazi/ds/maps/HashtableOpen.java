@@ -300,6 +300,10 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         }
 
         // Increment index until an empty slot is reached or the key is found.
+        // If it encounters an empty slot before finding the key it's looking for,
+        // it knows the search has failed.
+        // There's no use looking further because the insertion algorithm would have inserted
+        // the item at this slot (if not earlier).
         while (table[index] != null && !table[index].getKey().equals(key)) {
             index++;
 
