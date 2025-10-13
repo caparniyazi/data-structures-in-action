@@ -95,6 +95,9 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     }
 
     private Entry<K, V>[] table;    // The hash table entry
+    // Empirical tests have shown that hash tables with a size that is a prime number
+    // often give better results.
+    // And the best way to reduce the probability of a collision is to increase the table size.
     private static final int START_CAPACITY = 101;
     private static final double LOAD_THRESHOLD = 0.75; // The max. load factor.
     private int numKeys;    // The number of keys in the table excluding the keys that were deleted.
