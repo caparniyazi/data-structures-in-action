@@ -3,6 +3,10 @@ package com.caparniyazi.ds.maps;
 import java.util.Arrays;
 
 /**
+ * A hash function hashes (converts) a number in a large range into a number in a smaller range.
+ * This smaller range corresponds to the index numbers in an array.
+ * An array into which data is inserted using a hash function is called a hash table.
+ * <p/>
  * Hash table is a data structure that offers very fast insertion and searching.
  * No matter how many data items there are, insertion and searching (and
  * sometimes deletion) can take close to constant time: O(1).
