@@ -20,6 +20,31 @@ import java.util.Arrays;
  * full, so the programmer needs to have a fairly accurate idea of how many data items will need to be stored
  * (or be prepared to periodically transfer data to a larger hash table, a time-consuming process).
  * <p/>
+ * The problem with linear probing is that it tends to form clusters of keys in the table, causing
+ * longer search chains.
+ * An alternative to open addressing is a technique called chaining, in which each table element
+ * references a linked list that contains all the items that hash to the same table index.
+ * This linked list is often called a bucket, and this approach is sometimes called bucket hashing.
+ * Each new element with a particular hash index can be placed at the beginning or the end of the associated
+ * linked list.
+ * To delete an item, simply remove it from the list.
+ * In contrast to open addressing, removing an item actually deletes it, so it will not be part of future
+ * search chains.
+ * The algorithm for accessing such a table is the same as for open addressing,
+ * except for the step for resolving collisions.
+ * Instead of incrementing the table index to access the next item with a particular hash code value,
+ * you traverse the linked list referenced by the table element with index hashCode() % table.length.
+ * <p/>
+ * One advantage of chaining is that only items that have the same value for hashCode() %
+ * "table.length" will be examined when looking for an object.
+ * In open addressing, search chains can overlap, so a search chain may include items in the table that have different
+ * starting index values.
+ * <p/>
+ * A second advantage is that you can store more elements in the table than the number of table
+ * slots (indexes), which is not the case for open addressing.
+ * If each table index already references a linked list,
+ * additional items can be inserted in an existing list without increasing the table size (number of indexes).
+ * <p/>
  * One thing that you cannot do is traverse a hash table meaningfully.
  * If you visit the hash table in sequence and display the objects stored,
  * you would display them in arbitrary order.
