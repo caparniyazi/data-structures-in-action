@@ -201,7 +201,7 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         // Assert: The table element that contains the key was found.
         // Replace value for this key.
         V oldValue = table[index].getValue();
-        table[index].setValue(value)
+        table[index].setValue(value);
         return oldValue;
     }
 
