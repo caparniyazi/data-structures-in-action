@@ -38,8 +38,8 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
      * A hash table stores key-value pairs, so we will use an inner class Entry
      * in each hash table implementation with data fields key and value.
      *
-     * @param <K>
-     * @param <V>
+     * @param <K> Key type
+     * @param <V> Value type
      */
     private static class Entry<K, V> {
         // Data fields
@@ -130,6 +130,10 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         // Find the first table element that is empty, or the table element that contains the key.
         int index = find(key);
 
+        // Fail fast
+        if (index == -1)
+            throw new IllegalStateException("Hashtable probe failed - table is full or corrupted.");
+
         // If the search is successful, return the value.
         if (table[index] != null) {
             return table[index].getValue();
@@ -169,6 +173,10 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         // Find the first table element that is empty or the table element that contains the key.
         int index = find(key);
 
+        // The table is full or looped over all indices without a stop condition.
+        if (index == -1)
+            throw new IllegalStateException("Hashtable is full - cannot insert new key.");
+
         // If an empty element was found, insert new entry.
         if (table[index] == null) {
             table[index] = new Entry<>(key, value);
@@ -193,7 +201,7 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
         // Assert: The table element that contains the key was found.
         // Replace value for this key.
         V oldValue = table[index].getValue();
-        table[index].setValue(value);
+        table[index].setValue(value)
         return oldValue;
     }
 
@@ -248,6 +256,10 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     @Override
     public V remove(Object key) {
         int index = find(key);
+
+        // Fail fast
+        if (index == -1)
+            throw new IllegalStateException("Hashtable probe failed - table is full or corrupted.");
 
         /*
          By storing a dummy value when an item is deleted,
@@ -317,8 +329,9 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
      */
     private int find(Object key) {
         // Calculate the starting index.
-        // Note that the method calls key's hash code.
+        // Note that the method calls key's hash code to obtain the index.
         int index = key.hashCode() % table.length;
+        int firstIndex = index;
 
         if (index < 0) {
             index += table.length;  // Make it positive.
@@ -333,9 +346,31 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
             index++;
 
             // Check for wraparound
+            // The following code snippet is slightly faster than (index + 1) % table.length
+            // especially on large tables.
+            // % (modulo) is a more expensive operation than and integer comparison.
+            // Note that this is true for linear probing.
+            // It would not generalize to other probing schemes, like quadratic probing.
             if (index >= table.length) {
-                index = 0;  // Wrap around.
+                index = 0;  // Wrap around if we reached the end.
             }
+
+            // A safety mechanism to prevent infinite loops.
+            // If we’ve wrapped all the way around to our starting position, stop.
+            // We’ve looked at every slot and didn’t find the key.
+            // Since we use a special marker (like DELETED) to represent previously removed entries,
+            // then even the table looks full, some slots may not be null.
+            // The table[index] != null keeps going.
+            // So, with the following check find() is independently safe, even in the future:
+            //  <pre>
+            //      rehashing() is temporarily disabled, failed or delayed.
+            //      Load factor thresholds are tweaked
+            //      custom resizing strategies are introduced.
+            //  </pre>
+            if (index == firstIndex)
+                // Some modern versions return a java record object,
+                // however, returning an int is more canonical and simpler.
+                return -1; // full cycle, not found
         }
 
         return index;
@@ -344,5 +379,14 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
     @Override
     public String toString() {
         return Arrays.toString(table);
+    }
+
+    // Display the internal table state.
+    public void printTable() {
+        System.out.println("Hash table state: ");
+        for (int i = 0; i < table.length; i++) {
+            System.out.printf("%2d -> %s%n", i, table[i] == null ? "null" : table[i].toString());
+        }
+        System.out.println();
     }
 }

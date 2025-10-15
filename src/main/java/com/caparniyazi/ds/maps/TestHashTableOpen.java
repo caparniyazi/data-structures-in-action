@@ -7,6 +7,7 @@ public class TestHashTableOpen {
         table.put("Ahmet", 10);
         table.put("Bahri", 20);
         table.put("Cahit", 30);
+        table.printTable();
 
         System.out.println("Bahri = " + table.get("Bahri"));
         System.out.println("Removing Bahri: " + table.remove("Bahri"));
