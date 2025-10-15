@@ -40,6 +40,10 @@ import java.util.Arrays;
  * In open addressing, search chains can overlap, so a search chain may include items in the table that have different
  * starting index values.
  * <p/>
+ * <p/>
+ * For values of Load Factor between 0.0 and 0.75, the results are similar to those of linear probing,
+ * but chaining gives better performance than linear probing for higher load factors.
+ * <p/>
  * A second advantage is that you can store more elements in the table than the number of table
  * slots (indexes), which is not the case for open addressing.
  * If each table index already references a linked list,
@@ -52,6 +56,20 @@ import java.util.Arrays;
  * Hash table implementation using open addressing.
  * In a hash table that uses open addressing, we represent the hash table as
  * an array of Entry objects (initial size is START_CAPACITY).
+ * </p>
+ * Performance of Hashtable vs. Sorted Arrays and Binary Search Trees:
+ * If we compare hash table performance with binary search of a sorted array, the number
+ * of comparisons required by binary search is O(log n), so the number of comparisons
+ * increases with table size.
+ * A sorted array of size 128 would require up to seven probes (2^7 is 128),
+ * which is more than for a hash table of any size that is 90 percent full.
+ * A sorted array of size 1024 would require up to 10 probes (210 is 1024).
+ * A binary search tree would yield the same results.
+ * You can insert into or remove elements from a hash table in O(1) expected time.
+ * Insertion or removal from a binary search tree is O(log n), but insertion or removal from a sorted array
+ * is O(n) (you need to shift the larger elements over).
+ * (Worst-case performance for a hash table or a binary search tree is O(n).)
+ * </p>
  *
  * @param <K>
  * @param <V>
