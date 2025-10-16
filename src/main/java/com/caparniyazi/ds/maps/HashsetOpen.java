@@ -4,7 +4,7 @@ package com.caparniyazi.ds.maps;
  * A hash table for storing set elements using open addressing.
  * An adapter class with a KWHashMap<K, V> data field implemented by a HashtableOpen object.
  *
- * @param <K>
+ * @param <K> The key type.
  */
 public class HashsetOpen<K> {
     // Data fields
