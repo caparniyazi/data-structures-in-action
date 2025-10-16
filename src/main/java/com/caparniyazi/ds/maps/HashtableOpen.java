@@ -294,7 +294,8 @@ public class HashtableOpen<K, V> implements KWHashMap<K, V> {
      * increment numDeletes, and decrement numKeys. Return the value associated with this key.
      *
      * @param key The key of item being deleted.
-     * @return null if an empty element found, otherwise,
+     * @return null if an empty element found, otherwise, remove this table element
+     * by setting it to reference DELETED and return the value associated with this key.
      */
     @Override
     public V remove(Object key) {
