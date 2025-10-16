@@ -160,7 +160,7 @@ public class HashtableChain<K, V> implements KWHashMap<K, V> {
             }
         }
         // Assert: Key is not in the table, add new item.
-        table[index].add(new Entry<>(key, value));
+        table[index].addFirst(new Entry<>(key, value));
         numKeys++;
 
         // Rehash if the load factor exceeded.
