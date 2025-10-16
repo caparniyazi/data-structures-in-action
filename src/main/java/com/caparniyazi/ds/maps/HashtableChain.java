@@ -5,7 +5,21 @@ import java.util.LinkedList;
 
 /**
  * Hashtable implementation using chaining.
- * We will represent the hash table as an array of linked lists.
+ * <p/>
+ * In open addressing, collisions are resolved by looking for an open cell in the hash
+ * table.
+ * A different approach is to install a linked list at each index in the hash table.
+ * A data item’s key is hashed to the index in the usual way, and the item is inserted into
+ * the linked list at that index.
+ * Other items that hash to the same index are simply added to the linked list;
+ * there’s no need to search for empty.
+ * Separate chaining is conceptually somewhat simpler than the various probe schemes
+ * used in open addressing.
+ * In open addressing, performance degrades badly as the load factor increases above
+ * one-half or two-thirds.
+ * In chaining, the load factor can rise above 1 without hurting performance very much.
+ * This makes chaining a more robust mechanism, especially when it’s hard to predict
+ * in advance how much data will be placed in the hash table.
  * <p/>
  * Time complexity on average: O(1) for get(), put() and remove() assuming even key distribution.
  * Worst-case: O(n) (if all keys hash to the same bucket).
