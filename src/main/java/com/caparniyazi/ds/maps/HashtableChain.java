@@ -261,13 +261,29 @@ public class HashtableChain<K, V> implements KWHashMap<K, V> {
         return numKeys;
     }
 
-    public void printTable() {
-        System.out.println("Hash Table State: ");
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        boolean first = true;
 
-        for (int i = 0; i < table.length; i++) {
-            System.out.print("[" + i + "]: ");
-            System.out.println(table[i]);
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            if (bucket == null) {
+                continue;
+            }
+
+            for (Entry<K, V> entry : bucket) {
+                if (entry != null) {
+                    if (!first) {
+                        sb.append(", ");
+                    }
+                    sb.append(entry.getKey()).append("=").append(entry.getValue());
+                    first = false;
+                }
+            }
         }
-        System.out.println();
+
+        sb.append("}");
+        return sb.toString();
     }
 }
