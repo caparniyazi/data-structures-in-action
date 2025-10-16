@@ -6,6 +6,9 @@ import java.util.LinkedList;
 /**
  * Hashtable implementation using chaining.
  * We will represent the hash table as an array of linked lists.
+ * <p/>
+ * Time complexity on average: O(1) for get(), put() and remove() assuming even key distribution.
+ * Worst-case: O(n) (if all keys hash to the same bucket).
  *
  * @param <K> Key type
  * @param <V> Value type
@@ -88,6 +91,7 @@ public class HashtableChain<K, V> implements KWHashMap<K, V> {
      Even though a hash table that uses chaining can store any number of elements in the same slot,
      we will expand the table if the number of entries becomes three times the number of slots
      (LOAD_THRESHOLD is 3.0) to keep the performance at a reasonable level.
+     Load factor threshold (3.0) means average 3 entries per bucket.
      */
     private static final double LOAD_THRESHOLD = 3.0;  // The max. load factor.
 
