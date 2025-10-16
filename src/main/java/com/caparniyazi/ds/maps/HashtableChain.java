@@ -83,7 +83,13 @@ public class HashtableChain<K, V> implements KWHashMap<K, V> {
     private LinkedList<Entry<K, V>>[] table;    // The hash table.
     private int numKeys;    // The number of keys.
     private static final int CAPACITY = 101;    // The initial capacity of the table.
-    private static final double LOAD_THRESHOLD = 0.75;  // The max. load factor.
+
+    /*
+     Even though a hash table that uses chaining can store any number of elements in the same slot,
+     we will expand the table if the number of entries becomes three times the number of slots
+     (LOAD_THRESHOLD is 3.0) to keep the performance at a reasonable level.
+     */
+    private static final double LOAD_THRESHOLD = 3.0;  // The max. load factor.
 
     // Constructors
     @SuppressWarnings("unchecked")
