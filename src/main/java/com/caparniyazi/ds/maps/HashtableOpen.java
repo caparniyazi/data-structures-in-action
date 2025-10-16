@@ -69,6 +69,9 @@ import java.util.Arrays;
  * Insertion or removal from a binary search tree is O(log n), but insertion or removal from a sorted array
  * is O(n) (you need to shift the larger elements over).
  * (Worst-case performance for a hash table or a binary search tree is O(n).)
+ * However, the primary advantage of a binary search tree is that it can be traversed in sorted order.
+ * Hash tables, however, can’t be traversed in any meaningful way.
+ * Also, subsets based on a range of key values can be selected using a TreeMap but not by using a HashMap.
  * </p>
  *
  * @param <K>
