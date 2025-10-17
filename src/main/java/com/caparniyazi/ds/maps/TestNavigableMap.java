@@ -11,7 +11,7 @@ public class TestNavigableMap {
      * @return An ArrayList of average values for each span.
      */
     public static List<Double> computeSpans(NavigableMap<Integer, Double> valueMap, int delta) {
-        List<Double> result = new ArrayList<Double>();
+        List<Double> result = new ArrayList<>();
         Integer min = valueMap.firstEntry().getKey();
         Integer max = valueMap.lastEntry().getKey();
 
@@ -41,7 +41,7 @@ public class TestNavigableMap {
     }
 
     public static void main(String[] args) {
-        NavigableMap<Integer, Double> storms = new TreeMap<Integer, Double>();
+        NavigableMap<Integer, Double> storms = new TreeMap<>();
         storms.put(1960, 10.0);
         storms.put(1961, 5.0);
         storms.put(1962, 20.0);
