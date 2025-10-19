@@ -11,13 +11,15 @@ public class TestSkipList {
 
         System.out.println("size: " + sl.size());
         System.out.println(sl);
+        System.out.println(sl.toDebugString());
 
         System.out.println("get(3) = " + sl.get(3));
         System.out.println("contains 3? " + sl.containsKey(3));
         System.out.println("inserting: 6");
-        sl.put(9, "six");
+        sl.put(6, "six");
         System.out.println("inserting: 0");
         sl.put(0, "zero");
         System.out.println(sl);
+        System.out.println(sl.toDebugString());
     }
 }

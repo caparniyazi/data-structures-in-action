@@ -286,4 +286,22 @@ public class SkipList<K extends Comparable<K>, V> {
         }
         return sj.toString();
     }
+
+    /**
+     * Prints all levels.
+     */
+    public String toDebugString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = maxLevel - 1; i >= 0; i--) {
+            sb.append("Level ").append(i).append(": ");
+            SLNode<K, V> curr = head.links[i];
+
+            while (curr != null) {
+                sb.append(curr.item.key).append(" ");
+                curr = curr.links[i];
+            }
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
 }
