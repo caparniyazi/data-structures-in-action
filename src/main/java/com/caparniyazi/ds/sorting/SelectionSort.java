@@ -38,7 +38,8 @@ public class SelectionSort extends SortingAlgorithm {
 
             // Assert: a[min] is the smallest item in a[i ... n-1]
             // Exchange a[i] with a[min]
-            if (i != min) {
+            // The if statement adds a very small overhead compared to the code to perform the exchange.
+            if (i != min) { // This reduces the number of exchanges by a percentage.
                 swap(a, i, min);
             }
 
