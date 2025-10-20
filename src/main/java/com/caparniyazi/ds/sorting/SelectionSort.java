@@ -58,5 +58,6 @@ public class SelectionSort extends SortingAlgorithm {
         SelectionSort selectionSort = new SelectionSort();
         selectionSort.sort(new Integer[]{40, 35, 80, 75, 60, 90, 70, 75, 50, 22});
         selectionSort.sort(new Integer[]{36, 42, 75, 83, 27});
+        selectionSort.sort(new Integer[]{40, 35, 80, 75, 60, 90, 70, 75, 50, 22}, (n1, n2) -> n2 - n1);
     }
 }
