@@ -9,6 +9,35 @@ import java.util.Comparator;
  * players to arrange a hand of cards. The player keeps the cards that have been picked up so
  * far in sorted order. When the player picks up a new card, the player makes room for the new
  * card and then inserts it in its proper place.
+ * <p/>
+ * Insertion sort gives the best performance for larger arrays.
+ * Insertion sort is better because it takes advantage of any partial
+ * sorting that is in the array and uses less costly shifts instead of exchanges to rearrange
+ * array elements.
+ * <p/>
+ * Since the time to sort an array of n elements is proportional to n^2,
+ * none of these algorithms (Selection/Insertion) is particularly good for large arrays (i.e., n > 100).
+ * The best sorting algorithms provide (n * log n) average-case behavior and
+ * are considerably faster for large arrays.
+ * <p/>
+ * Both quadratic sorts require storage for the array being sorted.
+ * However, there is only one copy of this array, so the array
+ * is sorted in place. There are also requirements for variables that store references to particular
+ * elements, loop control variables, and temporary variables.
+ * However, for large n, the size of the array dominates these other storage considerations,
+ * so the extra space usage is proportional to O(1).
+ * <p/>
+ * Comparison of Rates of Growth:
+ * ---------------------+
+ * n    n^2      n log n +
+ * -----+-------+-------+
+ * 8    64      24
+ * 16   256     64
+ * 32   1024    160
+ * 64   4096    384
+ * 128  16,384  896
+ * 256  65,536  2048
+ * 512  262,144 4608
  */
 public class InsertionSort extends SortingAlgorithm {
     @Override
