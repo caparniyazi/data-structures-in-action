@@ -38,6 +38,15 @@ import java.util.Comparator;
  * 128  16,384  896
  * 256  65,536  2048
  * 512  262,144 4608
+ * <p/>
+ * Comparison of Quadratic Sorts:
+ * <p/>
+ * Number of Comparisons Number of Exchanges
+ * <pre>            Number of comparisons   Number of exchanges</pre>
+ * <pre>            Best    Worst           Best    Worst      </pre>
+ * ------------------------------------------------------------
+ * Selection sort   O(n^2)  O(n^2)          O(n)    O(n)
+ * Insertion sort   O(n)    O(n^2)          O(1)    O(n^2)
  */
 public class InsertionSort extends SortingAlgorithm {
     @Override
