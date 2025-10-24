@@ -9,6 +9,11 @@ import java.util.Comparator;
  * at least temporarily, n extra storage locations. This next algorithm can be implemented
  * without requiring any additional storage. It uses a heap to store the array and so is called
  * heapsort.
+ * <p/>
+ * Because we have n items to insert and each insert (or remove) is O(log n),
+ * the buildHeap operation is O(n * log n).
+ * Similarly, we have n items to remove from the heap, so that is also O(n log n).
+ * Because we are storing the heap in the original array, no extra storage is required.
  */
 public class HeapSort extends SortingAlgorithm {
     @Override
