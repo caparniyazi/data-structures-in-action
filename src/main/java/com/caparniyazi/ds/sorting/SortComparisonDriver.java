@@ -7,9 +7,9 @@ import java.util.Random;
 /**
  * Driver program to test sorting methods.
  * <p/>
- *                  Best        Average     Worst
- * Selection sort   O(n^2)       O(n^2)       O(n^2)
- * Insertion sort   O(n)        O(n^2)       O(n^2)
+ * <pre>            Best        Average     Worst</pre>
+ * Selection sort   O(n^2)      O(n^2)      O(n^2)
+ * Insertion sort   O(n)        O(n^2)      O(n^2)
  * Tim sort         O(n)        O(n log n)  O(n log n)
  * Shell sort       O(n^7/6)    O(n5/4)     O(n^2)
  * Merge sort       O(n log n)  O(n log n)  O(n log n)
