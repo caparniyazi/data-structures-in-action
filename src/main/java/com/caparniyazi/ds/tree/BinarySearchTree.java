@@ -15,6 +15,14 @@ import java.util.List;
  * <p>
  * Note that the class extends BinaryTree.
  * <p/>
+ * The performance (time required to find, insert, or remove an item)
+ * of a binary search tree is proportional to the total height
+ * of the tree, where we define the height of a tree as the maximum number of nodes along
+ * a path from the root to a leaf.
+ * A full binary tree of height k can hold 2^k – 1 items.
+ * Thus, if the binary search tree were full and contained n items,
+ * the expected performance would be O(log n).
+ * <p/>
  *
  * @param <E>
  */
