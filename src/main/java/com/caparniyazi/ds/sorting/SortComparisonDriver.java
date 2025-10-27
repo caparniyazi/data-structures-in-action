@@ -34,6 +34,12 @@ public class SortComparisonDriver {
         (new QuickSort()).sort(items);
         System.out.println("QuickSort time is: " + (System.currentTimeMillis() - start) + "ms");
         System.out.println("QuickSort successful (true/false): " + verify(items));
+
+        // Sort with heapsort.
+        start = System.currentTimeMillis();
+        (new HeapSort()).sort(items);
+        System.out.println("HeapSort time is: " + (System.currentTimeMillis() - start) + "ms");
+        System.out.println("HeapSort successful (true/false): " + verify(items));
     }
 
     /**
