@@ -4,6 +4,7 @@ package com.caparniyazi.ds.tree;
  * This class extends the BinarySearchTree by adding the rotate operations.
  * Rotation will change the balance of a search tree while preserving the search tree property.
  * Used for a common base class for self-balancing trees.
+ * It avoids code duplication between AVL and Red-Black implementations.
  *
  * @param <E> The Element type parameter, must implement Comparable.
  */
@@ -12,6 +13,7 @@ public class BinarySearchTreeWithRotate<E extends Comparable<E>> extends BinaryS
 
     /**
      * Method that performs a right rotation.
+     * Reusable only by subclasses.
      *
      * @param root The root of the binary tree to be rotated.
      * @return The new root of the rotated tree.
@@ -29,6 +31,14 @@ public class BinarySearchTreeWithRotate<E extends Comparable<E>> extends BinaryS
         return temp;
     }
 
+    /**
+     * Method that performs a left rotation.
+     * Reusable only by subclasses.
+     *
+     * @param root The root of the binary tree to be rotated.
+     * @return The new root of the rotated tree.
+     * @pre root is the root of a binary search tree.
+     */
     protected Node<E> rotateLeft(Node<E> root) {
         Node<E> temp = root.right;
         root.right = temp.left;
