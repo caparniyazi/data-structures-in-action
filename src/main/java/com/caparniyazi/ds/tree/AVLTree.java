@@ -16,12 +16,22 @@ package com.caparniyazi.ds.tree;
  * that, on average, log n + 0.25 comparisons are required to insert the nth item into an
  * AVL tree. Thus, the average performance is very close to that of the corresponding complete
  * binary search tree.
+ * <p/>
+ * Rotations are O(1).
  * <pre>
  *     Four cases that need re-balancing and their remedies:
  *      • Left–Left (parent balance is −2, left child balance is −1): rotate right around parent.
  *      • Left–Right (parent balance is −2, left child balance is +1): rotate left around child, then rotate right around parent.
  *      • Right–Right (parent balance is +2, right child balance is +1): rotate left around parent.
  *      • Right–Left (parent balance is +2, right child balance is −1): rotate right around child, then rotate left around parent.
+ * </pre>
+ * <pre>
+ *
+ *     Tree Type	    Allowed Height Difference	                Balance Info Stored
+ *     ---------         -------------------------                   -------------------
+ *      AVL Tree	        ≤ 1 at every node	                    Balance factor (−1, 0, +1)
+ *      Red-Black Tree	    ~2× of perfectly balanced	            Node color (red/black)
+ *      B-tree	            Branching factors kept within range	    Node degree
  * </pre>
  *
  * @param <E> The type parameter.

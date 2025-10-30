@@ -3,7 +3,8 @@ package com.caparniyazi.ds.tree;
 public class TestAVL {
     public static void main(String[] args) {
         AVLTree<Integer> tree = new AVLTree<>();
-        int[] values = {30, 20, 10, 25, 40, 50, 35};
+//        int[] values = {30, 20, 10, 25, 40, 50, 35};
+        int[] values = {10, 20, 25, 30, 35, 40, 50};
 
         for (int val : values) {
             tree.add(val);
