@@ -14,5 +14,17 @@ public class TestBinarySearchTreeWithRotate {
         var root = bst.rotateRight(bst.getRoot());
         bst.setRoot(root);
         System.out.println("More balanced tree after rotation right: \n" + bst);
+
+        String[] arr = "Now is the time for all good people to come to the aid of others".split(" ");
+        var bst2 = new BinarySearchTreeWithRotate<String>();
+
+        for (String word : arr) {
+            bst2.add(word);
+        }
+        System.out.println(bst2);
+        int height = bst2.height();
+        // log(13) < log 2^4   // 13 is the number of distinct words in this sentence and 4 is the smallest integer greater than log13.
+        System.out.println("13 is the number of distinct words in this sentence and 4 is the smallest integer greater than log13.");
+        System.out.println("The height of this tree is " + height + ", which is " + (height - 4) + " greater than 4.");
     }
 }
