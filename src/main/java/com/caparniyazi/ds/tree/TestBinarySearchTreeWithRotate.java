@@ -1,12 +1,18 @@
 package com.caparniyazi.ds.tree;
 
+import java.util.Arrays;
+
 public class TestBinarySearchTreeWithRotate {
     public static void main(String[] args) {
-        String[] data = "1 2 3 4 5".split(" ");
-        BinarySearchTree<String> bst = new BinarySearchTree<>();
-        for (String s : data) {
-            bst.add(s);
+        int[] data = Arrays.stream("20 10 40 5 15 7".split(" ")).mapToInt(Integer::parseInt).toArray();
+        var bst = new BinarySearchTreeWithRotate<Integer>();
+
+        for (int i : data) {
+            bst.add(i);
         }
-        System.out.println(bst);
+        System.out.println("Original tree: \n" + bst);
+        var root = bst.rotateRight(bst.getRoot());
+        bst.setRoot(root);
+        System.out.println("More balanced tree after rotation right: \n" + bst);
     }
 }
