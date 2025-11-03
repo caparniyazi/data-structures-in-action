@@ -101,7 +101,7 @@ public class RedBlackTree<E extends Comparable<E>> extends BinarySearchTreeWithR
         }
 
         // Case 2: Left child and left-left grandchild are red → rotate right
-        if (isRed(localRoot.left) && isRed((RedBlackNode<E>) localRoot.left.left)) {
+        if (isRed(localRoot.left) && isRed(localRoot.left.left)) {
             localRoot = rotateRight(localRoot);
         }
 
@@ -151,4 +151,34 @@ public class RedBlackTree<E extends Comparable<E>> extends BinarySearchTreeWithR
     public boolean isEmpty() {
         return size == 0;
     }
+
+    /**
+     * Pretty string.
+     *
+     * @return The string representation of the tree.
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        toStringHelper((RedBlackNode<E>) root, sb, 1);
+        return sb.toString();
+    }
+
+    /**
+     * Pretty string helper.
+     *
+     * @param node  The local root.
+     * @param sb    The StringBuilder object.
+     * @param depth The depth.
+     */
+    private void toStringHelper(RedBlackNode<E> node, StringBuilder sb, int depth) {
+        if (node == null) {
+            sb.append("  ".repeat(depth)).append("null\n");
+            return;
+        }
+        sb.append("  ".repeat(depth)).append(node).append("\n");
+        toStringHelper((RedBlackNode<E>) node.left, sb, depth + 1);
+        toStringHelper((RedBlackNode<E>) node.right, sb, depth + 1);
+    }
 }
+

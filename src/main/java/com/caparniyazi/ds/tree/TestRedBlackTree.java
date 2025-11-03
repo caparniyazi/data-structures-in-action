@@ -11,6 +11,7 @@ public class TestRedBlackTree {
 
         System.out.println("Inorder traversal (with colors):");
         System.out.println(tree);
+        System.out.println("Tree size = " + tree.size());
         System.out.println(tree.toList());
     }
 }
