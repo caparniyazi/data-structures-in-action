@@ -158,17 +158,21 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         if (leftChild.balance > AVLNode.BALANCED) {
             // Get a reference to left-right child.
             var leftRightChild = (AVLNode<E>) leftChild.right;
-            // Adjust the balances.
+            // Adjust the balances to be their new values after the rotations are performed.
 
             if (leftRightChild.balance < AVLNode.BALANCED) {
+                leftChild.balance = AVLNode.LEFT_HEAVY;
+                leftRightChild.balance = AVLNode.BALANCED;
+                localRoot.balance = AVLNode.BALANCED;
+            } else if (leftRightChild.balance > AVLNode.BALANCED) {
                 leftChild.balance = AVLNode.BALANCED;
                 leftRightChild.balance = AVLNode.BALANCED;
                 localRoot.balance = AVLNode.RIGHT_HEAVY;
             } else {
-                leftChild.balance = AVLNode.LEFT_HEAVY;
-                leftRightChild.balance = AVLNode.BALANCED;
+                leftChild.balance = AVLNode.BALANCED;
                 localRoot.balance = AVLNode.BALANCED;
             }
+
             // Perform left operation
             localRoot.left = rotateLeft(leftChild);
         } else {    // Left-Left case.
@@ -180,6 +184,7 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         return (AVLNode<E>) rotateRight(localRoot);
     }
 
+    // Re-balance right-heavy tree.
     private AVLNode<E> rebalanceRight(AVLNode<E> localRoot) {
         // Get reference to the left child.
         var rightChild = (AVLNode<E>) localRoot.right;
@@ -194,14 +199,17 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
                 rightChild.balance = AVLNode.RIGHT_HEAVY;
                 rightLeftChild.balance = AVLNode.BALANCED;
                 localRoot.balance = AVLNode.BALANCED;
+            } else if (rightLeftChild.balance > AVLNode.BALANCED) {
+                rightChild.balance = AVLNode.BALANCED;
+                rightLeftChild.balance = AVLNode.BALANCED;
+                localRoot.balance = AVLNode.LEFT_HEAVY;
             } else {
                 rightChild.balance = AVLNode.BALANCED;
-                rightLeftChild.balance = AVLNode.LEFT_HEAVY;
                 localRoot.balance = AVLNode.BALANCED;
             }
             // Perform right operation
             localRoot.right = rotateRight(rightChild);
-        } else {    // Left-Left case.
+        } else {    // Right-Right case.
             rightChild.balance = AVLNode.BALANCED;
             localRoot.balance = AVLNode.BALANCED;
         }
