@@ -298,7 +298,7 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
             // Node with two children
             if (node.left.right == null) {
                 node.data = node.left.data;
-                node.left = (AVLNode<E>) node.left.left;
+                node.left = node.left.left;
                 return node;
             } else {
                 node.data = findLargestChild(node.left);
@@ -319,9 +319,9 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
             decrease = true;
             return returnValue;
         } else {
-            E returnValue = findLargestChild((AVLNode<E>) parent.right);
+            E returnValue = findLargestChild(parent.right);
 
-            if (decrease) {
+            if (decrease) { // Rotations may change subtree root, must update reference.
                 parent = rebalanceLeftAfterDelete((AVLNode<E>) parent);
             }
 

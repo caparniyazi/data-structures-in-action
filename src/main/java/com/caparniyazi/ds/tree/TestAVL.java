@@ -10,20 +10,20 @@ public class TestAVL {
         for (int val : values) {
             tree.add(val);
             System.out.println("Added " + val + "\n" + tree);
-            System.out.println("Balance is " + ((AVLTree.AVLNode<Integer>)tree.getRoot()).getBalance());
+            System.out.println("Balance is " + ((AVLTree.AVLNode<Integer>) tree.getRoot()).getBalance());
         }
 
         System.out.println("AVL Tree (in-order):");
         System.out.println(tree);
         System.out.println(tree.toList());
-        System.out.println("Balance is " + ((AVLTree.AVLNode<Integer>)tree.getRoot()).getBalance());
+        System.out.println("Balance is " + ((AVLTree.AVLNode<Integer>) tree.getRoot()).getBalance());
 
         System.out.println("Deleting 20 and 10...");
         tree.delete(20);
         tree.delete(10);
         System.out.println(tree);
         System.out.println(tree.toList());
-        System.out.println("Balance is " + ((AVLTree.AVLNode<Integer>)tree.getRoot()).getBalance());
+        System.out.println("Balance is " + ((AVLTree.AVLNode<Integer>) tree.getRoot()).getBalance());
 
         String[] lhArray = "50 25 60 20 30 10".split(" ");
         var lhBSTree = new BinarySearchTreeWithRotate<String>();
