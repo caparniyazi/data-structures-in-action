@@ -332,13 +332,13 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
     private AVLNode<E> rebalanceRightAfterDelete(AVLNode<E> localRoot) {
         switch (localRoot.balance) {
             case AVLNode.LEFT_HEAVY:
-                localRoot.balance = 0;
+                localRoot.balance = AVLNode.BALANCED;
                 break;
             case AVLNode.BALANCED:
-                localRoot.balance = 1;
+                localRoot.balance = AVLNode.RIGHT_HEAVY;
                 decrease = false;
                 break;
-            case 1:
+            case AVLNode.RIGHT_HEAVY:
                 AVLNode<E> rightChild = (AVLNode<E>) localRoot.right;
 
                 if (rightChild.balance >= 0) {
@@ -375,12 +375,12 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
                 if (leftChild.balance <= 0) {
                     localRoot = (AVLNode<E>) rotateRight(localRoot);
 
-                    if (leftChild.balance == 0) {
-                        localRoot.balance = 1;
+                    if (leftChild.balance == AVLNode.BALANCED) {
+                        localRoot.balance = AVLNode.RIGHT_HEAVY;
                         ((AVLNode<E>) localRoot.right).balance = AVLNode.LEFT_HEAVY;
                         decrease = false;
                     } else {
-                        localRoot.balance = 0;
+                        localRoot.balance = AVLNode.BALANCED;
                         ((AVLNode<E>) localRoot.right).balance = AVLNode.BALANCED;
                     }
                 } else {
