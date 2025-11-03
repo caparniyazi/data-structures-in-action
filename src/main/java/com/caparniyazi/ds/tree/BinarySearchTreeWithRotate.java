@@ -45,4 +45,16 @@ public class BinarySearchTreeWithRotate<E extends Comparable<E>> extends BinaryS
         temp.left = root;
         return temp;
     }
+
+    // Perform a left-right rotation.
+    protected Node<E> rotateLeftRight(Node<E> root) {
+        root.left = rotateLeft(root.left);
+        return rotateRight(root);
+    }
+
+    // Perform a right-left rotation.
+    protected Node<E> rotateRightLeft(Node<E> root) {
+        root.right = rotateRight(root.right);
+        return rotateLeft(root);
+    }
 }

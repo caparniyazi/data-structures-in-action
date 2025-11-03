@@ -1,5 +1,7 @@
 package com.caparniyazi.ds.tree;
 
+import lombok.Getter;
+
 /**
  * Self-balancing binary search tree using algorithm defined by Adelson-Velskii and Landis.
  * <p/>
@@ -38,14 +40,18 @@ package com.caparniyazi.ds.tree;
  */
 public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate<E> {
     // Data fields
-    private boolean increase;   // Flag to indicate whether the current subtree height has increased as a result of the insertion.
+    // Flag to indicate whether the current subtree height has increased as a result of the insertion.
+    private boolean increase;
+    // Flag to indicate whether the current subtree height has decreased as a result of the deletion.
+    private boolean decrease;
 
     /**
      * Node class for an AVL tree.
      *
      * @param <E>
      */
-    private static class AVLNode<E> extends Node<E> {
+    @Getter
+    protected static class AVLNode<E> extends Node<E> {
         // Data fields
         public static final int LEFT_HEAVY = -1;
         public static final int BALANCED = 0;
@@ -134,9 +140,16 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         }
     }
 
-
     private void incrementBalance(AVLNode<E> node) {
         node.balance++;
+
+        if (node.balance == AVLNode.BALANCED) { // If now balanced, overall height has not increased.
+            increase = false;
+        }
+    }
+
+    private void decrementBalance(AVLNode<E> node) {
+        node.balance--;
 
         if (node.balance == AVLNode.BALANCED) { // If now balanced, overall height has not increased.
             increase = false;
@@ -218,12 +231,163 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTreeWithRotate
         return (AVLNode<E>) rotateLeft(localRoot);
     }
 
+    /**
+     * Starter method for removing an item from an AVL tree.
+     * <p/>
+     * When we remove an item from a left subtree, the balance of the local root is increased,
+     * and when we remove an item from the right subtree, the balance of the local root is decreased.
+     *
+     * @param target The target item to be deleted.
+     * @return The item removed from the tree or null if the item was not in the tree.
+     */
+    @Override
+    public E delete(E target) {
+        decrease = false;
+        root = delete((AVLNode<E>) root, target);
+        return deleteReturn;
+    }
 
-    private void decrementBalance(AVLNode<E> node) {
-        node.balance--;
-
-        if (node.balance == AVLNode.BALANCED) { // If now balanced, overall height has not increased.
-            increase = false;
+    /**
+     * We can adapt the algorithm for removal from a binary search tree to become
+     * an algorithm for removal from an AVL tree.
+     * We need to maintain a data field decrease that tells the previous level in the recursion
+     * that there was a decrease in the height of the subtree that was just returned from.
+     *
+     * @param localRoot The local root.
+     * @param item      The target item to be deleted.
+     * @return The modified localRoot that does not contain the item.
+     */
+    private AVLNode<E> delete(AVLNode<E> localRoot, E item) {
+        if (localRoot == null) {
+            deleteReturn = null;
+            decrease = false;
+            return null;
         }
+        int comp = item.compareTo(localRoot.data);
+
+        if (comp < 0) {
+            localRoot.left = delete((AVLNode<E>) localRoot.left, item);
+
+            if (decrease) {
+                return rebalanceRightAfterDelete(localRoot);
+            }
+
+            return localRoot;
+        } else if (comp > 0) {
+            localRoot.right = delete((AVLNode<E>) localRoot.right, item);
+
+            if (decrease) {
+                return rebalanceLeftAfterDelete(localRoot);
+            }
+
+            return localRoot;
+        } else {
+            // Item is at local root.
+            deleteReturn = localRoot.data;
+            decrease = true;
+            return removeNode(localRoot);
+        }
+    }
+
+    private AVLNode<E> removeNode(AVLNode<E> node) {
+        if (node.left == null) {
+            return (AVLNode<E>) node.right;
+        } else if (node.right == null) {
+            return (AVLNode<E>) node.left;
+        } else {
+            // Node with two children
+            if (node.left.right == null) {
+                node.data = node.left.data;
+                node.left = (AVLNode<E>) node.left.left;
+                return node;
+            } else {
+                node.data = findLargestChild(node.left);
+
+                if (decrease) {
+                    return rebalanceRightAfterDelete(node);
+                }
+
+                return node;
+            }
+        }
+    }
+
+    private E findLargestChild(Node<E> parent) {
+        if (parent.right.right == null) {
+            E returnValue = parent.right.data;
+            parent.right = parent.right.left;
+            decrease = true;
+            return returnValue;
+        } else {
+            E returnValue = findLargestChild((AVLNode<E>) parent.right);
+
+            if (decrease) {
+                parent = rebalanceLeftAfterDelete((AVLNode<E>) parent);
+            }
+
+            return returnValue;
+        }
+    }
+
+    private AVLNode<E> rebalanceRightAfterDelete(AVLNode<E> localRoot) {
+        switch (localRoot.balance) {
+            case AVLNode.LEFT_HEAVY:
+                localRoot.balance = 0;
+                break;
+            case AVLNode.BALANCED:
+                localRoot.balance = 1;
+                decrease = false;
+                break;
+            case 1:
+                AVLNode<E> rightChild = (AVLNode<E>) localRoot.right;
+
+                if (rightChild.balance >= 0) {
+                    localRoot = (AVLNode<E>) rotateLeft(localRoot);
+
+                    if (rightChild.balance == AVLNode.BALANCED) {
+                        localRoot.balance = AVLNode.LEFT_HEAVY;
+                        ((AVLNode<E>) localRoot.left).balance = AVLNode.RIGHT_HEAVY;
+                        decrease = false;
+                    } else {
+                        localRoot.balance = AVLNode.BALANCED;
+                        ((AVLNode<E>) localRoot.left).balance = AVLNode.BALANCED;
+                    }
+                } else {
+                    localRoot = (AVLNode<E>) rotateRightLeft(localRoot);
+                }
+                break;
+        }
+        return localRoot;
+    }
+
+    private AVLNode<E> rebalanceLeftAfterDelete(AVLNode<E> localRoot) {
+        switch (localRoot.balance) {
+            case AVLNode.RIGHT_HEAVY:
+                localRoot.balance = AVLNode.BALANCED;
+                break;
+            case AVLNode.BALANCED:
+                localRoot.balance = AVLNode.LEFT_HEAVY;
+                decrease = false;
+                break;
+            case AVLNode.LEFT_HEAVY:
+                AVLNode<E> leftChild = (AVLNode<E>) localRoot.left;
+
+                if (leftChild.balance <= 0) {
+                    localRoot = (AVLNode<E>) rotateRight(localRoot);
+
+                    if (leftChild.balance == 0) {
+                        localRoot.balance = 1;
+                        ((AVLNode<E>) localRoot.right).balance = AVLNode.LEFT_HEAVY;
+                        decrease = false;
+                    } else {
+                        localRoot.balance = 0;
+                        ((AVLNode<E>) localRoot.right).balance = AVLNode.BALANCED;
+                    }
+                } else {
+                    localRoot = (AVLNode<E>) rotateLeftRight(localRoot);
+                }
+                break;
+        }
+        return localRoot;
     }
 }
