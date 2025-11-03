@@ -39,7 +39,7 @@ public class RedBlackTree<E extends Comparable<E>> extends BinarySearchTreeWithR
          */
         @Override
         public String toString() {
-            return (isRed ? "Red" : "Black") + super.toString();
+            return (isRed ? "R:" : "B:") + super.toString();
         }
     }
 
