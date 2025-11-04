@@ -58,6 +58,22 @@ public class RedBlackTree<E extends Comparable<E>> extends BinarySearchTreeWithR
 
     /**
      * Insert an item into the tree. This is the starter method of a recursive process.
+     * <p/>
+     * In a Red-Black tree, insertion is not just a simple link operation.
+     * Each recursive call to add() may perform:
+     * <p/>
+     * 1. rotations (to fix red-black property violations)
+     * 2. Color flips.
+     * 3. Replace subtrees due to re-balancing.
+     * <p/>
+     * That means the recursive add() method returns a potentially new local root node, not just a boolean flag.
+     * So, instead of relying on addReturn flag, we usually track size or compare the size before
+     * and after insertion.
+     * <p/>
+     * These operations replace nodes - possibly changing which node object is returned up the stack.
+     * If we rely on a mutable field like addReturn,
+     * it can become misleading or inconsistent if other insertions occur concurrently or
+     * if the field is reused in nested operations.
      *
      * @param item - The item to be inserted
      * @return true if item inserted, false if item already in the tree.
@@ -69,7 +85,7 @@ public class RedBlackTree<E extends Comparable<E>> extends BinarySearchTreeWithR
         // Since the root of a Red-Black tree is always black, we set the newly inserted node to black.
         // The cast is necessary because root is a data field that was inherited from BinaryTree and is therefore of type Node.
         ((RedBlackNode<E>) root).isRed = false;
-        return size > oldSize;
+        return size > oldSize;  // True if a new item inserted.
     }
 
 
