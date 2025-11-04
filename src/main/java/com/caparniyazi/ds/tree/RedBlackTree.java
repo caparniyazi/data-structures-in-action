@@ -91,6 +91,20 @@ public class RedBlackTree<E extends Comparable<E>> extends BinarySearchTreeWithR
 
     /**
      * Recursive add method with balancing.
+     * <p/>
+     * The algorithm for insertion follows the same recursive search process used for all binary search
+     * trees to reach the insertion point.
+     * When a leaf is found, the new item is inserted, and it is initially
+     * given the color red, so invariant 4 will be maintained.
+     * If the parent is black, we are done.
+     * However, if the parent is also red, then invariant 3 has been violated, so we must fix this
+     * problem.
+     * <p/>
+     * The solution is relatively easy if the parent has a red sibling (Case 3).
+     * If the parent’s sibling is also red, then we can change the grandparent’s color to red
+     * and change both the parent and parent’s sibling to black.
+     * If the grandparent is the root of the overall tree, we can change its color to black
+     * to restore invariant 2 and still maintain invariant 4(the heights of all paths to a leaf are increased by 1).
      *
      * @param localRoot - The root of the subtree
      * @param item      - The item to be inserted
