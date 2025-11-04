@@ -2,6 +2,18 @@ package com.caparniyazi.ds.tree;
 
 /**
  * Class to represent Red-Black Tree.
+ * <p/>
+ * Red-Black Tree is another approach to keeping a tree balanced.
+ * Rudolf Bayer developed the Red-Black tree as a special case of B-tree.
+ * Leo Guibas and Robert Sedgewick refined the concept and introduced the color convention.
+ * <p/>
+ * A Red–Black tree maintains the following invariants:
+ * <p>
+ * 1. A node is either red or black.
+ * 2. The root is always black.
+ * 3. A red node always has black children.
+ * (A null reference is considered to refer to a black node.)
+ * 4. The number of black nodes in any path from the root to a leaf is the same.
  *
  * @param <E>
  */
