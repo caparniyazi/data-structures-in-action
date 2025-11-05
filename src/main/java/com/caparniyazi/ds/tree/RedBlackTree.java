@@ -8,12 +8,31 @@ package com.caparniyazi.ds.tree;
  * Leo Guibas and Robert Sedgewick refined the concept and introduced the color convention.
  * <p/>
  * A Red–Black tree maintains the following invariants:
+ * <pre>
+ *  1. A node is either red or black.
+ *  2. The root is always black.
+ *  3. A red node always has black children.
+ *      (A null reference is considered to refer to a black node.)
+ *  4. The number of black nodes in any path from the root to a leaf is the same.
+ * </pre>
+ * <pre>
+ *  Operation	    AVL Tree	                        Red–Black Tree	            B-Tree
+ *  ---------       --------------------------------    -------------------------   -------------------------------
+ *  Search	        O(log n) — faster (tighter bound)	O(log n) — slightly slower	O(logₘ n) (m = branching factor)
+ *  Insert	        O(log n) + up to 2 rotations	    O(log n) + ≤ 2 rotations	O(logₘ n) + node split/merge
+ *  Delete	        O(log n) + up to 2 rotations	    O(log n) + ≤ 3 rotations	O(logₘ n) + node merge/split
+ *  Height	        ≈ 1.44 × log₂ n	                    ≤ 2 × log₂ n	            ≈ logₘ n
+ * </pre>
  * <p>
- * 1. A node is either red or black.
- * 2. The root is always black.
- * 3. A red node always has black children.
- * (A null reference is considered to refer to a black node.)
- * 4. The number of black nodes in any path from the root to a leaf is the same.
+ * AVL: Faster search (AVL trees are more "perfectly balanced", but requires more frequent re-balancing.)
+ * Red-Black: Faster updates
+ * B-Tree: Fewer disk I/Os
+ * <p/>
+ * Real world usage:
+ * Java (TreeMap/TreeSet>           Red-Black Tree          => Balanced updates, low rotation costs.
+ * Linux kernel                     Red-Black Tree          => Predictable update cost.
+ * DB indexes (MySQL, PostgreSQL)   B-Tree/B+Tree           => Disk access efficiency.
+ * <p/>
  *
  * @param <E>
  */
