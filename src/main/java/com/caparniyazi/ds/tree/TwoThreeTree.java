@@ -38,13 +38,18 @@ import java.util.List;
  *     Example of a 2-3 tree:
  *         [17, 19]
  *     [11, 15]
- *         [13]
+ *         [13]sn
  *         [9]
  * [7]
  *         [5]
  *     [3]
  *         [1]
  * </pre>
+ * <p/>
+ * There are no rotations, as are needed to build the AVL and Red–Black trees.
+ * The number of items that a 2–3 tree of height h can hold is between 2h − 1 (all 2-nodes) and 3h − 1 (all 3-nodes).
+ * Therefore, the height of a 2-3 tree is between log3^n and log2^n. Thus, the search time is O(log n),
+ * since logarithms are all related by a constant factor, and constant factors are ignored in big-O notation.
  *
  * @param <E> The parameter type.
  */
