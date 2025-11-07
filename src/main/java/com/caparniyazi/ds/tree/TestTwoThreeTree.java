@@ -12,7 +12,14 @@ public class TestTwoThreeTree {
             tree.printTree();
         }
         tree.printTree();
-
         System.out.println(tree.contains(14));
+
+        String[] arr = "The quick brown fox jumps over the lazy dog".split(" ");
+        var tree2 = new TwoThreeTree<String>();
+
+        for (String s : arr) {
+            tree2.add(s);
+        }
+        tree2.printTree();
     }
 }
