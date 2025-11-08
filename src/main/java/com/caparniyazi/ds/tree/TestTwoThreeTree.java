@@ -84,5 +84,16 @@ public class TestTwoThreeTree {
         myTree.add("people");
         myTree.printTree();
         System.out.println("-----------------------------------------------------");
+
+        values = new int[]{3, 7, 9};
+        tree = new TwoThreeTree<>();
+        for (int v : values) {
+            tree.add(v);
+        }
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.remove(7);
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
     }
 }
