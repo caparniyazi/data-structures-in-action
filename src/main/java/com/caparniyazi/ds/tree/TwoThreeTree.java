@@ -243,6 +243,17 @@ public class TwoThreeTree<E extends Comparable<E>> {
 
     /**
      * Delete the key from a 2-3 tree.
+     * <pre>
+     *      Deletes keys from leaves or internal nodes (replacing internal-key with a predecessor).
+     * </pre>
+     * <pre>
+     *     If a child becomes empty, repairs parent, which
+     *          1. tries to borrow from a sibling (left or right) that has 2 keys.
+     *          2. otherwise, merges the child with a sibling and pulls a key down from a parent.     *
+     * </pre>
+     * <pre>
+     *      Collapses the root if it becomes empty(so, the height may shrink).
+     * </pre>
      *
      * @param key The key to be deleted.
      * @return true if the key deleted, false otherwise.
@@ -380,6 +391,7 @@ public class TwoThreeTree<E extends Comparable<E>> {
             left.keys.add(parentKey);
             // append child's keys
             left.keys.addAll(child.keys);
+
             if (!child.isLeaf()) {
                 left.children.addAll(child.children);
             }
@@ -393,9 +405,11 @@ public class TwoThreeTree<E extends Comparable<E>> {
             E parentKey = parent.keys.remove(idx);
             child.keys.add(parentKey);
             child.keys.addAll(right.keys);
+
             if (!right.isLeaf()) {
                 child.children.addAll(right.children);
             }
+            // remove child from parent's children
             parent.children.remove(idx + 1);
             return parent;
         }
