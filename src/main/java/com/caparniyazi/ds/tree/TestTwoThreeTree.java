@@ -33,5 +33,56 @@ public class TestTwoThreeTree {
         System.out.println("-----------------------------------------------------");
         tree.remove(13);
         tree.printTree();
+
+        System.out.println("-----------------------------------------------------");
+        values = new int[]{3, 7, 11};
+        tree = new TwoThreeTree<>();
+
+        for (int v : values) {
+            tree.add(v);
+        }
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.add(2);
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.add(6);
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.add(10);
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+
+        tree = new TwoThreeTree<>();
+        values = new int[]{3, 7, 11, 15};
+
+        for (int v : values) {
+            tree.add(v);
+        }
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.add(8);
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.add(12);
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+
+        String[] myArray = "Now is the time for".split(" ");
+        TwoThreeTree<String> myTree = new TwoThreeTree<>();
+        for (String s : myArray) {
+            myTree.add(s);
+        }
+        myTree.printTree();
+        System.out.println("-----------------------------------------------------");
+        myTree.add("all");
+        myTree.printTree();
+        System.out.println("-----------------------------------------------------");
+        myTree.add("good");
+        myTree.printTree();
+        System.out.println("-----------------------------------------------------");
+        myTree.add("people");
+        myTree.printTree();
+        System.out.println("-----------------------------------------------------");
     }
 }
