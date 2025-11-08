@@ -165,7 +165,7 @@ public class TwoThreeTree<E extends Comparable<E>> {
      * @return The SplitResult that contains the inserted item.
      */
     private SplitResult<E> insert(Node<E> node, E key) {
-        // 1 lead node
+        // Leaf node
         if (node.isLeaf()) {
             node.keys.add(key);
             node.keys.sort(null);
@@ -177,7 +177,7 @@ public class TwoThreeTree<E extends Comparable<E>> {
             return split(node);
         }
 
-        // 2 internal nodes, navigate to the correct child.
+        // Internal node, navigate to the correct child.
         int i;
 
         for (i = 0; i < node.keys.size(); i++) {
@@ -239,6 +239,174 @@ public class TwoThreeTree<E extends Comparable<E>> {
         }
 
         return new SplitResult<>(middleKey, left, right);
+    }
+
+    /**
+     * Delete the key from a 2-3 tree.
+     *
+     * @param key The key to be deleted.
+     * @return true if the key deleted, false otherwise.
+     * @post All leaves remain at the same level.
+     * Each node (except the root) has at least one key.
+     */
+    public boolean remove(E key) {
+        if (root == null || !contains(key)) {   // We must first search for it.
+            return false;
+        }
+
+        root = remove(root, key);
+        size--;
+
+        if (root != null && root.keys.isEmpty() && !root.isLeaf()) {
+            root = root.children.get(0);    // Collapse root if it has become empty after merges.
+        } else if (root != null && root.keys.isEmpty()) {
+            // The tree became empty
+            root = null;
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove key from subtree rooted at node, return possibly updated node.
+     * Parent context handles underflow when the child becomes empty.
+     *
+     * @param node The local root.
+     * @param key  The key to be deleted.
+     * @return Possibly updated node.
+     */
+    @SuppressWarnings("DataFlowIssue")
+    private Node<E> remove(Node<E> node, E key) {
+        if (node == null) {
+            return null;
+        }
+
+        // If the item to be deleted is a leaf node, we simply delete it.
+        if (node.isLeaf()) {
+            node.keys.remove(key);
+
+            // Node may become empty, let parent handle underflow.
+            return node;
+        }
+
+        // Internal node
+        for (int i = 0; i < node.keys.size(); i++) {
+            int cmp = key.compareTo(node.keys.get(i));
+
+            if (cmp == 0) {
+                // Replace it with the predecessor (max in left subtree).
+                E pred = findMax(node.children.get(i));
+                node.keys.set(i, pred);
+                node.children.set(i, remove(node.children.get(i), pred));
+
+                // If child became empty, fix it.
+
+                if (node.children.get(i).keys.isEmpty()) {
+                    node = handleUnderflow(node, i);
+                }
+                return node;
+            } else if (cmp < 0) {
+                // Descend to child i.
+                node.children.set(i, remove(node.children.get(i), key));
+
+                if (node.children.get(i).keys.isEmpty()) {
+                    node = handleUnderflow(node, i);
+                }
+                return node;
+            }
+        }
+
+        // Key greater than all keys, go to rightmost child.
+        int last = node.children.size() - 1;
+        node.children.set(last, remove(node.children.get(last), key));
+
+        if (node.children.get(last).keys.isEmpty()) {
+            node = handleUnderflow(node, last);
+        }
+        return node;
+    }
+
+    /**
+     * Handle underflow at child index 'idx' of parent 'parent'.
+     * Returns possibly updated parent (root of this subtree).
+     */
+    private Node<E> handleUnderflow(Node<E> parent, int idx) {
+        Node<E> child = parent.children.get(idx);
+
+        // Try to borrow from left sibling
+        if (idx - 1 >= 0) {
+            Node<E> left = parent.children.get(idx - 1);
+            if (left.keys.size() == 2) {
+                // borrow rightmost key from left sibling
+                E parentKey = parent.keys.get(idx - 1);
+                E borrowed = left.keys.remove(left.keys.size() - 1);
+                parent.keys.set(idx - 1, borrowed);
+                child.keys.add(0, parentKey);
+
+                if (!left.isLeaf()) {
+                    // move left's rightmost child to child's leftmost position
+                    Node<E> movedChild = left.children.remove(left.children.size() - 1);
+                    child.children.add(0, movedChild);
+                }
+                return parent;
+            }
+        }
+
+        // Try to borrow from the right sibling
+        if (idx + 1 < parent.children.size()) {
+            Node<E> right = parent.children.get(idx + 1);
+            if (right.keys.size() == 2) {
+                // borrow leftmost key from right sibling
+                E parentKey = parent.keys.get(idx);
+                E borrowed = right.keys.remove(0);
+                parent.keys.set(idx, borrowed);
+                child.keys.add(parentKey);
+
+                if (!right.isLeaf()) {
+                    // move right's leftmost child to child's rightmost position
+                    Node<E> movedChild = right.children.remove(0);
+                    child.children.add(movedChild);
+                }
+                return parent;
+            }
+        }
+
+        // No sibling to borrow from -> need to merge
+        if (idx - 1 >= 0) {
+            // merge with left sibling
+            Node<E> left = parent.children.get(idx - 1);
+            E parentKey = parent.keys.remove(idx - 1);
+            // left absorbs parentKey and child's keys/children
+            left.keys.add(parentKey);
+            // append child's keys
+            left.keys.addAll(child.keys);
+            if (!child.isLeaf()) {
+                left.children.addAll(child.children);
+            }
+            // remove child from parent's children
+            parent.children.remove(idx);
+            // if the parent becomes empty (no keys), caller will handle collapse
+            return parent;
+        } else {
+            // merge with the right sibling (idx must be 0 in this branch)
+            Node<E> right = parent.children.get(idx + 1);
+            E parentKey = parent.keys.remove(idx);
+            child.keys.add(parentKey);
+            child.keys.addAll(right.keys);
+            if (!right.isLeaf()) {
+                child.children.addAll(right.children);
+            }
+            parent.children.remove(idx + 1);
+            return parent;
+        }
+    }
+
+    private E findMax(Node<E> node) {
+        if (node.isLeaf()) {
+            return node.keys.get(node.keys.size() - 1);
+        }
+
+        return findMax(node.children.get(node.children.size() - 1));
     }
 
     public void printTree() {

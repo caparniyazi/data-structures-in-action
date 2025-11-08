@@ -21,5 +21,17 @@ public class TestTwoThreeTree {
             tree2.add(s);
         }
         tree2.printTree();
+        System.out.println("-----------------------------------------------------");
+
+        tree = new TwoThreeTree<Integer>();
+        values = new int[]{7, 3, 11, 15, 1, 5, 9, 13, 17, 19};
+
+        for (int v : values) {
+            tree.add(v);
+        }
+        tree.printTree();
+        System.out.println("-----------------------------------------------------");
+        tree.remove(13);
+        tree.printTree();
     }
 }
