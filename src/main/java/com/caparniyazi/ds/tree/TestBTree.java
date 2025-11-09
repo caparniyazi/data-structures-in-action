@@ -16,5 +16,17 @@ public class TestBTree {
         btree.remove(20);
         btree.printTree();
         System.out.println("Size: " + btree.getSize());
+        System.out.println("==========================================================");
+        System.out.println("");
+
+        btree = new BTree<>(5);
+        data = new int[]{20, 30, 8, 10, 15, 18, 44, 26, 28, 23, 25, 43, 55, 36, 44, 39};
+
+        for (int i : data) {
+            btree.add(i);
+        }
+        btree.printTree();
+        System.out.println("Size: " + btree.getSize());
+        System.out.println("==========================================================");
     }
 }
