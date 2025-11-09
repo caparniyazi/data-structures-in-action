@@ -33,6 +33,10 @@ import java.util.List;
  * Range queries(e.g. between 10 and 20) are costly in B-Tree due to recursion, but it is efficient
  * in B+Tree. (Find the first key in range, and scan linked leaves).
  * That is why databases and file systems almost always use B+Trees, not B-Trees.
+ * <p/>
+ * MySQL, PostgreSQL, Oracle uses B+Trees (Efficient range scans and disk-friendly I/O).
+ * File systems NTFS, HFS+ uses B+ Trees (Fast insertion, deletion, range access).
+ * In-memory structures (Java TreeMap) uses Red-Black Trees (Low-latency in RAM access).
  *
  * @param <E> The type parameter.
  */
