@@ -27,6 +27,12 @@ import java.util.List;
  * All leaf nodes are linked sequentially (linked list).
  * Internal nodes contain only keys and child pointers.
  * Duplicates are often allowed — duplicate keys can appear in leaves.
+ * <p/>
+ * Sequential access in B-Tree must be in-order traversal(recursive), whereas in B+Tree we just need to
+ * follow leaf node links, like a linked list, so it's fast.
+ * Range queries(e.g. between 10 and 20) are costly in B-Tree due to recursion, but it is efficient
+ * in B+Tree. (Find the first key in range, and scan linked leaves).
+ * That is why databases and file systems almost always use B+Trees, not B-Trees.
  *
  * @param <E> The type parameter.
  */
