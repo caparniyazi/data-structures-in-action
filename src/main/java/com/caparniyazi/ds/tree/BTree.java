@@ -14,6 +14,8 @@ import java.util.List;
  * (For the root, n may be between 1 and order-1). Each node not a leaf has n+1 children.
  * The tree is always balanced in that all leaves are on the same level.
  * For example, the length of the path from the root to a leaf is constant.
+ * <p/>
+ * B-Tree was designed for building indexes to very large databases stored on a hard disk.
  *
  * @param <E> The type parameter.
  */
