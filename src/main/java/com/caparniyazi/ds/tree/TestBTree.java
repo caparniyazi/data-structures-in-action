@@ -13,5 +13,8 @@ public class TestBTree {
 
         btree.printTree();
         System.out.println("Size: " + btree.getSize());
+        btree.remove(20);
+        btree.printTree();
+        System.out.println("Size: " + btree.getSize());
     }
 }

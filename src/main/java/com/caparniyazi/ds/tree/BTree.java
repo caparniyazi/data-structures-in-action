@@ -62,7 +62,7 @@ public class BTree<E extends Comparable<E>> {
     // Constructors
 
     public BTree() {
-        this(3);    // Default order is 3 (2-3 tree).
+        this(3);    // The default order is 3 (2-3 Tree).
     }
 
     /**
@@ -258,6 +258,172 @@ public class BTree<E extends Comparable<E>> {
             return find(node.children.get(node.children.size() - 1), key);
         }
         return false;
+    }
+
+    /**
+     * Delete the key from a B-Tree.
+     * <pre>
+     *      Deletes keys from leaves or internal nodes (replacing internal-key with a predecessor).
+     * </pre>
+     * <pre>
+     *     If a child becomes empty, repairs parent, which
+     *          1. tries to borrow from a sibling (left or right) that has 2 keys.
+     *          2. otherwise, merges the child with a sibling and pulls a key down from a parent.
+     * </pre>
+     * <pre>
+     *      Collapses the root if it becomes empty(so, the height may shrink).
+     * </pre>
+     *
+     * @param key The key to be deleted.
+     * @return true if the key deleted, false otherwise.
+     * @post All leaves remain at the same level.
+     * Each node (except the root) has at least one key.
+     */
+    public boolean remove(E key) {
+        if (root == null) {
+            return false;
+        }
+        boolean removed = remove(root, key);
+
+        if (!removed) {
+            return false;
+        }
+
+        // If the root became empty and not a leaf, promote its only child.
+        if (root.keys.isEmpty() && !root.isLeaf()) {
+            root = root.children.get(0);    // Collapse the root if it has become empty after merges.
+        }
+
+        size--;
+        return true;
+    }
+
+    /**
+     * Remove key from subtree rooted at node, return possibly updated node.
+     * Parent context handles underflow when the child becomes empty.
+     *
+     * @param node The local root.
+     * @param key  The key to be deleted.
+     * @return Possibly updated node.
+     */
+
+    private boolean remove(Node<E> node, E key) {
+        int index = Collections.binarySearch(node.keys, key);
+
+        if (index >= 0) { // Key found in this node
+            if (node.isLeaf()) {
+                node.keys.remove(index);
+                return true;
+            } else { // Internal node: replace key with the predecessor or successor.
+                Node<E> leftChild = node.children.get(index);
+                Node<E> rightChild = node.children.get(index + 1);
+
+                if (leftChild.keys.size() >= (ORDER / 2)) {
+                    E predecessor = getMax(leftChild);
+                    node.keys.set(index, predecessor);
+                    return remove(leftChild, predecessor);
+                } else if (rightChild.keys.size() >= (ORDER / 2)) {
+                    E successor = getMin(rightChild);
+                    node.keys.set(index, successor);
+                    return remove(rightChild, successor);
+                } else {
+                    // Merge both children with key
+                    mergeChildren(node, index);
+                    return remove(leftChild, key);
+                }
+            }
+        } else { // Not found — go into the appropriate child
+            int childIndex = -index - 1;
+
+            if (node.isLeaf()) {
+                return false;
+            }
+
+            Node<E> child = node.children.get(childIndex);
+            boolean result = remove(child, key);
+
+            if (child.keys.size() < (ORDER / 2 - 1)) {
+                fixUnderflow(node, childIndex);
+            }
+
+            return result;
+        }
+    }
+
+    /**
+     * Handle underflow by borrowing or merging.
+     */
+    private void fixUnderflow(Node<E> parent, int index) {
+        Node<E> child = parent.children.get(index);
+
+        // Try to borrow from left sibling
+        if (index > 0) {
+            Node<E> leftSibling = parent.children.get(index - 1);
+
+            if (leftSibling.keys.size() > (ORDER / 2 - 1)) {
+                // rotate right
+                child.keys.add(0, parent.keys.get(index - 1));
+                parent.keys.set(index - 1, leftSibling.keys.remove(leftSibling.keys.size() - 1));
+
+                if (!leftSibling.isLeaf()) {
+                    child.children.add(0, leftSibling.children.remove(leftSibling.children.size() - 1));
+                }
+
+                return;
+            }
+        }
+
+        // Try to borrow from the right sibling
+        if (index < parent.children.size() - 1) {
+            Node<E> rightSibling = parent.children.get(index + 1);
+
+            if (rightSibling.keys.size() > (ORDER / 2 - 1)) {
+                // rotate left
+                child.keys.add(parent.keys.get(index));
+                parent.keys.set(index, rightSibling.keys.remove(0));
+
+                if (!rightSibling.isLeaf()) {
+                    child.children.add(rightSibling.children.remove(0));
+                }
+
+                return;
+            }
+        }
+
+        // Merge with sibling if no borrowing possible.
+        if (index > 0) {
+            mergeChildren(parent, index - 1);
+        } else {
+            mergeChildren(parent, index);
+        }
+    }
+
+    /**
+     * Merge child[index] and child[index+1] with parent key[index]
+     */
+    private void mergeChildren(Node<E> parent, int index) {
+        Node<E> left = parent.children.get(index);
+        Node<E> right = parent.children.get(index + 1);
+
+        left.keys.add(parent.keys.remove(index));
+        left.keys.addAll(right.keys);
+        left.children.addAll(right.children);
+
+        parent.children.remove(index + 1);
+    }
+
+    private E getMax(Node<E> node) {
+        if (node.isLeaf()) {
+            return node.keys.get(node.keys.size() - 1);
+        }
+        return getMax(node.children.get(node.children.size() - 1));
+    }
+
+    private E getMin(Node<E> node) {
+        if (node.isLeaf()) {
+            return node.keys.get(0);
+        }
+        return getMin(node.children.get(0));
     }
 
     /**
