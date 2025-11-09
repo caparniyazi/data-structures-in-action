@@ -16,6 +16,17 @@ import java.util.List;
  * For example, the length of the path from the root to a leaf is constant.
  * <p/>
  * B-Tree was designed for building indexes to very large databases stored on a hard disk.
+ * Keys and data (values) are stored in all nodes (both internal and leaf).
+ * Leaves are not linked together. Internal nodes contain keys and associated data.
+ * Duplicates are usually avoided.
+ * Since in the leaf nodes all the child pointers are null, there is a significant
+ * amount of wasted space. A modification to the B-tree, known as the B+ tree, was developed
+ * to reduce this wasted space.
+ * <p/>
+ * In the B+Tree, only leaf nodes store data/records. Internal nodes store keys only (for navigation).
+ * All leaf nodes are linked sequentially (linked list).
+ * Internal nodes contain only keys and child pointers.
+ * Duplicates are often allowed — duplicate keys can appear in leaves.
  *
  * @param <E> The type parameter.
  */
