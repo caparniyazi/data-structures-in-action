@@ -144,7 +144,7 @@ public class TwoThreeTree<E extends Comparable<E>> {
         SplitResult<E> result = insert(root, key);
 
         if (result != null) {
-            // The Row was split, so create new root.
+            // The root was split, so create new root.
             Node<E> newRoot = new Node<>();
             newRoot.keys.add(result.promotedKey);
             newRoot.children.add(result.left);
