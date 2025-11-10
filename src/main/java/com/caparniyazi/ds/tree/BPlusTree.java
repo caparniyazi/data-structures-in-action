@@ -235,6 +235,52 @@ public class BPlusTree<K extends Comparable<K>, V> {
         return root.search(key);
     }
 
+    /**
+     * Ranged query method using linked leaf nodes.
+     *
+     * @param fromKey The starting key.
+     * @param toKey   The ending key.
+     * @return The list of all values for keys where fromKey <= key <= toKey.
+     * O(n) = O(log n + k).
+     */
+    public List<V> findRange(K fromKey, K toKey) {
+        List<V> result = new ArrayList<>();
+        LeafNode<K, V> current = findLeaf(root, fromKey);
+
+        while (current != null) {
+            for (int i = 0; i < current.keys.size(); i++) {
+                K key = current.keys.get(i);
+
+                if (key.compareTo(fromKey) >= 0 && key.compareTo(toKey) <= 0) {
+                    result.add(current.values.get(i));
+                } else if (key.compareTo(toKey) > 0) {
+                    return result;  // Stop early.
+                }
+            }
+            current = current.next;
+        }
+
+        return result;
+    }
+
+    /**
+     * Helper method to find the leaf node where a given key belongs.
+     *
+     * @param node The local root.
+     * @param key  The key being sought
+     * @return The leaf node where a given key belongs.
+     * O(n) = O(Log n) to locate the first leaf.
+     */
+    private LeafNode<K, V> findLeaf(Node<K, V> node, K key) {
+        if (node instanceof LeafNode<K, V> leafNode) {
+            return leafNode;
+        }
+
+        InternalNode<K, V> internal = (InternalNode<K, V>) node;
+        int index = internal.findChildIndex(key);
+        return findLeaf(internal.children.get(index), key);
+    }
+
     public void printTree() {
         printTree(root, 0);
     }

@@ -14,5 +14,8 @@ public class TestBPlusTree {
 
         System.out.println("\nSearch 22 → " + tree.search(22));
         System.out.println("Search 25 → " + tree.search(25));
+
+        System.out.println("\nRange [15, 32]:");
+        System.out.println(tree.findRange(15, 32));
     }
 }
