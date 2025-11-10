@@ -10,6 +10,12 @@ import java.util.List;
  * All (K, V) pairs are stored in leaf nodes only.
  * Internal nodes contain keys only for routing.
  * Leaf nodes are linked together to enable sequential/range access and are at the same level.
+ * The linked list of leaves is referred to as the sequence set (Douglas Comer).
+ * Searching proceeds from the root of a B+Tree through the index to a leaf.
+ * Since all keys reside in the leaves, it does not matter what values are encountered as the search
+ * progresses as long as the path leads to the correct leaf.
+ * <p>
+ * Anyone who works with large collections of data needs to know how to make file operations efficient.
  *
  * @param <K> The key type parameter.
  * @param <V> The value type parameter.
