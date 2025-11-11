@@ -16,6 +16,14 @@ import java.util.List;
  * progresses as long as the path leads to the correct leaf.
  * <p>
  * Anyone who works with large collections of data needs to know how to make file operations efficient.
+ * <p>
+ * The number of records which can fit in a leaf node is denoted by bucket factor.
+ * The leaf nodes are the buckets of the file and may contain several blocks.
+ * The records take up more space than the keys and addresses.
+ * In fact, this is why B+Tree is so efficient. Since the internal nodes only have the addresses and keys,
+ * they tend to have a very large number of children.
+ * The average number of children of an internal node in a B+Tree is called the fan-out.
+ * A B+Tree with data in the leaves is a sparse (clustering/primary) index. (Just consider the internal nodes the index.)
  *
  * @param <K> The key type parameter.
  * @param <V> The value type parameter.
