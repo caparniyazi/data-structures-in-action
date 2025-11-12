@@ -30,9 +30,115 @@ import java.util.List;
  */
 public class BPlusTree<K extends Comparable<K>, V> {
     // Data fields
-    // Each node can have <= 4 children or <=3 keys since ORDER is set to 4 in this case.
-    private static final int ORDER = 4; // Max. number of children per node.
+    private static final int ORDER = 5; // Max. number of children per internal node.
+    private static final int MAX_KEYS = ORDER - 1;  // Max. keys per leaf.
+    private static final int MIN_KEYS = (MAX_KEYS + 1) / 2; // ceil((ORDER-1) / 2)
     private Node<K, V> root;
+
+    // Constructors
+    public BPlusTree() {
+        root = new LeafNode<>();
+    }
+
+
+    // Public API.
+
+    /**
+     * Inserts a (key, value) pair.
+     *
+     * @param key   The key to be inserted.
+     * @param value The value to be inserted.
+     */
+    public void insert(K key, V value) {
+        SplitResult<K, V> newChild = root.insert(key, value);
+
+        if (newChild != null) { // Root split.
+            InternalNode<K, V> newRoot = new InternalNode<>();
+            newRoot.children.add(root);
+            newRoot.children.add(newChild.newNode);
+
+            // Refresh keys from children.
+            newRoot.refreshKeys();
+            root = newRoot;
+        }
+    }
+
+    public boolean delete(K key) {
+        boolean deleted = root.delete(key);
+
+        // Shrink root if necessary.
+        if (root instanceof InternalNode<K, V> internal && internal.children.size() == 1) {
+            root = internal.children.get(0); // shrink root
+        }
+
+        return deleted;
+    }
+
+    public V search(K key) {
+        return root.search(key);
+    }
+
+    /**
+     * Ranged query method using linked leaf nodes.
+     *
+     * @param fromKey The starting key.
+     * @param toKey   The ending key.
+     * @return The list of all values for keys where fromKey <= key <= toKey.
+     * O(n) = O(log n + k).
+     */
+    public List<V> findRange(K fromKey, K toKey) {
+        List<V> result = new ArrayList<>();
+        LeafNode<K, V> currentLeaf = findLeaf(root, fromKey);
+
+        while (currentLeaf != null) {
+            for (int i = 0; i < currentLeaf.keys.size(); i++) {
+                K key = currentLeaf.keys.get(i);
+
+                if (key.compareTo(fromKey) >= 0 && key.compareTo(toKey) <= 0) {
+                    result.add(currentLeaf.values.get(i));
+                } else if (key.compareTo(toKey) > 0) {
+                    return result;  // Stop early.
+                }
+            }
+            currentLeaf = currentLeaf.next;
+        }
+
+        return result;
+    }
+
+    public void printTree() {
+        printTree(root, 0);
+    }
+
+    private void printTree(Node<K, V> node, int level) {
+        System.out.println("  ".repeat(level) + node);
+
+        if (node instanceof InternalNode<K, V> internal) {
+
+            for (Node<K, V> child : internal.children) {
+                printTree(child, level + 1);
+            }
+        }
+    }
+
+    /**
+     * Helper method to find the leaf node where a given key belongs.
+     *
+     * @param node The local root.
+     * @param key  The key being sought
+     * @return The leaf node where a given key belongs.
+     * O(n) = O(Log n) to locate the first leaf.
+     */
+    private LeafNode<K, V> findLeaf(Node<K, V> node, K key) {
+        if (node instanceof LeafNode<K, V> leafNode) {
+            return leafNode;
+        }
+
+        InternalNode<K, V> internal = (InternalNode<K, V>) node;
+        int index = internal.findChildIndex(key);
+        return findLeaf(internal.children.get(index), key);
+    }
+
 
     // Abstract Node.
     private static abstract class Node<K extends Comparable<K>, V> {
@@ -42,12 +148,18 @@ public class BPlusTree<K extends Comparable<K>, V> {
 
         abstract SplitResult<K, V> insert(K key, V value);
 
+        abstract boolean delete(K key);
+
+        abstract boolean isUnderflow();
+
         abstract K getFirstLeafKey();
+
+
     }
 
     private static class SplitResult<K extends Comparable<K>, V> {
-        K newKey;
-        Node<K, V> newNode;
+        final K newKey;
+        final Node<K, V> newNode;
 
         SplitResult(K newKey, Node<K, V> newNode) {
             this.newKey = newKey;
@@ -66,7 +178,7 @@ public class BPlusTree<K extends Comparable<K>, V> {
      */
     private static class LeafNode<K extends Comparable<K>, V> extends Node<K, V> {
         // Data fields
-        private final List<V> values = new ArrayList<>();
+        final List<V> values = new ArrayList<>();
         LeafNode<K, V> next;    // Linked list for range queries.
 
         // Methods
@@ -102,16 +214,28 @@ public class BPlusTree<K extends Comparable<K>, V> {
         }
 
         @Override
-        K getFirstLeafKey() {
-            return keys.get(0);
+        boolean delete(K key) {
+            int index = Collections.binarySearch(keys, key);
+
+            if (index >= 0) {
+                keys.remove(index);
+                values.remove(index);
+                return true;
+            }
+            return false;
         }
 
-        private boolean isOverflow() {
-            return keys.size() > ORDER - 1;
+        boolean isOverflow() {
+            return keys.size() > MAX_KEYS;
+        }
+
+        @Override
+        boolean isUnderflow() {
+            return keys.size() < MIN_KEYS;
         }
 
         SplitResult<K, V> split() {
-            int mid = keys.size() / 2;
+            int mid = (keys.size() + 1) / 2;  // Ceil half.
             LeafNode<K, V> sibling = new LeafNode<>();
 
             sibling.keys.addAll(keys.subList(mid, keys.size()));
@@ -120,11 +244,17 @@ public class BPlusTree<K extends Comparable<K>, V> {
             keys.subList(mid, keys.size()).clear();
             values.subList(mid, values.size()).clear();
 
+            // Link the siblings.
             sibling.next = this.next;
             this.next = sibling;
 
             // Promote the first key of the right sibling.
             return new SplitResult<>(sibling.keys.get(0), sibling);
+        }
+
+        @Override
+        K getFirstLeafKey() {
+            return keys.get(0);
         }
 
         @Override
@@ -158,23 +288,143 @@ public class BPlusTree<K extends Comparable<K>, V> {
             SplitResult<K, V> newChild = children.get(index).insert(key, value);
 
             if (newChild != null) {
+                int pos = findChildIndex(newChild.newKey);
+                children.add(pos + 1, newChild.newNode);
                 keys.add(index, newChild.newKey);
-                children.add(index + 1, newChild.newNode);
 
                 if (isOverflow()) {
                     return split();
                 }
+            } else {
+                // The child changed, there is no split. Still need to refresh separators.
+                refreshKeys();
             }
             return null;
         }
 
         @Override
-        K getFirstLeafKey() {
-            return children.get(0).getFirstLeafKey();
+        boolean delete(K key) {
+            int index = findChildIndex(key);
+            boolean deleted = children.get(index).delete(key);
+
+            // After child delete, handle underflow if any.
+            if (children.get(index).isUnderflow()) {
+                rebalance(index);
+            } else if (children.get(index).isUnderflow()) {
+                // Even if no underflow, child's first key may have changed (lef delete),
+                // So, refresh separators to reflect children.
+                refreshKeys();
+            }
+
+            return deleted;
         }
 
-        private boolean isOverflow() {
+        /**
+         * Re-balance children around index child (child at index may underflow).
+         *
+         * @param index The index of the child.
+         */
+        void rebalance(int index) {
+            // Attempt to borrow from the left sibling.
+            if (index > 0) {
+                Node<K, V> left = children.get(index - 1);
+                Node<K, V> current = children.get(index);
+
+                if (left.keys.size() > MIN_KEYS) {
+                    // Borrow last key from left into current.
+                    if (left instanceof LeafNode<K, V> leftLeaf && current instanceof LeafNode<K, V> currentLeaf) {
+                        // move last key/value of the left to front of cur
+                        int lk = leftLeaf.keys.size() - 1;
+                        currentLeaf.keys.add(0, leftLeaf.keys.remove(lk));
+                        currentLeaf.values.add(0, leftLeaf.values.remove(lk));
+                        // refresh separators
+                        refreshKeys();
+                        return;
+                    } else if (left instanceof InternalNode<K, V> leftInternal && current instanceof InternalNode<K, V> currentInternal) {
+                        // Borrow child from left internal.
+                        // Move the last child of left internal to front of current internal.
+                        Node<K, V> movedChild = leftInternal.children.remove(leftInternal.children.size() - 1);
+                        currentInternal.children.add(0, movedChild);
+                        // update keys: The key between left and current becomes moved child's first key.
+                        refreshKeys();
+                        return;
+                    }
+                }
+            }
+
+            // Attempt to borrow from the right sibling.
+            if (index + 1 < children.size()) {
+                Node<K, V> right = children.get(index + 1);
+                Node<K, V> current = children.get(index);
+
+                if (right.keys.size() > MIN_KEYS) {
+                    if (right instanceof LeafNode<K, V> rightLeaf && current instanceof LeafNode<K, V> currentLeaf) {
+                        // move first key/value from right into the end of current.
+                        currentLeaf.keys.add(rightLeaf.keys.remove(0));
+                        currentLeaf.values.add(rightLeaf.values.remove(0));
+                        // refresh separators
+                        refreshKeys();
+                        return;
+                    } else if (right instanceof InternalNode<K, V> rightIn && current instanceof InternalNode<K, V> curIn) {
+                        // move the first child of rightIn to the end of curIn.
+                        Node<K, V> movedChild = rightIn.children.remove(0);
+                        curIn.children.add(movedChild);
+                        refreshKeys();
+                        return;
+                    }
+                }
+            }
+
+            // If neither sibling can lend, merge with a sibling.
+            if (index > 0) {
+                mergeChildren(index - 1);
+            } else {
+                mergeChildren(index);
+            }
+            refreshKeys();
+        }
+
+        /**
+         * Merge children at index and index + 1.
+         *
+         * @param index The index.
+         */
+        void mergeChildren(int index) {
+            Node<K, V> left = children.get(index);
+            Node<K, V> right = children.get(index + 1);
+
+            if (left instanceof LeafNode<K, V> leftLeaf && right instanceof LeafNode<K, V> rightLeaf) {
+                // Append right keys/values into the left
+                leftLeaf.keys.addAll(rightLeaf.keys);
+                (leftLeaf.values).addAll(rightLeaf.values);
+                // link left to right.next
+                leftLeaf.next = rightLeaf.next;
+            } else if (left instanceof InternalNode<K, V> leftIn && right instanceof InternalNode<K, V> rightIn) {
+                // Bring separator (already stored as key[index]) as a key in left?
+                // In B+ tree internals are routing only,
+                // we simply concatenate right keys/children into the left
+                // (separator keys are computed from children).
+                leftIn.children.addAll(rightIn.children);
+            } else {
+                // mixing types shouldn't occur
+                throw new IllegalStateException("Unexpected node type");
+            }
+
+            // remove right child and corresponding separator key
+            children.remove(index + 1);
+
+            if (index < keys.size()) {
+                keys.remove(index);
+            }
+        }
+
+        boolean isOverflow() {
             return children.size() > ORDER;
+        }
+
+        @Override
+        boolean isUnderflow() {
+            return children.size() < (ORDER + 1) / 2;
         }
 
         /**
@@ -183,19 +433,18 @@ public class BPlusTree<K extends Comparable<K>, V> {
          * @return The sibling.
          */
         SplitResult<K, V> split() {
-            int mid = keys.size() / 2;
-            K promote = keys.get(mid);  // First key of the right sibling.
-            InternalNode<K, V> sibling = new InternalNode<>();
-
-            // Keys to move: Everything "after" mid.
-            sibling.keys.addAll(keys.subList(mid + 1, keys.size()));
-            sibling.children.addAll(children.subList(mid + 1, children.size()));
-
-            // Shrink current node.
-            keys.subList(mid, keys.size()).clear();
-            children.subList(mid + 1, children.size()).clear();
-
-            return new SplitResult<>(promote, sibling);
+            int midChild = children.size() / 2; // split children around midChild
+            InternalNode<K, V> sib = new InternalNode<>();
+            // move children[midChild ... end] to sibling
+            sib.children.addAll(children.subList(midChild, children.size()));
+            // remove moved children from this
+            children.subList(midChild, children.size()).clear();
+            // refresh keys on both nodes
+            this.refreshKeys();
+            sib.refreshKeys();
+            // promote first key of sibling (its first leaf key)
+            K promoteKey = sib.getFirstLeafKey();
+            return new SplitResult<>(promoteKey, sib);
         }
 
         private int findChildIndex(K key) {
@@ -209,98 +458,26 @@ public class BPlusTree<K extends Comparable<K>, V> {
         }
 
         @Override
+        K getFirstLeafKey() {
+            return children.get(0).getFirstLeafKey();
+        }
+
+
+        /**
+         * Make keys equal to the first-key-of-each-right-child convention:
+         * keys[i] = children[i+1].getFirstLeafKey() for i = 0...children.size()-2
+         */
+        void refreshKeys() {
+            keys.clear();
+
+            for (int i = 1; i < children.size(); i++) {
+                keys.add(children.get(i).getFirstLeafKey());
+            }
+        }
+
+        @Override
         public String toString() {
             return "Internal" + keys;
-        }
-    }
-
-    // Constructors
-    public BPlusTree() {
-        root = new LeafNode<>();
-    }
-
-    // Methods
-
-    /**
-     * Inserts a (key, value) pair.
-     *
-     * @param key   The key to be inserted.
-     * @param value The value to be inserted.
-     */
-    public void insert(K key, V value) {
-        SplitResult<K, V> newChild = root.insert(key, value);
-
-        if (newChild != null) { // Root split.
-            InternalNode<K, V> newRoot = new InternalNode<>();
-            newRoot.keys.add(newChild.newKey);
-            newRoot.children.add(root);
-            newRoot.children.add(newChild.newNode);
-            root = newRoot;
-        }
-    }
-
-    public V search(K key) {
-        return root.search(key);
-    }
-
-    /**
-     * Ranged query method using linked leaf nodes.
-     *
-     * @param fromKey The starting key.
-     * @param toKey   The ending key.
-     * @return The list of all values for keys where fromKey <= key <= toKey.
-     * O(n) = O(log n + k).
-     */
-    public List<V> findRange(K fromKey, K toKey) {
-        List<V> result = new ArrayList<>();
-        LeafNode<K, V> current = findLeaf(root, fromKey);
-
-        while (current != null) {
-            for (int i = 0; i < current.keys.size(); i++) {
-                K key = current.keys.get(i);
-
-                if (key.compareTo(fromKey) >= 0 && key.compareTo(toKey) <= 0) {
-                    result.add(current.values.get(i));
-                } else if (key.compareTo(toKey) > 0) {
-                    return result;  // Stop early.
-                }
-            }
-            current = current.next;
-        }
-
-        return result;
-    }
-
-    /**
-     * Helper method to find the leaf node where a given key belongs.
-     *
-     * @param node The local root.
-     * @param key  The key being sought
-     * @return The leaf node where a given key belongs.
-     * O(n) = O(Log n) to locate the first leaf.
-     */
-    private LeafNode<K, V> findLeaf(Node<K, V> node, K key) {
-        if (node instanceof LeafNode<K, V> leafNode) {
-            return leafNode;
-        }
-
-        InternalNode<K, V> internal = (InternalNode<K, V>) node;
-        int index = internal.findChildIndex(key);
-        return findLeaf(internal.children.get(index), key);
-    }
-
-    public void printTree() {
-        printTree(root, 0);
-    }
-
-    private void printTree(Node<K, V> node, int level) {
-        System.out.println("  ".repeat(level) + node);
-
-        if (node instanceof InternalNode<K, V> internal) {
-
-            for (Node<K, V> child : internal.children) {
-                printTree(child, level + 1);
-            }
         }
     }
 }
