@@ -30,7 +30,7 @@ import java.util.List;
  */
 public class BPlusTree<K extends Comparable<K>, V> {
     // Data fields
-    private static final int ORDER = 5; // Max. number of children per internal node.
+    private static final int ORDER = 4; // Max. number of children per internal node.
     private static final int MAX_KEYS = ORDER - 1;  // Max. keys per leaf.
     private static final int MIN_KEYS = (MAX_KEYS + 1) / 2; // ceil((ORDER-1) / 2)
     private Node<K, V> root;
@@ -157,14 +157,7 @@ public class BPlusTree<K extends Comparable<K>, V> {
 
     }
 
-    private static class SplitResult<K extends Comparable<K>, V> {
-        final K newKey;
-        final Node<K, V> newNode;
-
-        SplitResult(K newKey, Node<K, V> newNode) {
-            this.newKey = newKey;
-            this.newNode = newNode;
-        }
+    private record SplitResult<K extends Comparable<K>, V>(K newKey, Node<K, V> newNode) {
     }
 
     // Leaf Node.
