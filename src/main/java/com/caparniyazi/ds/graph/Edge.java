@@ -40,11 +40,7 @@ public class Edge<T extends Comparable<T>> {
         if (this.getClass() != other.getClass()) return false;
 
         Edge<T> otherEdge = (Edge<T>) other;
-        if (this.source == otherEdge.source && this.dest == otherEdge.dest) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.source == otherEdge.source && this.dest == otherEdge.dest;
     }
 
     @Override
