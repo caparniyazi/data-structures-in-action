@@ -16,7 +16,7 @@ public interface Graph {
 
     boolean isDirected();   // Returns an indicator of whether the graph is directed.
 
-    Iterator<Edge> edgeIterator();  // Returns an iterator to the edges that originate from a given vertex.
+    Iterator<Edge> edgeIterator(int source);  // Returns an iterator to the edges that originate from a given vertex.
 
     Edge getEdge(int source, int dest); // Gets the edge between two vertices.
 
