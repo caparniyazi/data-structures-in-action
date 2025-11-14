@@ -6,11 +6,9 @@ import java.util.Objects;
 
 /**
  * An Edge represents a relationship between two vertices.
- *
- * @param <T>
  */
 @Getter
-public class Edge<T extends Comparable<T>> {
+public class Edge {
     // Data fields
     private int source; // The source vertex for an edge.
     private int dest;   // The destination vertex for an edge.
@@ -39,7 +37,7 @@ public class Edge<T extends Comparable<T>> {
         if (other == this) return true;
         if (this.getClass() != other.getClass()) return false;
 
-        Edge<T> otherEdge = (Edge<T>) other;
+        Edge otherEdge = (Edge) other;
         return this.source == otherEdge.source && this.dest == otherEdge.dest;
     }
 
