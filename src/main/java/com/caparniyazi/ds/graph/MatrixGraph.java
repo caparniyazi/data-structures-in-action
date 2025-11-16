@@ -139,7 +139,7 @@ public class MatrixGraph implements Graph {
     }
 
     private double getEdgeValue(int source, int dest) {
-        if (isDirected() || source >= dest) {
+        if (isDirected()) {
             return edges[source][dest];
         } else {
             return (source >= dest) ? edges[source][dest] : edges[dest][source];
