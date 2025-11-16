@@ -11,6 +11,14 @@ import java.util.NoSuchElementException;
  * Integer coding has benefits over the boolean approach for some graph algorithms that use matrix multiplication.
  * Instead of using Edge objects, an edge is indicated by the value 1.0, and the lack of an edge is indicated
  * by a blank space in a directed graph.
+ * <p>
+ * We can represent the vertices by integers from 0 up to, but not including,
+ * |V|. (|V| means the cardinality of V, or the number of vertices in set V.)
+ * </p>
+ * <p>
+ * If a graph is dense, the adjacency matrix representation is best, and if a graph is sparse, the
+ * adjacency list representation is best.
+ * </p>
  */
 public class MatrixGraph implements Graph {
     // Data fields
