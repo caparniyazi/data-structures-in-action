@@ -50,5 +50,17 @@ public class TestMatrixGraph {
             Edge e = it.next();
             System.out.println("  " + e);
         }
+
+        System.out.println("\n===== UNDIRECTED MAP-GRAPH TEST =====");
+        MapGraph undirectedMg = new MapGraph(5, false);
+
+        // Insert some edges
+        undirectedMg.insert(new Edge(0, 1, 33));
+        undirectedMg.insert(new Edge(1, 2, 55));
+        undirectedMg.insert(new Edge(2, 3, 22));
+        undirectedMg.insert(new Edge(3, 4, 77));
+
+        // Print graph
+        System.out.println(undirectedMg);
     }
 }
