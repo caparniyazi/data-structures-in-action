@@ -2,8 +2,7 @@ package com.caparniyazi.ds.graph;
 
 import lombok.Getter;
 
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * The class to implement the depth-first search algorithm.
@@ -19,6 +18,7 @@ public class DepthFirstSearch {
     private final int[] finishOrder;  // The array that contains each vertex in finish order.
     private int discoverIndex = 0;  // The index that indicates the discovery order.
     private int finishIndex = 0;  // The index that indicates the finish order.
+    private Map<Integer, List<Integer>> treeChildren = new HashMap<>();
 
     // Constructor
 
@@ -43,6 +43,7 @@ public class DepthFirstSearch {
                 depthFirstSearch(i);
             }
         }
+        buildTree();
     }
 
     /**
@@ -72,4 +73,36 @@ public class DepthFirstSearch {
         finishOrder[finishIndex++] = current;
     }
 
+    private void buildTree() {
+        for (int i = 0; i < parent.length; i++) {
+
+            if (parent[i] != -1) {
+                treeChildren
+                        .computeIfAbsent(parent[i], k -> new ArrayList<>())
+                        .add(i);
+            }
+        }
+    }
+
+    public String prettyPrint(int root) {
+        StringBuilder sb = new StringBuilder();
+        printNode(sb, root, 0);
+        return sb.toString();
+    }
+
+    private void printNode(StringBuilder sb, int node, int depth) {
+        List<Integer> children = treeChildren.get(node);
+
+        if (children != null && children.size() > 0) {
+
+            for (int i = children.size() - 1; i >= 1; i--) {
+                printNode(sb, children.get(i), depth + 1);
+            }
+            printNode(sb, children.get(0), depth + 1);
+        }
+
+        sb.append("  ".repeat(depth))
+                .append(node)
+                .append("\n");
+    }
 }

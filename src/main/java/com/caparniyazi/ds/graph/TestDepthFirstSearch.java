@@ -10,7 +10,7 @@ public class TestDepthFirstSearch {
         int n = 7;
 
         try (var scanner = new Scanner(new File(args[0]))) {
-            g = new ListGraph(n, true);
+            g = new MapGraph(n, false);
             g.loadEdgesFromFile(scanner);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -21,10 +21,13 @@ public class TestDepthFirstSearch {
         DepthFirstSearch dfs = new DepthFirstSearch(g);
         int[] dOrder = dfs.getDiscoveryOrder();
         int[] fOrder = dfs.getFinishOrder();
-        System.out.println("Discovery and finish order:");
+        System.out.println("Discovery Order" + "\t\t\t" + "Finish Order");
 
         for (int i = 0; i < n; i++) {
-            System.out.println(dOrder[i] + " " + fOrder[i]);
+            System.out.println(dOrder[i] + "\t\t\t\t\t\t" + fOrder[i]);
         }
+
+        System.out.println("\nDFS Tree:");
+        System.out.println(dfs.prettyPrint(0));
     }
 }
