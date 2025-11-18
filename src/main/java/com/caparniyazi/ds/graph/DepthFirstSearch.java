@@ -18,7 +18,7 @@ public class DepthFirstSearch {
     private final int[] finishOrder;  // The array that contains each vertex in finish order.
     private int discoverIndex = 0;  // The index that indicates the discovery order.
     private int finishIndex = 0;  // The index that indicates the finish order.
-    private Map<Integer, List<Integer>> treeChildren = new HashMap<>();
+    private final Map<Integer, List<Integer>> treeChildren = new HashMap<>();
 
     // Constructor
 
@@ -31,7 +31,6 @@ public class DepthFirstSearch {
     public DepthFirstSearch(Graph graph) {
         this.graph = graph;
         int n = graph.getNumV();
-        ;
         parent = new int[n];
         visited = new boolean[n];
         discoveryOrder = new int[n];
@@ -93,7 +92,7 @@ public class DepthFirstSearch {
     private void printNode(StringBuilder sb, int node, int depth) {
         List<Integer> children = treeChildren.get(node);
 
-        if (children != null && children.size() > 0) {
+        if (children != null && !children.isEmpty()) {
 
             for (int i = children.size() - 1; i >= 1; i--) {
                 printNode(sb, children.get(i), depth + 1);
