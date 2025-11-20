@@ -10,7 +10,6 @@ public class TestBreadthFirstSearch {
         undirectedMg.insert(new Edge(0, 1));
         undirectedMg.insert(new Edge(0, 3));
         undirectedMg.insert(new Edge(1, 2));
-        undirectedMg.insert(new Edge(1, 2));
         undirectedMg.insert(new Edge(1, 4));
         undirectedMg.insert(new Edge(1, 6));
         undirectedMg.insert(new Edge(1, 7));
