@@ -68,7 +68,7 @@ public class Maze implements GridColors {
      * that were visited but are not on the path are in the TEMPORARY color.
      */
     private boolean findMazePath(int x, int y) {
-        if (x < 0 || y < 0 || x >= maze.getNCols() || y >= maze.getHeight()) {
+        if (x < 0 || y < 0 || x >= maze.getNCols() || y >= maze.getNRows()) {
             return false;   // Cell is out of bonds.
         } else if (!maze.getColor(x, y).equals(BACKGROUND)) {
             return false; // Cell is part of the barrier or dead end(has already been visited).
