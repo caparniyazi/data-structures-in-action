@@ -72,7 +72,7 @@ public class TwoDimGrid extends JPanel implements GridColors {
     }
 
     /**
-     * Set the color of each square in the grid that correspond to the elements of the given array
+     * Set the color of each square in the grid that corresponds to the elements of the given array
      * with the value 1.
      *
      * @param bitmap An array of 0's and 1's the same size as the grid.
