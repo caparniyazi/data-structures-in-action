@@ -113,9 +113,9 @@ public class WeightedGraph {
         System.out.println(Arrays.toString(pred));
 
         System.out.println("The path from vertex 0 to vertex 4: ");
-        System.out.println(getPath(4, pred));
+        System.out.println("Path 0 -> 4: " + getPath(4, pred));
 
         System.out.println("The path from vertex 0 to vertex 2: ");
-        System.out.println(getPath(2, pred));
+        System.out.println("Path 0 -> 2: " + getPath(2, pred));
     }
 }
