@@ -22,6 +22,14 @@ import java.util.*;
  * The algorithm first orders the edges by weight and then proceeds through the ordered list adding an edge to the partial MST
  * if adding the new edge does not create a cycle.
  * Minimal spanning trees have applications to the construction and pricing of communication networks.
+ * <p>
+ * The overall cost of the algorithm is O(|V|2).
+ * By using a priority queue to hold the edges from S to V–S, we can improve on this algorithm.
+ * We say that the algorithm is O(|E| log |V|).
+ * For a dense graph, where |E| is approximately |V|2, this is not an improvement; however,
+ * for a sparse graph, where |E| is significantly less than |V|^2, it is. Furthermore, computer
+ * science researchers have developed improved priority queue implementations that give
+ * O(|E| |V| log |V|) or better performance.
  */
 public class MinimumSpanningTree {
     /**
