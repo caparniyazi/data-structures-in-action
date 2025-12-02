@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("DuplicatedCode")
 public class WeightedGraph {
     /**
      * Dijkstra's Shortest Path Algorithm. Edsger Wybe Dijkstra was a Dutch computer scientist.
@@ -86,23 +87,29 @@ public class WeightedGraph {
 
     /**
      * The method main to create a graph and find the shortest path for the given start and end vertices.
+     * <img src="./Path1.jpg">Path from Philadelphia to Chicago</img>
      *
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        Graph graph = new ListGraph(5, true);
+        Graph graph = new ListGraph(10, false);
         int[] pred = new int[graph.getNumV()];
         double[] dist = new double[graph.getNumV()];
 
-        // Insert some edges
-        graph.insert(new Edge(0, 1, 10.0));
-        graph.insert(new Edge(0, 3, 30.0));
-        graph.insert(new Edge(0, 4, 100.0));
-        graph.insert(new Edge(1, 2, 50.0));
-        graph.insert(new Edge(2, 4, 10.0));
-        graph.insert(new Edge(3, 2, 20.0));
-        graph.insert(new Edge(3, 4, 60.0));
-
+        graph.insert(new Edge(0, 1, 330.0));
+        graph.insert(new Edge(0, 2, 460.0));
+        graph.insert(new Edge(1, 3, 135.0));
+        graph.insert(new Edge(3, 2, 150.0));
+        graph.insert(new Edge(3, 4, 125.0));
+        graph.insert(new Edge(2, 4, 155.0));
+        graph.insert(new Edge(4, 5, 60.0));
+        graph.insert(new Edge(5, 6, 50.0));
+        graph.insert(new Edge(4, 6, 40.0));
+        graph.insert(new Edge(2, 8, 170.0));
+        graph.insert(new Edge(6, 7, 260.0));
+        graph.insert(new Edge(7, 9, 148.0));
+        graph.insert(new Edge(7, 7, 170));
+        graph.insert(new Edge(8, 9, 120.0));
 
         dijkstrasAlgorithm(graph, 0, pred, dist);
 
@@ -112,7 +119,6 @@ public class WeightedGraph {
         System.out.println("The array pred[] can be used to determine the path");
         System.out.println(Arrays.toString(pred));
 
-        System.out.println("Path 0 -> 4: " + getPath(4, pred));
-        System.out.println("Path 0 -> 2: " + getPath(2, pred));
+        System.out.println("Path 0 -> 7: " + getPath(7, pred));
     }
 }
