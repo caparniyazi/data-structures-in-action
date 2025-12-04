@@ -10,6 +10,9 @@ public class WeightedGraph {
     /**
      * Dijkstra's Shortest Path Algorithm. Edsger Wybe Dijkstra was a Dutch computer scientist.
      * Dijkstra’s algorithm as stated is O(|V|^2).
+     * <p>
+     * Dijkstra's algorithm explores the graph in a modified breadth-first search in which the vertex
+     * next visited is the one that is closest to the starting point.
      *
      * @param graph The weighted graph to be searched.
      * @param start The start vertex.
