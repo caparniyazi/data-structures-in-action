@@ -23,14 +23,15 @@ import java.util.*;
  * if adding the new edge does not create a cycle.
  * Minimal spanning trees have applications to the construction and pricing of communication networks.
  * <p>
- * The overall cost of the algorithm is O(|V|2).
+ * The overall cost of the algorithm is O(|V|^2).
  * By using a priority queue to hold the edges from S to V–S, we can improve on this algorithm.
  * We say that the algorithm is O(|E| log |V|).
- * For a dense graph, where |E| is approximately |V|2, this is not an improvement; however,
+ * For a dense graph, where |E| is approximately |V|^2, this is not an improvement; however,
  * for a sparse graph, where |E| is significantly less than |V|^2, it is. Furthermore, computer
  * science researchers have developed improved priority queue implementations that give
  * O(|E| |V| log |V|) or better performance.
  */
+@SuppressWarnings("DuplicatedCode")
 public class MinimumSpanningTree {
     /**
      * Prim's Minimum Spanning Tree (MST) algorithm.
@@ -113,6 +114,12 @@ public class MinimumSpanningTree {
         System.out.printf("Total weight: %.2f%n", total);
     }
 
+    /**
+     * Trace the execution of Prim's algorithm to find the minimum spanning tree for the graphs shown:
+     * <img src="./mst1.jpg">Path from Philadelphia to Chicago</img>
+     * <img src="./Path1.jpg">Path from Philadelphia to Chicago</img>
+     */
+
     public static void main(String[] args) {
         ListGraph g = new ListGraph(6, false);
 
@@ -132,6 +139,25 @@ public class MinimumSpanningTree {
         g.insert(new Edge(4, 5, 5));
 
         ArrayList<Edge> mst = MinimumSpanningTree.primsAlgorithm(g, 0);
+        MinimumSpanningTree.printMST(mst);
+
+        g = new ListGraph(10, false);
+        g.insert(new Edge(0, 1, 330.0));
+        g.insert(new Edge(0, 2, 460.0));
+        g.insert(new Edge(1, 3, 135.0));
+        g.insert(new Edge(3, 2, 150.0));
+        g.insert(new Edge(3, 4, 125.0));
+        g.insert(new Edge(2, 4, 155.0));
+        g.insert(new Edge(4, 5, 60.0));
+        g.insert(new Edge(5, 6, 50.0));
+        g.insert(new Edge(4, 6, 40.0));
+        g.insert(new Edge(2, 8, 170.0));
+        g.insert(new Edge(6, 7, 260.0));
+        g.insert(new Edge(7, 9, 148.0));
+        g.insert(new Edge(7, 7, 170));
+        g.insert(new Edge(8, 9, 120.0));
+
+        mst = MinimumSpanningTree.primsAlgorithm(g, 0);
         MinimumSpanningTree.printMST(mst);
     }
 }
