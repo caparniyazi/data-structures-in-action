@@ -30,6 +30,20 @@ import java.util.*;
  * for a sparse graph, where |E| is significantly less than |V|^2, it is. Furthermore, computer
  * science researchers have developed improved priority queue implementations that give
  * O(|E| |V| log |V|) or better performance.
+ * <p>
+ * This implementation of Prim's algorithm uses a priority queue to hold the edges from S to V-S.
+ * The arrays p and d are not needed because the priority queue contains complete edges.
+ * For a given vertex d, if a shorter edge is discovered, we do not remove the entry containing the longer edge
+ * from the priority queue. We merely insert new edges as they are discovered.
+ * Therefore, when the next shortest edge is removed from the priority queue,
+ * it may have a destination that is no longer in V-S. In that case,
+ * we continue to remove edges from the priority queue until we find one with a destination that is still in V-S.
+ * <pre>
+ * do {
+ *   edge = pQ.remove();
+ *   dest = edge.getDest();
+ * } while (!vMinusS.contains(dest));
+ * </pre>
  */
 @SuppressWarnings("DuplicatedCode")
 public class MinimumSpanningTree {
