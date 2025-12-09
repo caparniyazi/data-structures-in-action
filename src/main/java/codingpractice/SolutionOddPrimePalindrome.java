@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class SolutionOddPrimePalindrome {
     static boolean isOdd(int n) {
-        return n % 2 == 1 ? true : false;
+        return n % 2 == 1;
     }
 
     static boolean isPrime(int n) {
@@ -53,11 +53,11 @@ public class SolutionOddPrimePalindrome {
                 int[] arr = Arrays.stream(inputs[i].split(" ")).mapToInt(Integer::parseInt).toArray();
 
                 if (arr[0] == 1) {
-                    System.out.println(isOdd(arr[1]) == true ? "ODD" : "EVEN");
+                    System.out.println(isOdd(arr[1]) ? "ODD" : "EVEN");
                 } else if (arr[0] == 2) {
-                    System.out.println(isPrime(arr[1]) == true ? "PRIME" : "COMPOSITE");
+                    System.out.println(isPrime(arr[1]) ? "PRIME" : "COMPOSITE");
                 } else if (arr[0] == 3) {
-                    System.out.println(isPalindrome(arr[1]) == true ? "PALINDROME" : "NOT PALINDROME");
+                    System.out.println(isPalindrome(arr[1]) ? "PALINDROME" : "NOT PALINDROME");
                 } else {
                     throw new IllegalArgumentException("Illegal argument supplied");
                 }
