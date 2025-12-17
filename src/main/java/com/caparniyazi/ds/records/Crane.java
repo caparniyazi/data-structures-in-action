@@ -58,7 +58,7 @@ package com.caparniyazi.ds.records;
 public record Crane(int numberEggs, String name) {
     // May declare optional constructors, methods, and constants.
 
-    /**
+    /*
      * We can just declare the constructor the compiler normally inserts automatically, which
      * we refer to as the long constructor.
      * <p>
@@ -92,7 +92,7 @@ public record Crane(int numberEggs, String name) {
             throw new IllegalArgumentException("numberEggs cannot be negative");
         }
 
-        /**
+        /*
          * Compact constructors give you the opportunity to apply transformations to any of the input
          * values.
          * Java calls the full constructor after the compact constructor but with the modified
@@ -116,8 +116,8 @@ public record Crane(int numberEggs, String name) {
      * Also, unlike compact constructors, you can only transform the data on the first line.
      * After the first line, all the fields will already be assigned, and the object is immutable.
      *
-     * @param firstName
-     * @param lastName
+     * @param firstName The first name
+     * @param lastName The last name
      */
     public Crane(String firstName, String lastName) {
         this(0, firstName + " " + lastName);
