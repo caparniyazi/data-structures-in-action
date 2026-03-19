@@ -3,6 +3,7 @@ package codingpractice;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 /**
@@ -23,6 +24,7 @@ public class TimeDifference {
         LocalTime startTime = LocalTime.parse(times[0], format);
         LocalTime endTime = LocalTime.parse(times[1], format);
         Duration duration = Duration.between(startTime, endTime);
+        System.out.println(ChronoUnit.MINUTES.between(startTime, endTime));
 
         return duration.toMinutes();
     }
