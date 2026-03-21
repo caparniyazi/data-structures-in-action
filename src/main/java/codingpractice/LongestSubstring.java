@@ -1,7 +1,5 @@
 package codingpractice;
 
-import com.sun.source.tree.BreakTree;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,10 +16,42 @@ import java.util.Set;
  */
 public class LongestSubstring {
     public static void main(String[] args) {
-        System.out.println("The longest string length: " + getLongestSubstring("Malatya"));
-        System.out.println("The longest string length with optimized: " + getLongestSubstringOptimized("Malatya"));
+        System.out.println("The longest string length: " + getLongestSubstring("abcabcbb"));
+        System.out.println("The longest string length using sliding window: " + getLongestSubstringWithSlidingWindow("abcabcbb"));
+        System.out.println("The longest string length with optimized: " + getLongestSubstringOptimized("abcabcbb"));
         System.out.println("The longest string length: " + getLongestSubstring("Java"));
+        System.out.println("The longest string length using sliding window: " + getLongestSubstringWithSlidingWindow("Java"));
         System.out.println("The longest string length with optimized: " + getLongestSubstringOptimized("Java"));
+    }
+
+    /**
+     * Time: O(n)
+     * Space: O(n)
+     *
+     * @param str
+     * @return
+     */
+    static String getLongestSubstringWithSlidingWindow(String str) {
+        Set<Character> set = new HashSet<>();
+        int left = 0;
+        int maxLength = 0;
+        int start = 0;
+
+        for (int right = 0; right < str.length(); right++) {
+
+            while (set.contains(str.charAt(right))) {
+                set.remove(str.charAt(left));
+                left++;
+            }
+            set.add(str.charAt(right));
+
+            if (right - left + 1 > maxLength) {
+                maxLength = right - left + 1;
+                start = left;
+            }
+        }
+
+        return str.substring(start, start + maxLength);
     }
 
     static String getLongestSubstring(String str) {
@@ -39,13 +69,11 @@ public class LongestSubstring {
                     break;
                 } else {
                     visited.add(currChar);
-                    ;
                 }
             }
 
-            if (output.length() < j - i + 1) {
+            if (output.length() < j - i) {
                 output = str.substring(i, j);
-                //System.out.println(visited + " [" + i + ", " + j + "]  => " + output);
                 result = Math.max(result, j - i);
             }
         }
@@ -55,7 +83,6 @@ public class LongestSubstring {
     static String getLongestSubstringOptimized(String str) {
         Map<Character, Integer> visited = new HashMap<>();
         String output = "";
-        int result = 0;
 
         for (int i = 0, j = 0; j < str.length(); j++) {
             char currChar = str.charAt(j);
