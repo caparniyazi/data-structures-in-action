@@ -29,10 +29,10 @@ public class MergeIntervals {
      */
     private static List<int[]> mergeOverlap(int[][] arr) {
         // Sort intervals.
-        Arrays.sort(arr, Comparator.comparingInt(a -> a[0]));
+        Arrays.sort(arr, Comparator.comparingInt(a -> a[0]));   // TimSort: O(n log(n))
         List<int[]> result = new ArrayList<>();
 
-        // Single pass after sorting.
+        // Single pass after sorting. O(n)
         for (int[] interval : arr) {
             // Merge or add
             if (result.isEmpty() || result.get(result.size() - 1)[1] < interval[0]) {
